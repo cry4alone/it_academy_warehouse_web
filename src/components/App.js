@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Auth from "../pages/Auth";
 import NotFoundPage from "../pages/NotFoundPage";
+import "../styles/global.scss";
 
 class App extends Component {
     render() {

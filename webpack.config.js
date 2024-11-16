@@ -35,6 +35,10 @@ module.exports = {
             {
                 test: /\.svg$/, 
                 type: 'asset/resource',
+            },
+            {
+                test: /\.scss$/,
+                use: ["style-loader", "css-loader", "sass-loader"],
             }
         ]
     }
