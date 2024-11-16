@@ -1,0 +1,25 @@
+# Node.js dependencies
+/node_modules/
+
+# Build output
+/dist
+/build/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# IDE specific
+.idea/
+/.vscode/
+
+# System files
+.DS_Store
+
+# Webpack cache and temp files
+.cache
+*.swp
+*.swo
