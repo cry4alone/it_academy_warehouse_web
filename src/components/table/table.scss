@@ -6,13 +6,14 @@ $alternateColor: #e1e1e1;
 table {
     margin-top: 15px;
     text-align: left;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 5px;
     background-color: $tableColor;
     border-radius: 15px;
     border: 10px solid $tableColor;
     overflow: hidden;
     width: 100%;
+    line-height: 1.5;
 
     thead {
         tr {
