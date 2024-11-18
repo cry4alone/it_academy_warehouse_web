@@ -13,7 +13,7 @@ const App = () => {
       <Routes>
         <Route index element={<Auth />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/ready-production" element={<ReadyProduction />} />
+        <Route path="/ReadyProduction" element={<ReadyProduction />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

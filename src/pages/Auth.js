@@ -26,7 +26,7 @@ const Auth = () => {
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
       localStorage.setItem('authUser', JSON.stringify(user));
-      navigate('/ready-production');
+      navigate('/ReadyProduction');
     } else {
       setError('Неверный логин или пароль.');
     }
