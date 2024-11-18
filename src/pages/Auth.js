@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PrimaryButton from '../components/primarybutton/PrimaryButton';
-import Input from '../components/Input';
+import Input from '../components/input/Input';
 import users from '../data/users';
 import { useNavigate } from 'react-router-dom';
 import '../styles/global.scss';
@@ -36,18 +36,20 @@ const Auth = () => {
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h1>Авторизация</h1>
+        <p>Логин</p>
         <div className="input-field">
           <Input
-            placeholder="Логин"
+            placeholder="Введите логин"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
+        <p>Пароль</p>
         <div className="input-field">
           <Input
             type="password"
-            placeholder="Пароль"
+            placeholder="Введите пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
