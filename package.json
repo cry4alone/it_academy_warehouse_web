@@ -12,6 +12,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@ant-design/colors": "^7.1.0",
+    "@ant-design/cssinjs": "^1.22.0",
+    "@ant-design/icons": "^5.5.1",
+    "@ctrl/tinycolor": "^4.1.0",
+    "antd": "^5.22.1",
+    "classnames": "^2.5.1",
+    "rc-motion": "^2.9.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0"
