@@ -1,0 +1,18 @@
+.mainlayout {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    margin-top: 10px;
+    max-height: 90vh;
+    Sidebar {
+        flex: 1;
+    }
+
+    .contentpage {
+        flex: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+}

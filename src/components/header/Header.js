@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import logo from "../../shared/assets/Rusal.svg";
 import accLogo from "../../shared/assets/accLogo.svg";
 import "./header.scss";
+import { FaRegUser } from "react-icons/fa";
 
 function Header() {
   return (
@@ -14,7 +15,7 @@ function Header() {
           <p>Войдите в систему</p>
           <p>Данные недоступны</p>
         </div>
-        <img src={accLogo} className="header__accLogo" alt="Account Logo" />
+        <FaRegUser />
       </div>
     </header>
   );
