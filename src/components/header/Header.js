@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "../../shared/assets/Rusal.svg";
-import accLogo from "../../shared/assets/accLogo.svg";
 import "./header.scss";
 import { FaRegUser } from "react-icons/fa";
 

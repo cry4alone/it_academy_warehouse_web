@@ -4,6 +4,19 @@
     font-family: roboto, sans-serif;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .pageNotFound {
     display: flex;
     justify-content: center;
