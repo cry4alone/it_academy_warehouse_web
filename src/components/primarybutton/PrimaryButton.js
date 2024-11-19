@@ -10,10 +10,6 @@ const PrimaryButton = ({ onClick, children, type = 'button' }) => {
   );
 };
 
-PrimaryButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  type: PropTypes.string,
-};
+
 
 export default PrimaryButton;
