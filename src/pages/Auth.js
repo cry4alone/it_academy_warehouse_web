@@ -1,18 +1,36 @@
-import React, { useState } from "react";
 import PrimaryButton from "../components/primarybutton/PrimaryButton";
 import Input from "../components/input/Input";
 import users from "../data/users";
 import { useNavigate } from "react-router-dom";
 import "../styles/global.scss";
 import { useAuth } from "../Context";
+import React, { useState, useEffect } from 'react';
 
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState(false);
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const { setUser } = useAuth();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/users');
+        if (!response.ok) {
+          throw new Error('Ошибка!');
+        }
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error('Ошибка fetch пользователя:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,9 +82,7 @@ const Auth = () => {
           />
         </div>
         {error && <p className="error-message">{error}</p>}
-        <PrimaryButton type="submit" onClick={handleSubmit}>
-          Войти
-        </PrimaryButton>
+        <PrimaryButton type="submit">Войти</PrimaryButton>
       </form>
     </div>
   );
