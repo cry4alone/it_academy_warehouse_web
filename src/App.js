@@ -1,20 +1,21 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/header/Header';
-import Auth from './pages/Auth';
-import NotFoundPage from './pages/NotFoundPage';
-import ReadyProduction from './pages/ReadyProduction';
-import './styles/global.scss';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Auth from "./pages/Auth";
+import NotFoundPage from "./pages/NotFoundPage";
+import ReadyProduction from "./pages/ReadyProduction";
+import "./styles/global.scss";
+import Layout from "./components/layout/Layout";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route index element={<Auth />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/ReadyProduction" element={<ReadyProduction />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Auth />} />
+          <Route path="auth" element={<Auth />} />
+          <Route path="ReadyProduction" element={<ReadyProduction />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
