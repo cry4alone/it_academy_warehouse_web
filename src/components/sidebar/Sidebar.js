@@ -38,19 +38,19 @@ const toggleDocumentsMenu = (event) => {
 
           {/* Документы */}
           <li>
-            <div className="div__documents">
-              <NavLink 
-                to="/documents" 
-                className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}
-                onClick={toggleDocumentsMenu} // Переключение подменю по клику
-              >
-                Документы
-              </NavLink>
-              <img 
-                src={Arrow} 
-                className={`arrow-icon ${isDocumentsOpen ? 'rotated' : ''}`}
-              />
-            </div>
+            <NavLink 
+              to="/documents" 
+              className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}
+              onClick={toggleDocumentsMenu} // Переключение подменю по клику
+            >
+              <div className="div__documents">
+                <span>Документы</span>
+                <img 
+                  src={Arrow} 
+                  className={`arrow-icon ${isDocumentsOpen ? 'rotated' : ''}`}
+                />
+              </div>
+            </NavLink>
             {isDocumentsOpen && (
               <ul className="submenu">
                 <li>
