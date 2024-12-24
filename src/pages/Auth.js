@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PrimaryButton from '../components/primarybutton/PrimaryButton';
-import Input from '../components/input/Input';
+import { Button, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import '../styles/global.scss';
 
@@ -22,7 +21,7 @@ const Auth = () => {
         const data = await response.json();
         setUsers(data);
       } catch (error) {
-        console.error('Ошибка fetch пользователя:', error);
+        console.error('Error fetch user:', error);
       }
     };
 
@@ -64,8 +63,7 @@ const Auth = () => {
         </div>
         <p>Пароль</p>
         <div className="input-field">
-          <Input
-            type="password"
+          <Input.Password
             placeholder="Введите пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -74,7 +72,7 @@ const Auth = () => {
           />
         </div>
         {error && <p className="error-message">{error}</p>}
-        <PrimaryButton type="submit">Войти</PrimaryButton>
+        <Button type="primary" htmlType="submit">Войти</Button>
       </form>
     </div>
   );

@@ -7,6 +7,7 @@ import WorkInProgress from "../pages/WorkInProgress";
 import ReadyProduction from "../pages/ReadyProduction";
 import Certificates from "../pages/Certificates";
 import Shipment from "../pages/Shipment";
+import Main from "../pages/Main";
 import "../styles/global.scss";
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Auth />} />
+            <Route path="home" element={<Main />} />
             <Route path="auth" element={<Auth />} />
             <Route path="nzp" element={<WorkInProgress />} />
             <Route path="gp" element={<ReadyProduction />} />
