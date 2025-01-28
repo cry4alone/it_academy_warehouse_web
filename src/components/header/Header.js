@@ -3,6 +3,7 @@ import logo from "../../shared/assets/Rusal.svg";
 import "./header.scss";
 import { FaRegUser } from "react-icons/fa";
 import { useAuth } from "../../contexts/Context";
+import DropdownMenu from "../dropdownmenu/DropdownMenu.js";
 
 function Header() {
   const { user } = useAuth();
@@ -24,7 +25,7 @@ function Header() {
             </>
           )}
         </div>
-        <FaRegUser />
+        {user && <DropdownMenu />}
       </div>
     </header>
   );

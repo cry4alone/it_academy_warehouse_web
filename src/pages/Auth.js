@@ -50,7 +50,7 @@ const Auth = () => {
       setUser(user);
       //const { user } = useAuth();
       //console.log(user);
-      navigate("/ReadyProduction");
+      navigate("/home");
     } else {
       setError("Неверный логин или пароль.");
     }
