@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import TableShipment from "../components/table/documents/TableShipment";
+import TableInvoice from "../components/table/documents/TableInvoice";
 import { Button } from 'antd';
 import { ButtonContext } from '../contexts/ButtonContext';
 import '../styles/global.scss';
 
-function Shipment() {
+function Invoice() {
     const { showAdditionalButtons } = useContext(ButtonContext);
-
+    
     return (
         <>
-            <div className="tab__title">Документы | Отгрузка</div>
-            <TableShipment  />
+            <div className="tab__title">Документы | Накладная возврата</div>
+            <TableInvoice />
             <div className="button-container">
                 <Button>Отмена</Button>
                 <Button>Подписать</Button>
@@ -20,4 +20,4 @@ function Shipment() {
     )
 }
 
-export default Shipment;
+export default Invoice;
