@@ -1,9 +1,316 @@
 {
-    "users":[
+    "users": [
         { "username": "user1", "password": "password123" },
         { "username": "user2", "password": "123456789" }
     ],
-    "readyproduction":[
-        
+    "workInProgress": [
+        { "id": 1, "meltNumber": "01-9001", "packageNumber": 60, "date": "2023-01-01", "status": "Можно вовлекать в шихтование", "length": 15, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001300, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 700, "gross": 800 },
+        { "id": 2, "meltNumber": "36-9496", "packageNumber": 64, "date": "2023-01-02", "status": "Готово к отгрузке", "length": 20, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001301, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 670, "gross": 720 },
+        { "id": 3, "meltNumber": "05-9862", "packageNumber": 88, "date": "2023-01-03", "status": "Требуется уточнение", "length": 22, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001302, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 850, "gross": 920 },
+        { "id": 4, "meltNumber": "22-9034", "packageNumber": 72, "date": "2023-01-04", "status": "Можно вовлекать в шихтование", "length": 18, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001303, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 710, "gross": 780 },
+        { "id": 5, "meltNumber": "78-9089", "packageNumber": 59, "date": "2023-01-05", "status": "Готово к отгрузке", "length": 15, "specification": "ГОСТ 4784-97", "brand": "D16", "certificateNumber": 221001304, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 640, "gross": 680 },
+        { "id": 6, "meltNumber": "34-9736", "packageNumber": 60, "date": "2023-01-05", "status": "Можно вовлекать в шихтование", "length": 30, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001305, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 800, "gross": 880 },
+        { "id": 7, "meltNumber": "42-9653", "packageNumber": 85, "date": "2023-01-07", "status": "Требуется уточнение", "length": 17, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001306, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 770, "gross": 850 },
+        { "id": 8, "meltNumber": "19-9005", "packageNumber": 94, "date": "2023-01-08", "status": "Можно вовлекать в шихтование", "length": 16, "specification": "ГОСТ 4784-97", "brand": "D16", "certificateNumber": 221001307, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 690, "gross": 750 },
+        { "id": 9, "meltNumber": "56-9541", "packageNumber": 62, "date": "2023-01-09", "status": "Готово к отгрузке", "length": 12, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001308, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 720, "gross": 790 },
+        { "id": 10, "meltNumber": "87-9674", "packageNumber": 53, "date": "2023-01-10", "status": "Требуется уточнение", "length": 14, "specification": "ГОСТ 4784-97", "brand": "A8", "certificateNumber": 221001309, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Жидкий", "net": 620, "gross": 670 },
+        { "id": 11, "meltNumber": "24-9012", "packageNumber": 78, "date": "2023-01-10", "status": "Можно вовлекать в шихтование", "length": 21, "specification": "ГОСТ 11089-2019", "brand": "D16", "certificateNumber": 221001310, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 830, "gross": 910 },
+        { "id": 12, "meltNumber": "73-9403", "packageNumber": 61, "date": "2023-01-10", "status": "Готово к отгрузке", "length": 23, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001311, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Жидкий", "net": 750, "gross": 810 },
+        { "id": 13, "meltNumber": "11-9234", "packageNumber": 58, "date": "2023-01-12", "status": "Требуется уточнение", "length": 19, "specification": "ГОСТ 4784-97", "brand": "A8", "certificateNumber": 221001312, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 680, "gross": 750 },
+        { "id": 14, "meltNumber": "37-9047", "packageNumber": 68, "date": "2023-01-13", "status": "Можно вовлекать в шихтование", "length": 25, "specification": "ГОСТ 11089-2019", "brand": "D16", "certificateNumber": 221001313, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 800, "gross": 860 },
+        { "id": 15, "meltNumber": "90-9512", "packageNumber": 90, "date": "2023-01-15", "status": "Готово к отгрузке", "length": 11, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001314, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 870, "gross": 940 }
+    ],
+    "readyProduction":[
+        { "id": 1, "meltNumber": "01-9001", "packageNumber": 60, "date": "2023-01-01", "status": "Можно вовлекать в шихтование", "length": 15, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001300, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 700, "gross": 800 },
+        { "id": 2, "meltNumber": "36-9496", "packageNumber": 64, "date": "2023-01-02", "status": "Готово к отгрузке", "length": 20, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001301, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 670, "gross": 720 },
+        { "id": 3, "meltNumber": "05-9862", "packageNumber": 88, "date": "2023-01-03", "status": "Требуется уточнение", "length": 22, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001302, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 850, "gross": 920 },
+        { "id": 4, "meltNumber": "22-9034", "packageNumber": 72, "date": "2023-01-04", "status": "Можно вовлекать в шихтование", "length": 18, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001303, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 710, "gross": 780 },
+        { "id": 5, "meltNumber": "78-9089", "packageNumber": 59, "date": "2023-01-05", "status": "Готово к отгрузке", "length": 15, "specification": "ГОСТ 4784-97", "brand": "D16", "certificateNumber": 221001304, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 640, "gross": 680 },
+        { "id": 6, "meltNumber": "34-9736", "packageNumber": 60, "date": "2023-01-05", "status": "Можно вовлекать в шихтование", "length": 30, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001305, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 800, "gross": 880 },
+        { "id": 7, "meltNumber": "42-9653", "packageNumber": 85, "date": "2023-01-07", "status": "Требуется уточнение", "length": 17, "specification": "ГОСТ 11089-2019", "brand": "A8", "certificateNumber": 221001306, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 770, "gross": 850 },
+        { "id": 8, "meltNumber": "19-9005", "packageNumber": 94, "date": "2023-01-08", "status": "Можно вовлекать в шихтование", "length": 16, "specification": "ГОСТ 4784-97", "brand": "D16", "certificateNumber": 221001307, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 690, "gross": 750 },
+        { "id": 9, "meltNumber": "56-9541", "packageNumber": 62, "date": "2023-01-09", "status": "Готово к отгрузке", "length": 12, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001308, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 720, "gross": 790 },
+        { "id": 10, "meltNumber": "87-9674", "packageNumber": 53, "date": "2023-01-10", "status": "Требуется уточнение", "length": 14, "specification": "ГОСТ 4784-97", "brand": "A8", "certificateNumber": 221001309, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Жидкий", "net": 620, "gross": 670 },
+        { "id": 11, "meltNumber": "24-9012", "packageNumber": 78, "date": "2023-01-10", "status": "Можно вовлекать в шихтование", "length": 21, "specification": "ГОСТ 11089-2019", "brand": "D16", "certificateNumber": 221001310, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 830, "gross": 910 },
+        { "id": 12, "meltNumber": "73-9403", "packageNumber": 61, "date": "2023-01-10", "status": "Готово к отгрузке", "length": 23, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001311, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Жидкий", "net": 750, "gross": 810 },
+        { "id": 13, "meltNumber": "11-9234", "packageNumber": 58, "date": "2023-01-12", "status": "Требуется уточнение", "length": 19, "specification": "ГОСТ 4784-97", "brand": "A8", "certificateNumber": 221001312, "section": 3, "controlScheme": "ГОСТ 11059-2019", "material": "Твёрдый", "net": 680, "gross": 750 },
+        { "id": 14, "meltNumber": "37-9047", "packageNumber": 68, "date": "2023-01-13", "status": "Можно вовлекать в шихтование", "length": 25, "specification": "ГОСТ 11089-2019", "brand": "D16", "certificateNumber": 221001313, "section": 1, "controlScheme": "ГОСТ 11059-2019", "material": "Жидкий", "net": 800, "gross": 860 },
+        { "id": 15, "meltNumber": "90-9512", "packageNumber": 90, "date": "2023-01-15", "status": "Готово к отгрузке", "length": 11, "specification": "ГОСТ 11059-2019", "brand": "1915", "certificateNumber": 221001314, "section": 2, "controlScheme": "ТУ 14-3-190-2004", "material": "Твёрдый", "net": 870, "gross": 940 }
+    ],
+    "certificates":[
+        { "id": 1, "certificateNumber": 221001430, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-01", "warehouse": "Склад ГП-1", "signatory": "Шишкин Е. Н.", "countPosition": 7 },
+        { "id": 2, "certificateNumber": 221001431, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-02", "warehouse": "Склад ГП-2", "signatory": "Кузнецов А. С.", "countPosition": 6 },
+        { "id": 3, "certificateNumber": 221001432, "controlScheme": "ГОСТ 11070-2024", "date": "2024-05-03", "warehouse": "Склад ГП-3", "signatory": "Иванова М. И.", "countPosition": 5 },
+        { "id": 4, "certificateNumber": 221001433, "controlScheme": "ГОСТ 11071-2024", "date": "2024-05-04", "warehouse": "Склад ГП-1", "signatory": "Петров В. В.", "countPosition": 8 },
+        { "id": 5, "certificateNumber": 221001434, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-05", "warehouse": "Склад ГП-2", "signatory": "Смирнов О. Д.", "countPosition": 7 },
+        { "id": 6, "certificateNumber": 221001435, "controlScheme": "ГОСТ 11070-2024", "date": "2024-05-06", "warehouse": "Склад ГП-3", "signatory": "Шишкин Е. Н.", "countPosition": 9 },
+        { "id": 7, "certificateNumber": 221001436, "controlScheme": "ГОСТ 11071-2024", "date": "2024-05-07", "warehouse": "Склад ГП-1", "signatory": "Кузнецов А. С.", "countPosition": 5 },
+        { "id": 8, "certificateNumber": 221001437, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-08", "warehouse": "Склад ГП-2", "signatory": "Иванова М. И.", "countPosition": 6 },
+        { "id": 9, "certificateNumber": 221001438, "controlScheme": "ГОСТ 11070-2024", "date": "2024-05-09", "warehouse": "Склад ГП-3", "signatory": "Петров В. В.", "countPosition": 7 },
+        { "id": 10, "certificateNumber": 221001439, "controlScheme": "ГОСТ 11071-2024", "date": "2024-05-10", "warehouse": "Склад ГП-1", "signatory": "Смирнов О. Д.", "countPosition": 4 },
+        { "id": 11, "certificateNumber": 221001440, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-11", "warehouse": "Склад ГП-2", "signatory": "Шишкин Е. Н.", "countPosition": 8 },
+        { "id": 12, "certificateNumber": 221001441, "controlScheme": "ГОСТ 11070-2024", "date": "2024-05-12", "warehouse": "Склад ГП-3", "signatory": "Кузнецов А. С.", "countPosition": 5 },
+        { "id": 13, "certificateNumber": 221001442, "controlScheme": "ГОСТ 11071-2024", "date": "2024-05-13", "warehouse": "Склад ГП-1", "signatory": "Иванова М. И.", "countPosition": 6 },
+        { "id": 14, "certificateNumber": 221001443, "controlScheme": "ГОСТ 11069-2024", "date": "2024-05-14", "warehouse": "Склад ГП-2", "signatory": "Петров В. В.", "countPosition": 7 },
+        { "id": 15, "certificateNumber": 221001444, "controlScheme": "ГОСТ 11070-2024", "date": "2024-05-15", "warehouse": "Склад ГП-3", "signatory": "Смирнов О. Д.", "countPosition": 9 }
+    ],
+    "shipment":[
+        {
+            "id": 1,
+            "shipmentNumber": "40-029066",
+            "date": "2023-01-01",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Коваленко Д. Д.",
+            "totalWeight": 9030,
+            "countPosition": 7,
+            "certificates": 20,
+            "supplies": "0305026480"
+        },
+        {
+            "id": 2,
+            "shipmentNumber": "41-029067",
+            "date": "2023-01-02",
+            "warehouseSender": "Склад ГП-2",
+            "signatory": "Иванов А. А.",
+            "totalWeight": 7500,
+            "countPosition": 5,
+            "certificates": 18,
+            "supplies": "0305026481"
+        },
+        {
+            "id": 3,
+            "shipmentNumber": "42-029068",
+            "date": "2023-01-03",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Петров В. В.",
+            "totalWeight": 8100,
+            "countPosition": 6,
+            "certificates": 15,
+            "supplies": "0305026482"
+        },
+        {
+            "id": 4,
+            "shipmentNumber": "43-029069",
+            "date": "2023-01-04",
+            "warehouseSender": "Склад ГП-3",
+            "signatory": "Сидоров С. С.",
+            "totalWeight": 6700,
+            "countPosition": 4,
+            "certificates": 12,
+            "supplies": "0305026483"
+        },
+        {
+            "id": 5,
+            "shipmentNumber": "44-029070",
+            "date": "2023-01-05",
+            "warehouseSender": "Склад ГП-2",
+            "signatory": "Орлов И. И.",
+            "totalWeight": 9400,
+            "countPosition": 8,
+            "certificates": 22,
+            "supplies": "0305026484"
+        },
+        {
+            "id": 6,
+            "shipmentNumber": "45-029071",
+            "date": "2023-01-06",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Коваленко Д. Д.",
+            "totalWeight": 8800,
+            "countPosition": 7,
+            "certificates": 19,
+            "supplies": "0305026485"
+        },
+        {
+            "id": 7,
+            "shipmentNumber": "46-029072",
+            "date": "2023-01-07",
+            "warehouseSender": "Склад ГП-3",
+            "signatory": "Смирнов М. М.",
+            "totalWeight": 7200,
+            "countPosition": 5,
+            "certificates": 17,
+            "supplies": "0305026486"
+        },
+        {
+            "id": 8,
+            "shipmentNumber": "47-029073",
+            "date": "2023-01-08",
+            "warehouseSender": "Склад ГП-2",
+            "signatory": "Иванов А. А.",
+            "totalWeight": 9600,
+            "countPosition": 9,
+            "certificates": 23,
+            "supplies": "0305026487"
+        },
+        {
+            "id": 9,
+            "shipmentNumber": "48-029074",
+            "date": "2023-01-09",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Петров В. В.",
+            "totalWeight": 7800,
+            "countPosition": 6,
+            "certificates": 16,
+            "supplies": "0305026488"
+        },
+        {
+            "id": 10,
+            "shipmentNumber": "49-029075",
+            "date": "2023-01-10",
+            "warehouseSender": "Склад ГП-3",
+            "signatory": "Орлов И. И.",
+            "totalWeight": 8500,
+            "countPosition": 7,
+            "certificates": 20,
+            "supplies": "0305026489"
+        },
+        {
+            "id": 11,
+            "shipmentNumber": "50-029076",
+            "date": "2023-01-11",
+            "warehouseSender": "Склад ГП-2",
+            "signatory": "Сидоров С. С.",
+            "totalWeight": 7100,
+            "countPosition": 5,
+            "certificates": 14,
+            "supplies": "0305026490"
+        },
+        {
+            "id": 12,
+            "shipmentNumber": "51-029077",
+            "date": "2023-01-12",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Коваленко Д. Д.",
+            "totalWeight": 9900,
+            "countPosition": 9,
+            "certificates": 24,
+            "supplies": "0305026491"
+        },
+        {
+            "id": 13,
+            "shipmentNumber": "52-029078",
+            "date": "2023-01-13",
+            "warehouseSender": "Склад ГП-3",
+            "signatory": "Смирнов М. М.",
+            "totalWeight": 8000,
+            "countPosition": 6,
+            "certificates": 18,
+            "supplies": "0305026492"
+        },
+        {
+            "id": 14,
+            "shipmentNumber": "53-029079",
+            "date": "2023-01-14",
+            "warehouseSender": "Склад ГП-2",
+            "signatory": "Иванов А. А.",
+            "totalWeight": 8700,
+            "countPosition": 8,
+            "certificates": 21,
+            "supplies": "0305026493"
+        },
+        {
+            "id": 15,
+            "shipmentNumber": "54-029080",
+            "date": "2023-01-15",
+            "warehouseSender": "Склад ГП-1",
+            "signatory": "Петров В. В.",
+            "totalWeight": 7400,
+            "countPosition": 5,
+            "certificates": 13,
+            "supplies": "0305026494"
+        }
+    ],
+    "invoice": [
+        {
+            "id": 1,
+            "author": "Шишкин Е. Н.",
+            "where": "Склад ЛО-1",
+            "type": "Доработка",
+            "reason": "Дефект",
+            "defect": "Трещина",
+            "date": "2023-10-01"
+        },
+        {
+            "id": 2,
+            "author": "Кузнецов А. С.",
+            "where": "Склад ЛО-2",
+            "type": "Переплав",
+            "reason": "Невостребованная продукция",
+            "defect": "",
+            "date": "2023-10-02"
+        },
+        {
+            "id": 3,
+            "author": "Иванова М. И.",
+            "where": "Склад ЛО-3",
+            "type": "Доработка",
+            "reason": "Дефект",
+            "defect": "Скол",
+            "date": "2023-10-03"
+        },
+        {
+            "id": 4,
+            "author": "Петров В. В.",
+            "where": "Склад ЛО-1",
+            "type": "Переплав",
+            "reason": "Невостребованная продукция",
+            "defect": "",
+            "date": "2023-10-04"
+        },
+        {
+            "id": 5,
+            "author": "Смирнов О. Д.",
+            "where": "Склад ЛО-2",
+            "type": "Доработка",
+            "reason": "Дефект",
+            "defect": "Трещина",
+            "date": "2023-10-05"
+        },
+        {
+            "id": 6,
+            "author": "Шишкин Е. Н.",
+            "where": "Склад ЛО-3",
+            "type": "Переплав",
+            "reason": "Невостребованная продукция",
+            "defect": "",
+            "date": "2023-10-06"
+        },
+        {
+            "id": 7,
+            "author": "Кузнецов А. С.",
+            "where": "Склад ЛО-1",
+            "type": "Доработка",
+            "reason": "Дефект",
+            "defect": "Скол",
+            "date": "2023-10-07"
+        },
+        {
+            "id": 8,
+            "author": "Иванова М. И.",
+            "where": "Склад ЛО-2",
+            "type": "Переплав",
+            "reason": "Невостребованная продукция",
+            "defect": "",
+            "date": "2023-10-08"
+        },
+        {
+            "id": 9,
+            "author": "Петров В. В.",
+            "where": "Склад ЛО-3",
+            "type": "Доработка",
+            "reason": "Дефект",
+            "defect": "Трещина",
+            "date": "2023-10-09"
+        },
+        {
+            "id": 10,
+            "author": "Смирнов О. Д.",
+            "where": "Склад ЛО-1",
+            "type": "Переплав",
+            "reason": "Невостребованная продукция",
+            "defect": "",
+            "date": "2023-10-10"
+        }
     ]
 }
