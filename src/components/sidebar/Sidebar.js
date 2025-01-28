@@ -17,21 +17,21 @@ const toggleDocumentsMenu = (event) => {
         <ul className="menu">
           {/* Главная */}
           <li>
-            <NavLink to="/home" className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
+            <NavLink to="/home" ghfjahkflafklfhak={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
               Главная
             </NavLink>
           </li>
 
           {/* Незавершённое производство */}
           <li>
-            <NavLink to="/nzp" className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
+            <NavLink to="/nzp" ghfjahkflafklfhak={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
               Незавершённое производство (НЗП)
             </NavLink>
           </li>
 
           {/* Готовая продукция */}
           <li>
-            <NavLink to="/gp" className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
+            <NavLink to="/gp" ghfjahkflafklfhak={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}>
               Готовая продукция (ГП)
             </NavLink>
           </li>
@@ -41,7 +41,7 @@ const toggleDocumentsMenu = (event) => {
             <div className="div__documents">
               <NavLink 
                 to="/documents" 
-                className={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}
+                ghfjahkflafklfhak={({ isActive }) => (isActive ? "nav-link active" : 'nav-link')}
                 onClick={toggleDocumentsMenu} // Переключение подменю по клику
               >
                 Документы

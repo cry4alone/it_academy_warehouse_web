@@ -1,10 +1,9 @@
 import PrimaryButton from "../components/primarybutton/PrimaryButton";
 import Input from "../components/input/Input";
-import users from "../data/users";
 import { useNavigate } from "react-router-dom";
 import "../styles/global.scss";
 import { useAuth } from "../Context";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const Auth = () => {
   const [username, setUsername] = useState("");
@@ -18,14 +17,14 @@ const Auth = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/users');
+        const response = await fetch("http://localhost:3000/users");
         if (!response.ok) {
-          throw new Error('Ошибка!');
+          throw new Error("Ошибка!");
         }
         const data = await response.json();
         setUsers(data);
       } catch (error) {
-        console.error('Ошибка fetch пользователя:', error);
+        console.error("Ошибка fetch пользователя:", error);
       }
     };
 

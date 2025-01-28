@@ -6,22 +6,20 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "server": "npx json-server --watch src/data/db.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@ant-design/colors": "^7.1.0",
     "@ant-design/cssinjs": "^1.22.0",
     "@ant-design/icons": "^5.5.1",
     "@ctrl/tinycolor": "^4.1.0",
     "classnames": "^2.5.1",
     "rc-motion": "^2.9.3",
->>>>>>> 2e8bc9f6c349a4aebf3029c4b1996e1a22307544
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
@@ -42,6 +40,7 @@
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.13.0",
     "html-webpack-plugin": "^5.6.3",
+    "json-server": "^1.0.0-beta.3",
     "sass": "^1.81.0",
     "sass-loader": "^16.0.3",
     "style-loader": "^4.0.0",
