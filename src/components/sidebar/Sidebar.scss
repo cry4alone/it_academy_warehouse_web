@@ -1,48 +1,50 @@
-  .sidebar {
+.sidebar {
     width: 250px;
     padding: 20px;
     color: white;
     border-radius: 3px;
-    
-  }
-  
-  .menu {
+}
+
+.menu {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .menu li {
-    margin-bottom: 10px;
-  }
+}
 
-  .div__documents {
+.menu li {
+    margin-bottom: 10px;
+}
+
+.div__documents {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .submenu {
+}
+
+.submenu {
     list-style-type: none;
     padding-left: 20px;
     margin-top: 10px;
-  }
-  
-  .nav-link {
+}
+
+.nav-link {
     text-decoration: none;
     color: black;
 
     &.active {
-      font-weight: bold;
-      text-decoration: none;
+        font-weight: bold;
+        text-decoration: none;
     }
-  }
+}
 
-  .arrow-icon {
+.arrow-icon {
     transition: transform 0.3s ease; // Плавный переход
 
     &.rotated {
-      transform: rotate(180deg);
+        transform: rotate(180deg);
     }
-  }
- 
-  
+}
+
+ul li a {
+    text-decoration: none;
+    color: black;
+}

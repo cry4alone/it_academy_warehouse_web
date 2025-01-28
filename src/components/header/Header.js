@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../shared/assets/Rusal.svg";
 import "./header.scss";
 import { FaRegUser } from "react-icons/fa";
-import { useAuth } from "../../Context.js";
+import { useAuth } from "../../contexts/Context";
 
 function Header() {
   const { user } = useAuth();

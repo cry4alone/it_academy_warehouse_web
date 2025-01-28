@@ -4,7 +4,8 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -112,7 +113,7 @@ body, html {
 .button-container {
     display: flex;
     gap: 10px;
-    margin-top: -4%;
+    justify-content: center;
 
     .ant-btn {
         border-radius: 4px;
@@ -122,4 +123,3 @@ body, html {
         margin-left: 60%;
     }
 }
-

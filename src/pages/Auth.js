@@ -2,7 +2,7 @@ import PrimaryButton from "../components/primarybutton/PrimaryButton";
 import Input from "../components/input/Input";
 import { useNavigate } from "react-router-dom";
 import "../styles/global.scss";
-import { useAuth } from "../Context";
+import { useAuth } from "../contexts/Context";
 import React, { useState, useEffect } from "react";
 
 const Auth = () => {
