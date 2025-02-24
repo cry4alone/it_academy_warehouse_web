@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
+import axios from 'axios';
 
 const TableWorkInProgress = () => {
     const [dataSource, setDataSource] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/workInProgress');
-                const data = await response.json();
-                const workInProgress = data.map(item => ({ ...item, key: item.id }));
+        axios
+            .get('http://localhost:3000/workInProgress')
+            .then((response) => {
+                const workInProgress = response.data.map((item) => ({ ...item, key: item.id }));
                 setDataSource(workInProgress);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
+            })
+            .catch((err) => {
+                console.log('Error fetching data:', err);
+            })
+            .finally(() => {
                 setLoading(false);
-            }
-        };
+            });
+        // const fetchData = async () => {
+        //     try {
+        //         const response = await fetch('http://localhost:3000/workInProgress');
+        //         const data = await response.json();
+        //         const workInProgress = data.map(item => ({ ...item, key: item.id }));
+        //         setDataSource(workInProgress);
+        //     } catch (error) {
+        //         console.error('Error fetching data:', error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
 
-        fetchData();
+        // fetchData();
     }, []);
 
     const columns = [
@@ -32,7 +45,7 @@ const TableWorkInProgress = () => {
             title: '№ пакета',
             dataIndex: 'packageNumber',
             key: 'packageNumber',
-            sorter: (a, b) => a.packageNumber - b.packageNumber
+            sorter: (a, b) => a.packageNumber - b.packageNumber,
         },
         {
             title: 'Дата',
@@ -163,7 +176,7 @@ const TableWorkInProgress = () => {
             title: 'Брутто, кг',
             dataIndex: 'gross',
             key: 'gross',
-            sorter: (a, b) => a.gross - b.gross
+            sorter: (a, b) => a.gross - b.gross,
         },
     ];
 

@@ -1,9 +1,10 @@
 import React, { createContext, useState, useContext } from "react";
 
+//inteface user
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   // const defaultProps = useMemo(
   //   () => ({
   //     setState,
