@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import axios from 'axios';
 
-const TableWorkInProgress = () => {
+const TableWorkInProgress = ({ onSelectionChange }) => {
     const [dataSource, setDataSource] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -64,18 +64,9 @@ const TableWorkInProgress = () => {
             key: 'length',
             sorter: (a, b) => a.length - b.length,
             filters: [
-                {
-                    text: '10',
-                    value: 10,
-                },
-                {
-                    text: '15',
-                    value: 15,
-                },
-                {
-                    text: '20',
-                    value: 20,
-                },
+                { text: '10', value: 10 },
+                { text: '15', value: 15 },
+                { text: '20', value: 20 },
             ],
             onFilter: (value, item) => item.length === value,
         },
@@ -84,18 +75,9 @@ const TableWorkInProgress = () => {
             dataIndex: 'specification',
             key: 'specification',
             filters: [
-                {
-                    text: 'ГОСТ 11089-2019',
-                    value: 'ГОСТ 11089-2019',
-                },
-                {
-                    text: 'ГОСТ 11059-2019',
-                    value: 'ГОСТ 11059-2019',
-                },
-                {
-                    text: 'ГОСТ 4784-97',
-                    value: 'ГОСТ 4784-97',
-                },
+                { text: 'ГОСТ 11089-2019', value: 'ГОСТ 11089-2019' },
+                { text: 'ГОСТ 11059-2019', value: 'ГОСТ 11059-2019' },
+                { text: 'ГОСТ 4784-97', value: 'ГОСТ 4784-97' },
             ],
             onFilter: (value, item) => item.specification.includes(value),
         },
@@ -104,18 +86,9 @@ const TableWorkInProgress = () => {
             dataIndex: 'brand',
             key: 'brand',
             filters: [
-                {
-                    text: 'A8',
-                    value: 'A8',
-                },
-                {
-                    text: '1915',
-                    value: '1915',
-                },
-                {
-                    text: 'D16',
-                    value: 'D16',
-                },
+                { text: 'A8', value: 'A8' },
+                { text: '1915', value: '1915' },
+                { text: 'D16', value: 'D16' },
             ],
             onFilter: (value, item) => item.brand.includes(value),
         },
@@ -135,18 +108,9 @@ const TableWorkInProgress = () => {
             dataIndex: 'controlScheme',
             key: 'controlScheme',
             filters: [
-                {
-                    text: 'ГОСТ 11059-2019',
-                    value: 'ГОСТ 11059-2019',
-                },
-                {
-                    text: 'ГОСТ 11069-2001',
-                    value: 'ГОСТ 11069-2001',
-                },
-                {
-                    text: 'ГОСТ 4784-2019',
-                    value: 'ГОСТ 4784-2019',
-                },
+                { text: 'ГОСТ 11059-2019', value: 'ГОСТ 11059-2019' },
+                { text: 'ГОСТ 11069-2001', value: 'ГОСТ 11069-2001' },
+                { text: 'ГОСТ 4784-2019', value: 'ГОСТ 4784-2019' },
             ],
             onFilter: (value, item) => item.controlScheme.includes(value),
         },
@@ -155,14 +119,8 @@ const TableWorkInProgress = () => {
             dataIndex: 'material',
             key: 'material',
             filters: [
-                {
-                    text: 'Жидкий',
-                    value: 'Жидкий',
-                },
-                {
-                    text: 'Твёрдый',
-                    value: 'Твёрдый',
-                },
+                { text: 'Жидкий', value: 'Жидкий' },
+                { text: 'Твёрдый', value: 'Твёрдый' },
             ],
             onFilter: (value, item) => item.material.includes(value),
         },
@@ -180,11 +138,17 @@ const TableWorkInProgress = () => {
         },
     ];
 
+    const rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            if (onSelectionChange) {
+                onSelectionChange(selectedRows);
+            }
+        },
+    };
+
     return (
         <Table
-            rowSelection={{
-                type: 'checkbox',
-            }}
+            rowSelection={rowSelection}
             dataSource={dataSource}
             columns={columns}
             scroll={{ x: 'max-content' }}

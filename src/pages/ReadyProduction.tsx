@@ -1,40 +1,72 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TableReadyProduction from '../components/table/TableReadyProduction';
 import { Button } from 'antd';
 import { ButtonContext, ButtonProvider } from '../contexts/ButtonContext';
+import PrintModal from "../widgets/modal/PrintModal"
 import '../app/styles/global.scss';
 
 function ReadyProduction() {
-  const { showAdditionalButtons } = useContext(ButtonContext);
+    const { showAdditionalButtons } = useContext(ButtonContext);
+    const navigate = useNavigate();
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
 
-  return (
-    <>
-      <div className="tab__title">Готовое производство</div>
-      <TableReadyProduction />
-      <div className="button-container">
-        {!showAdditionalButtons && (
-          <>
-            <Button>Перераспределить сертификат</Button>
-            <Button>Возврат продукции</Button>
-            <Button>Работа с сертификатами</Button>
-            <Button>Печать этикеток</Button>
-          </>
-        )}
-        {showAdditionalButtons && (
-          <>
-            <Button>Отмена</Button>
-            <Button type="primary">Добавить пакеты</Button>
-          </>
-        )}
-      </div>
-    </>
-  );
+    const showPrintModal = () => {
+        setIsPrintModalOpen(true);
+    };
+
+    const handlePrintCancel = () => {
+        setIsPrintModalOpen(false);
+    };
+
+    const handlePrintConfirm = () => {
+        setIsPrintModalOpen(false);
+    };
+
+    const handleReturnProduct = () => {
+        if (selectedRows.length > 0) {
+            navigate('/documents/transfers');
+        }
+    };
+
+    return (
+        <>
+            <div className="tab__title">Готовое производство</div>
+            {/*<TableReadyProduction onSelectionChange={setSelectedRows} />*/}
+            <div className="button-container">
+                {!showAdditionalButtons && (
+                    <>
+                        <Button>Перераспределить сертификат</Button>
+                        <Button onClick={handleReturnProduct} disabled={selectedRows.length === 0}>
+                            Возврат продукции
+                        </Button>
+                        <Button>Работа с сертификатами</Button>
+                        <Button onClick={showPrintModal} disabled={selectedRows.length === 0}>
+                            Печать этикеток
+                        </Button>
+                    </>
+                )}
+                {showAdditionalButtons && (
+                    <>
+                        <Button>Отмена</Button>
+                        <Button type="primary">Добавить пакеты</Button>
+                    </>
+                )}
+            </div>
+            <PrintModal
+                isPrintModalOpen={isPrintModalOpen}
+                handleCancel={handlePrintCancel}
+                handleConfirm={handlePrintConfirm}
+            />
+        </>
+    );
 }
 
 export default function WrappedReadyProduction() {
-  return (
-    <ButtonProvider>
-      <ReadyProduction />
-    </ButtonProvider>
-  );
+    return (
+        <ButtonProvider>
+            <ReadyProduction />
+        </ButtonProvider>
+    );
 }
