@@ -1,10 +1,16 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import Question from "../../shared/assets/Question Mark.svg";
-import './Modal.scss';
+import Question from "../../../../shared/assets/Question Mark.svg";
+import './PrintModal.scss';
 
-const PrintModal = ({ isPrintModalOpen, handleCancel, handleConfirm }) => {
+interface PrintModalProps {
+    isPrintModalOpen: boolean;
+    handleCancel: () => void;
+    handleConfirm: () => void;
+}
+
+const PrintModal: React.FC<PrintModalProps> = ({ isPrintModalOpen, handleCancel, handleConfirm }) => {
     const navigate = useNavigate();
 
     const handleConfirmNavigation = () => {

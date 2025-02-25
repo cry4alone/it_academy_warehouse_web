@@ -1,16 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TableReadyProduction from '../components/table/TableReadyProduction';
+import TableReadyProduction from '../../components/table/TableReadyProduction';
 import { Button } from 'antd';
-import { ButtonContext, ButtonProvider } from '../contexts/ButtonContext';
-import PrintModal from "../widgets/modal/PrintModal"
-import '../app/styles/global.scss';
+import { ButtonContext, ButtonProvider } from '../../contexts/ButtonContext';
+import PrintModal from "./components/modal/PrintModal";
+import '../../app/styles/global.scss';
+
+interface ButtonContextType {
+    showAdditionalButtons: boolean;
+}
 
 function ReadyProduction() {
-    const { showAdditionalButtons } = useContext(ButtonContext);
+    const { showAdditionalButtons } = useContext<ButtonContextType>(ButtonContext);
     const navigate = useNavigate();
-    const [selectedRows, setSelectedRows] = useState([]);
-    const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
+    const [selectedRows, setSelectedRows] = useState<React.Key[]>([]);
+    const [isPrintModalOpen, setIsPrintModalOpen] = useState<boolean>(false);
 
     const showPrintModal = () => {
         setIsPrintModalOpen(true);
@@ -33,7 +37,7 @@ function ReadyProduction() {
     return (
         <>
             <div className="tab__title">Готовое производство</div>
-            {/*<TableReadyProduction onSelectionChange={setSelectedRows} />*/}
+            <TableReadyProduction onSelectionChange={setSelectedRows} />
             <div className="button-container">
                 {!showAdditionalButtons && (
                     <>

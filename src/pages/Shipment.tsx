@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import TableShipment from "../components/table/documents/TableShipment";
 import { Button } from 'antd';
-import { ButtonContext } from '../contexts/ButtonContext';
 import '../app/styles/global.scss';
 
 function Shipment() {
-    const { showAdditionalButtons } = useContext(ButtonContext);
 
     return (
         <>

@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import TableInvoice from "../components/table/documents/TableInvoice";
 import { Button } from 'antd';
-import { ButtonContext } from '../contexts/ButtonContext';
 import '../app/styles/global.scss';
 
 function Invoice() {
-    const { showAdditionalButtons } = useContext(ButtonContext);
     
     return (
         <>
