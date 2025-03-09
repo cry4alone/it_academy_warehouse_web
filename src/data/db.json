@@ -312,5 +312,97 @@
             "defect": "",
             "date": "2023-10-10"
         }
+    ],
+    "nzpCreateCertificateOrder" : [
+        {
+            "id": 1,
+            "idClient": 6700190319,
+            "customer": "АО РУСАЛ САЯНАЛ",
+            "size": "",
+            "specification":"ГОСТ 11059-2019",
+            "typeDelivary": "Автомашина",
+            "idDelivary": 304874886
+        },
+        {
+            "id": 2,
+            "idClient": 6700190320,
+            "customer": "ООО МеталлТрейд",
+            "size": "15x30",
+            "specification": "ГОСТ 11089-2019",
+            "typeDelivery": "Железная дорога",
+            "idDelivary": 304874887
+        },
+        {
+            "id": 3,
+            "idClient": 6700190321,
+            "customer": "ПАО Северсталь",
+            "size": "20x40",
+            "specification": "ГОСТ 4784-97",
+            "typeDelivery": "Автомашина",
+            "idDelivary": 304874888
+        },
+        {
+            "id": 4,
+            "idClient": 6700190322,
+            "customer": "АО ТМК",
+            "size": "25x50",
+            "specification": "ГОСТ 11059-2019",
+            "typeDelivery": "Морской транспорт",
+            "idDelivary": 304874889
+        },
+        {
+            "id": 5,
+            "idClient": 6700190323,
+            "customer": "ОАО НЛМК",
+            "size": "30x60",
+            "specification": "ГОСТ 11089-2019",
+            "typeDelivery": "Железная дорога",
+            "idDelivary": 304874890
+        },
+        {
+            "id": 6,
+            "idClient": 6700190324,
+            "customer": "АО Уральская Сталь",
+            "size": "35x70",
+            "specification": "ГОСТ 4784-97",
+            "typeDelivery": "Автомашина",
+            "idDelivary": 304874891
+        },
+        {
+            "id": 7,
+            "idClient": 6700190325,
+            "customer": "ООО МеталлПрофиль",
+            "size": "40x80",
+            "specification": "ГОСТ 11059-2019",
+            "typeDelivery": "Морской транспорт",
+            "idDelivary": 304874892
+        },
+        {
+            "id": 8,
+            "idClient": 6700190326,
+            "customer": "АО Магнитогорский Металлургический Комбинат",
+            "size": "45x90",
+            "specification": "ГОСТ 11089-2019",
+            "typeDelivery": "Железная дорога",
+            "idDelivary": 304874893
+        },
+        {
+            "id": 9,
+            "idClient": 6700190327,
+            "customer": "ООО МеталлСервис",
+            "size": "50x100",
+            "specification": "ГОСТ 4784-97",
+            "typeDelivery": "Автомашина",
+            "idDelivary": 304874894
+        },
+        {
+            "id": 10,
+            "idClient": 6700190328,
+            "customer": "АО Челябинский Металлургический Комбинат",
+            "size": "55x110",
+            "specification": "ГОСТ 11059-2019",
+            "typeDelivery": "Морской транспорт",
+            "idDelivary": 304874895
+        }
     ]
 }
