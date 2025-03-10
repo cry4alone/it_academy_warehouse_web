@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, notification } from 'antd';
-import TableWorkInProgress from '../components/table/TableWorkInProgress';
-import { ButtonContext } from '../contexts/ButtonContext';
-import '../app/styles/global.scss';
+import TableWorkInProgress from './createCertificatePage/components/tables/TableWorkInProgress';
+import { ButtonContext } from '../../contexts/ButtonContext';
+import '../../app/styles/global.scss';
 
 function WorkInProgress() {
     const { showAdditionalButtons } = useContext(ButtonContext);
@@ -21,19 +22,14 @@ function WorkInProgress() {
         }
     };
 
-
     const handleCancel = () => {
         notification.error({
             message: 'Ошибка',
             description: 'Действие отменено',
         });
     };
-
-    const handleSuccess = () => {
-        notification.success({
-            message: 'Успех',
-            description: 'Действие выполнено успешно',
-        });
+    const handleCreateCertificate = () => {
+        navigate('create-certificate');
     };
 
     const handleAddSelectedItems = () => {
@@ -51,8 +47,8 @@ function WorkInProgress() {
                 {!showAdditionalButtons && (
                     <>
                         <Button onClick={handleMeasureProduct} disabled={selectedRows.length === 0}>Ручное взвешивание</Button>
-                        <Button onClick={handleCancel}>Обработка накладных возврата</Button>
-                        <Button onClick={handleSuccess}>Создание сертификата</Button>
+                        <Button  onClick={handleCancel}>Обработка накладных возврата</Button>
+                        <Button onClick={handleCreateCertificate}>Создание сертификата</Button>
                     </>
                 )}
                 {showAdditionalButtons && (

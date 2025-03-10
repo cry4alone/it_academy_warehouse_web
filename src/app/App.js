@@ -2,14 +2,15 @@ import React from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Используем BrowserRouter
 import Layout from '../widgets/layout/Layout';
-import Auth from '../pages/authPage/Auth';
-import NotFoundPage from '../pages/NotFoundPage';
-import WorkInProgress from '../pages/WorkInProgress';
-import ReadyProduction from '../pages/readProductionPage/ReadyProduction';
-import Certificates from '../pages/certificatesPage/Certificates';
-import Shipment from '../pages/Shipment';
-import Invoice from '../pages/Invoice';
-import Main from '../pages/Main';
+import Auth from '@pages/authPage/Auth';
+import NotFoundPage from '@pages/NotFoundPage';
+import WorkInProgress from '@pages/workInProgressPage/WorkInProgress';
+import ReadyProduction from '@pages/readyProductionPage/ReadyProduction';
+import Certificates from '@pages/certificatesPage/Certificates';
+import Shipment from '@pages/shipmentPage/Shipment';
+import Invoice from '@pages/invoicePage/Invoice';
+import Main from '@pages/Main';
+import CreateCertificate from '@pages/workInProgressPage/createCertificatePage/CreateCertificate';
 import PrivateRouter from './PrivateRouter';
 import './styles/global.scss';
 
@@ -24,6 +25,7 @@ const App = () => {
                         <Route element={<PrivateRouter />}>
                             <Route path='home' element={<Main />} />
                             <Route path='nzp' element={<WorkInProgress />} />
+                            <Route path='nzp/create-certificate'  element={<CreateCertificate />} />
                             <Route path='gp' element={<ReadyProduction />} />
                             <Route path='/documents/certificates' element={<Certificates />} />
                             <Route path='/documents/shipment' element={<Shipment />} />

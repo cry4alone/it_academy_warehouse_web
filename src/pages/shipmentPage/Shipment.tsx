@@ -1,7 +1,7 @@
 import React from 'react';
-import TableShipment from "../components/table/documents/TableShipment";
+import TableShipment from "./components/table/TableShipment";
 import { Button } from 'antd';
-import '../app/styles/global.scss';
+import '@app/styles/global.scss';
 
 function Shipment() {
 

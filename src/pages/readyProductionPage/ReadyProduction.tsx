@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TableReadyProduction from '../../components/table/TableReadyProduction';
+import TableReadyProduction from './components/table/TableReadyProduction';
 import { Button } from 'antd';
 import { ButtonContext, ButtonProvider } from '../../contexts/ButtonContext';
 import { Flex } from "antd";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TableCertificates from "../../components/table/documents/TableCertificates";
+import TableCertificates from "./components/table/TableCertificates";
 import ControlSchemeModal from "./components/modals/ControlSchemeModal";
 import PackageModal from "./components/modals/PackageModal";
 import { Button } from 'antd';

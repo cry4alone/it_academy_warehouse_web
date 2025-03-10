@@ -1,7 +1,7 @@
 import React from 'react';
-import TableInvoice from "../components/table/documents/TableInvoice";
+import TableInvoice from "./components/table/TableInvoice";
 import { Button } from 'antd';
-import '../app/styles/global.scss';
+import '@app/styles/global.scss';
 
 function Invoice() {
     
