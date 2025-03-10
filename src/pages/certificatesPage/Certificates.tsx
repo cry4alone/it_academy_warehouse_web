@@ -3,6 +3,7 @@ import TableCertificates from "../../components/table/documents/TableCertificate
 import ControlSchemeModal from "./components/modals/ControlSchemeModal";
 import PackageModal from "./components/modals/PackageModal";
 import { Button } from 'antd';
+import { Flex } from "antd";
 
 function Certificates() {
     const [isControlSchemeModalVisible, setIsControlSchemeModalVisible] = useState(false);
@@ -37,10 +38,12 @@ function Certificates() {
         <>
             <div className="tab__title">Документы | Сертификат</div>
             <TableCertificates />
-            <Button type="primary" onClick={showControlSchemeModal}>
-                Проверка схемы контроля
-            </Button>
-            <Button type="primary" onClick={showPackageModal}>Проверка упаковки</Button>
+            <Flex gap="middle" justify="flex-end">
+                <Button type="primary" onClick={showControlSchemeModal}>
+                    Проверка схемы контроля
+                </Button>
+                <Button type="primary" onClick={showPackageModal}>Проверка упаковки</Button>
+            </Flex>
             <PackageModal isPackageModalVisible={isPackageModalVisible}
             handlePackageOk={handlePackageOk}
             handlePackageCancel={handlePackageCancel}/>

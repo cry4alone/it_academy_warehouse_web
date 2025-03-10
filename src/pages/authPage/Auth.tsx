@@ -1,7 +1,7 @@
 import PrimaryButton from "../../widgets/primarybutton/PrimaryButton";
 import Input from "./components/input/Input";
 import { useNavigate } from "react-router-dom";
-import "../../app/styles/global.scss";
+import "@app/styles/global.scss";
 import { useAuth } from "../../contexts/Context";
 import React, { useState, useEffect } from "react";
 import axios from "axios";

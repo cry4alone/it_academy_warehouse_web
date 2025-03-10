@@ -28,6 +28,7 @@ function WorkInProgress() {
             description: 'Действие отменено',
         });
     };
+
     const handleSuccess = () => {
         notification.success({
             message: 'Успех',
@@ -50,7 +51,7 @@ function WorkInProgress() {
                 {!showAdditionalButtons && (
                     <>
                         <Button onClick={handleMeasureProduct} disabled={selectedRows.length === 0}>Ручное взвешивание</Button>
-                        <Button  onClick={handleCancel}>Обработка накладных возврата</Button>
+                        <Button onClick={handleCancel}>Обработка накладных возврата</Button>
                         <Button onClick={handleSuccess}>Создание сертификата</Button>
                     </>
                 )}

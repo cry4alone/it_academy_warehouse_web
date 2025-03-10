@@ -54,6 +54,13 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'], // Убедитесь, что TypeScript файлы могут быть импортированы
+        extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            "@": path.resolve(__dirname, 'src'),
+            "@pages": path.resolve(__dirname,'src/pages'),
+            "@widgets": path.resolve(__dirname,'src/widgets'),
+            "@contexts": path.resolve(__dirname,'src/contexts'),
+            "@app": path.resolve(__dirname,'src/app'),
+        }
     },
 };

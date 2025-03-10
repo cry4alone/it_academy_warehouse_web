@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TableReadyProduction from '../../components/table/TableReadyProduction';
 import { Button } from 'antd';
 import { ButtonContext, ButtonProvider } from '../../contexts/ButtonContext';
+import { Flex } from "antd";
 import PrintModal from "./components/modal/PrintModal";
 import '../../app/styles/global.scss';
 
@@ -40,7 +41,7 @@ function ReadyProduction() {
             <TableReadyProduction onSelectionChange={setSelectedRows} />
             <div className="button-container">
                 {!showAdditionalButtons && (
-                    <>
+                    <Flex gap="middle">
                         <Button>Перераспределить сертификат</Button>
                         <Button onClick={handleReturnProduct} disabled={selectedRows.length === 0}>
                             Возврат продукции
@@ -49,7 +50,7 @@ function ReadyProduction() {
                         <Button onClick={showPrintModal} disabled={selectedRows.length === 0}>
                             Печать этикеток
                         </Button>
-                    </>
+                    </Flex>
                 )}
                 {showAdditionalButtons && (
                     <>

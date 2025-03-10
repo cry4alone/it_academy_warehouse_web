@@ -3,13 +3,114 @@
     padding: 20px;
     color: white;
     border-radius: 3px;
+    transition: width 0.3s ease;
+
+    .menu__button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        margin-bottom: 10px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+    &.collapsed {
+        width: 60px;
+        padding: 0;
+
+        .nav-link {
+            justify-content: center;
+
+            span {
+                display: none; // Скрываем текст
+            }
+        }
+
+        img {
+            display: none; // Скрываем иконку
+        }
+
+        .menu__button {
+            margin: 0 auto; // Центрируем кнопку по горизонтали
+            margin-bottom: 10px; // Оставляем отступ снизу
+        }
+
+        .submenu {
+            position: absolute; 
+            left: 10px; 
+            top: 0; 
+            display: none; 
+        }
+        
+        .div__documents:hover + .submenu,
+        .submenu:hover {
+            display: block;
+        }
+        
+    }
 }
 
 .menu {
-    list-style-type: none;
     padding: 0;
-    margin: 0;
+
+    li {
+        margin-bottom: 10px;
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .icon {
+                display: inline-block;
+                min-width: 16px;
+                min-height: 16px;
+                font-size: 16px; // Фиксированный размер
+            }
+
+            span {
+                margin-left: 10px;
+            }
+        }
+    }
 }
+
+.menu {
+    padding: 0;
+
+    li {
+        margin-bottom: 10px;
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .icon {
+                display: inline-block;
+                min-width: 16px;
+                min-height: 16px;
+                color: black; // Фиксированный цвет
+                font-size: 16px; // Фиксированный размер
+            }
+
+            span {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.menu {
+    padding: 0;
+}
+
+
 
 .menu li {
     margin-bottom: 10px;
@@ -17,7 +118,12 @@
 
 .div__documents {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
+    position: relative; /* Добавляем относительное позиционирование */
+
+    > :last-child {
+        margin-left: auto; 
+    }
 }
 
 .submenu {
