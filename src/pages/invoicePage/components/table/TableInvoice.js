@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import React from "react";
 
-const TableInvoice = ({ dataSource }) => {
+const TableInvoice = ({ dataSource, onSelectionChange }) => {
 
     const columns = [
         {
@@ -101,6 +101,7 @@ const TableInvoice = ({ dataSource }) => {
         <Table
             rowSelection={{
                 type: 'checkbox',
+                onChange: onSelectionChange
             }}
             dataSource={dataSource}
             columns={columns}

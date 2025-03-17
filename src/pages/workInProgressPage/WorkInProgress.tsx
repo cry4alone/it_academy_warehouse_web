@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, notification } from 'antd';
+import { Button, notification, Flex } from 'antd';
 import TableWorkInProgress from './createCertificatePage/components/tables/TableWorkInProgress';
 import { ButtonContext } from '@contexts/ButtonContext';
 import '@app/styles/global.scss';
@@ -43,7 +43,7 @@ function WorkInProgress() {
         <>
             <div className="tab__title">Незавершённое производство</div>
             <TableWorkInProgress onSelectionChange={setSelectedRows} />
-            <div className="button-container">
+            <div className='button-container'>
                 {!showAdditionalButtons && (
                     <>
                         <Button onClick={handleMeasureProduct} disabled={selectedRows.length === 0}>Ручное взвешивание</Button>

@@ -3,12 +3,23 @@
     {
       "username": "user1",
       "password": "password123",
+      "name": "Алексей",
+      "surname": "Петров",
       "id": "7de2"
     },
     {
       "username": "user2",
       "password": "123456789",
+      "name": "Иван",
+      "surname": "Иванов",
       "id": "b3a4"
+    },
+    {
+      "username": "Alexey",
+      "password": "12345678",
+      "name": "Алексей",
+      "surname": "Смирнов",
+      "id": "c5a6"
     }
   ],
   "workInProgress": [

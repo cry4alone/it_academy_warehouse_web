@@ -1,9 +1,10 @@
 import React from 'react';
 import { Modal, Form, Button, DatePicker, Select, Input } from 'antd';
+import { InvoiceData } from '../../types/invoiceTypes';
 
 // Интерфейс для входных данных (props)
 interface NewInvoiceModalProps {
-    handleOk: (values: any) => void;
+    handleOk: (values: InvoiceData) => void;
     handleCancel: () => void;
     isVisible: boolean;
 }
@@ -35,7 +36,7 @@ const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ handleOk, handleCance
     return (
         <Modal
             title='Новая накладная'
-            visible={isVisible}
+            open={isVisible}
             onOk={handleCreate}
             onCancel={handleCancel}
             footer={[
@@ -90,7 +91,7 @@ const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ handleOk, handleCance
                     ></Select>
                 </Form.Item>
                 <Form.Item name='defect' label='Дефект'>
-                    <Input></Input>
+                    <Input placeholder='Заполните только если причина возврата Дефект'></Input>
                 </Form.Item>
                 <Form.Item name='date' label='Дата' rules={[{ required: true, message: 'Выберите дату!' }]}>
                     <DatePicker placeholder='Выберите дату' />

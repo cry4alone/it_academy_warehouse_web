@@ -56,7 +56,7 @@ function ReadyProduction() {
     };
 
     const handleWorkCertificates = () => {
-        if (selectedRows.length > 1) alert('Выберите только один пакет!');
+        navigate('/documents/certificates');
     };
 
     return (
@@ -70,15 +70,16 @@ function ReadyProduction() {
             />
             <div className='button-container'>
                 {!showAdditionalButtons && (
-                    <Flex gap='middle'>
-                        <Button>Перераспределить сертификат</Button>
-                        <Button onClick={handleReturnProduct} disabled={selectedRows.length === 0}>
-                            Возврат продукции
-                        </Button>
-                        <Button onClick={handleWorkCertificates}>Работа с сертификатами</Button>
+                    <Flex gap='middle' justify='flex-end'>
                         <Button onClick={showPrintModal} disabled={selectedRows.length === 0}>
                             Печать этикеток
                         </Button>
+                        <Button onClick={handleReturnProduct} disabled={selectedRows.length === 0}>
+                            Возврат продукции
+                        </Button>
+                        <Button>Перераспределить сертификат</Button>
+
+                        <Button onClick={handleWorkCertificates}>Работа с сертификатами</Button>
                     </Flex>
                 )}
                 {showAdditionalButtons && (
