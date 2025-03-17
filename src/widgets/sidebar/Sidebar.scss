@@ -70,47 +70,12 @@
                 display: inline-block;
                 min-width: 16px;
                 min-height: 16px;
-                font-size: 16px; // Фиксированный размер
-            }
-
-            span {
-                margin-left: 10px;
-            }
-        }
-    }
-}
-
-.menu {
-    padding: 0;
-
-    li {
-        margin-bottom: 10px;
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            .icon {
-                display: inline-block;
-                min-width: 16px;
-                min-height: 16px;
                 color: black; // Фиксированный цвет
                 font-size: 16px; // Фиксированный размер
             }
-
-            span {
-                margin-left: 10px;
-            }
         }
     }
 }
-
-.menu {
-    padding: 0;
-}
-
-
 
 .menu li {
     margin-bottom: 10px;
