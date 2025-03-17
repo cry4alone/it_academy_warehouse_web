@@ -1,6 +1,6 @@
 import React from 'react';
-import User from "../shared/assets/User.svg";
-import '../app/styles/global.scss';
+import User from "@shared/assets/User.svg";
+import '@app/styles/global.scss';
 
 const Main = () => {
     return (

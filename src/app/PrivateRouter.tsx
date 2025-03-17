@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom' 
-import { useAuth } from "../contexts/Context"
+import { useAuth } from "@contexts/Context"
 
 const PrivateRouter = () => {
     const { user } = useAuth();

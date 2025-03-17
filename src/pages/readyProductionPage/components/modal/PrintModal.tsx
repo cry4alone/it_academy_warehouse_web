@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import Question from "../../../../shared/assets/Question Mark.svg";
+import Question from "@shared/assets/QuestionMark.svg";                                                                                                                                                 
 import './PrintModal.scss';
 
 interface PrintModalProps {

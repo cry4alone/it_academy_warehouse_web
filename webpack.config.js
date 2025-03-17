@@ -61,6 +61,7 @@ module.exports = {
             "@widgets": path.resolve(__dirname,'src/widgets'),
             "@contexts": path.resolve(__dirname,'src/contexts'),
             "@app": path.resolve(__dirname,'src/app'),
+            "@shared": path.resolve(__dirname,'src/shared'),
         }
     },
 };

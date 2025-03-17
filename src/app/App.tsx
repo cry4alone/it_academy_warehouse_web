@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Используем BrowserRouter
-import Layout from '../widgets/layout/Layout';
+import Layout from '@widgets/layout/Layout';
 import Auth from '@pages/authPage/Auth';
 import NotFoundPage from '@pages/NotFoundPage';
 import WorkInProgress from '@pages/workInProgressPage/WorkInProgress';

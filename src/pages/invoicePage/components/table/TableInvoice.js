@@ -1,37 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import axios from "axios";
+import React from "react";
 
-const TableInvoice = () => {
-    const [dataSource, setDataSource] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/invoice')
-        .then(response => {
-            setDataSource(response.data.map(item => ({ ...item, key: item.id })));
-        })
-        .catch(err => {
-            console.log('Error fetching data:', err);
-        })
-        .finally(
-            setLoading(false)
-        )
-        // const fetchData = async () => {
-        //     try {
-        //         const response = await fetch('http://localhost:3000/invoice');
-        //         const data = await response.json();
-        //         const certificates = data.map(item => ({ ...item, key: item.id }));
-        //         setDataSource(certificates);
-        //     } catch (error) {
-        //         console.error('Error fetching data:', error);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
-
-        // fetchData();
-    }, []);
+const TableInvoice = ({ dataSource }) => {
 
     const columns = [
         {
@@ -135,7 +105,6 @@ const TableInvoice = () => {
             dataSource={dataSource}
             columns={columns}
             scroll={{ x: 'max-content' }}
-            loading={loading}
         />
     );
 };

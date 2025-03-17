@@ -25,7 +25,7 @@ interface Item {
 }
 
 interface TableReadyProductionProps {
-    onSelectionChange: (selectedRowKeys: React.Key[]) => void;
+    onSelectionChange: (selectedRowKeys: React.Key[], selectedData: Item[] ) => void;
 }
 
 const TableReadyProduction: React.FC<TableReadyProductionProps> = ({ onSelectionChange }) => {

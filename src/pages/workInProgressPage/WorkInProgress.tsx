@@ -3,8 +3,8 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, notification } from 'antd';
 import TableWorkInProgress from './createCertificatePage/components/tables/TableWorkInProgress';
-import { ButtonContext } from '../../contexts/ButtonContext';
-import '../../app/styles/global.scss';
+import { ButtonContext } from '@contexts/ButtonContext';
+import '@app/styles/global.scss';
 
 function WorkInProgress() {
     const { showAdditionalButtons } = useContext(ButtonContext);
