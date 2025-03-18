@@ -1,13 +1,34 @@
-import { Table } from "antd";
-import React from "react";
+import { Table } from 'antd';
+import React, { useEffect} from 'react';
+import { useInvoiceContext, useDefaultPropsContext } from '../../Context';
+import { fetchInvoices } from '../../../api/fetchInvoices';
 
-const TableInvoice = ({ dataSource, onSelectionChange }) => {
+const TableInvoice = () => {
+    const invoices = useInvoiceContext();
+    const { setSelectedData, setSelectedRows, setInvoices } = useDefaultPropsContext();
+
+    const onSelectionChange = (NewSelectedRows, NewSelectedData) => {
+        setSelectedRows(NewSelectedRows);
+        setSelectedData(NewSelectedData);
+    };
+
+    useEffect(() => {
+        const loadInvoices = async () => {
+            try {
+                const data = await fetchInvoices();
+                setInvoices(data.map((item) => ({ ...item, key: item.id })));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        loadInvoices();
+    }, []);
 
     const columns = [
         {
-            title: "Автор",
-            dataIndex: "author",
-            key: "author",
+            title: 'Автор',
+            dataIndex: 'author',
+            key: 'author',
             filters: [
                 {
                     text: 'Шишкин Е. Н.',
@@ -33,9 +54,9 @@ const TableInvoice = ({ dataSource, onSelectionChange }) => {
             onFilter: (value, item) => item.signatory.includes(value),
         },
         {
-            title: "Куда",
-            dataIndex: "where",
-            key: "where",
+            title: 'Куда',
+            dataIndex: 'where',
+            key: 'where',
             filters: [
                 {
                     text: 'Склад ЛО-1',
@@ -53,9 +74,9 @@ const TableInvoice = ({ dataSource, onSelectionChange }) => {
             onFilter: (value, item) => item.warehouse.includes(value),
         },
         {
-            title: "Тип возврата",
-            dataIndex: "type",
-            key: "type",
+            title: 'Тип возврата',
+            dataIndex: 'type',
+            key: 'type',
             filters: [
                 {
                     text: 'Доработка',
@@ -64,14 +85,14 @@ const TableInvoice = ({ dataSource, onSelectionChange }) => {
                 {
                     text: 'Переплав',
                     value: 'Переплав',
-                }
+                },
             ],
             onFilter: (value, item) => item.controlScheme.includes(value),
         },
         {
-            title: "Причина возврата",
-            dataIndex: "reason",
-            key: "reason",
+            title: 'Причина возврата',
+            dataIndex: 'reason',
+            key: 'reason',
             filters: [
                 {
                     text: 'Невостребованная продукция',
@@ -80,30 +101,30 @@ const TableInvoice = ({ dataSource, onSelectionChange }) => {
                 {
                     text: 'Дефект',
                     value: 'Дефект',
-                }
+                },
             ],
             onFilter: (value, item) => item.controlScheme.includes(value),
         },
         {
-            title: "Дефекты",
-            dataIndex: "defect",
-            key: "defect"
+            title: 'Дефекты',
+            dataIndex: 'defect',
+            key: 'defect',
         },
         {
             title: 'Дата отчета',
             dataIndex: 'date',
             key: 'date',
             sorter: (a, b) => new Date(a.date) - new Date(b.date),
-        }
+        },
     ];
 
     return (
         <Table
             rowSelection={{
                 type: 'checkbox',
-                onChange: onSelectionChange
+                onChange: onSelectionChange,
             }}
-            dataSource={dataSource}
+            dataSource={invoices}
             columns={columns}
             scroll={{ x: 'max-content' }}
         />

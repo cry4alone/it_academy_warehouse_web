@@ -8,7 +8,7 @@ import WorkInProgress from '@pages/workInProgressPage/WorkInProgress';
 import ReadyProduction from '@pages/readyProductionPage/ReadyProduction';
 import Certificates from '@pages/certificatesPage/Certificates';
 import Shipment from '@pages/shipmentPage/Shipment';
-import Invoice from '@pages/invoicePage/Invoice';
+import Invoice from '@/pages/invoicePage/ui/Invoice';
 import Main from '@pages/Main';
 import CreateCertificate from '@pages/workInProgressPage/createCertificatePage/CreateCertificate';
 import PrivateRouter from './PrivateRouter';

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Modal, Form, Button, DatePicker, Select, Input } from 'antd';
-import { InvoiceData } from '../../types/invoiceTypes';
+import { createInvoice } from '../../../../api/createInvoice';
+import { InvoiceData } from '../../../../types/invoiceTypes';
+import { useDefaultPropsContext } from '../../../Context';
 
-// Интерфейс для входных данных (props)
 interface NewInvoiceModalProps {
-    handleOk: (values: InvoiceData) => void;
-    handleCancel: () => void;
     isVisible: boolean;
+    onClose: () => void;
 }
 
 const valuesWarehouse = [
@@ -15,8 +15,19 @@ const valuesWarehouse = [
     { value: 'Склад ЛО-3', label: 'Склад ЛО-3' },
 ];
 
-const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ handleOk, handleCancel, isVisible }) => {
+export const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ isVisible, onClose }) => {
     const [form] = Form.useForm();
+    const { setInvoices } = useDefaultPropsContext();
+
+    const handleOk = async (data: InvoiceData) => {
+        const newInvoice = await createInvoice(data);
+        setInvoices((prevInvoices: InvoiceData[]) => [...prevInvoices, { ...newInvoice, key: newInvoice.id }]);
+        onClose();
+    };
+
+    const handleCancel = () => {
+        onClose();
+    };
 
     const handleCreate = () => {
         form.validateFields()
@@ -38,7 +49,7 @@ const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ handleOk, handleCance
             title='Новая накладная'
             open={isVisible}
             onOk={handleCreate}
-            onCancel={handleCancel}
+            onCancel={onClose}
             footer={[
                 <Button key='cancel' onClick={handleCancel}>
                     Отмена
@@ -100,5 +111,3 @@ const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ handleOk, handleCance
         </Modal>
     );
 };
-
-export default NewInvoiceModal;
