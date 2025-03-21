@@ -11,6 +11,7 @@ import Shipment from '@pages/shipmentPage/Shipment';
 import Invoice from '@/pages/invoicePage/ui/Invoice';
 import Main from '@pages/Main';
 import CreateCertificate from '@pages/workInProgressPage/createCertificatePage/CreateCertificate';
+import Print from '@pages/printPage/ui/Print';
 import PrivateRouter from './PrivateRouter';
 import './styles/global.scss';
 
@@ -30,6 +31,7 @@ const App = () => {
                             <Route path='/documents/certificates' element={<Certificates />} />
                             <Route path='/documents/shipment' element={<Shipment />} />
                             <Route path='/documents/transfers' element={<Invoice />} />
+                            <Route path='print' element={<Print/>}/>
                             <Route path='*' element={<NotFoundPage />} />
                         </Route>
                     </Route>

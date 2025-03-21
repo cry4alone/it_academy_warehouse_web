@@ -15,7 +15,7 @@ const PrintModal: React.FC<PrintModalProps> = ({ isPrintModalOpen, handleCancel,
 
     const handleConfirmNavigation = () => {
         handleConfirm();
-        navigate('/print');
+        navigate('/Print');
     };
 
     return (

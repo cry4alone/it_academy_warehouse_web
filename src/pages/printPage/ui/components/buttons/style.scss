@@ -1,0 +1,9 @@
+.button-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Distribute items across the container */
+    align-items: center; /* Vertically align items in the center */
+    width: 10%; /* Ensure the container spans the full width */
+    padding: 0 37%; /* Add some padding for spacing (optional) */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+

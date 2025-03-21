@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useMemo } from 'react';
 
-//inteface user
+//interface user
 
 const Invoice = createContext<any>({} as any);
 const SelectedData = createContext<any>({} as any);
