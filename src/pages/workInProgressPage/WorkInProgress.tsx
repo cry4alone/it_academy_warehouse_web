@@ -1,62 +1,37 @@
-import React from 'react';
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, notification, Flex } from 'antd';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import TableWorkInProgress from './createCertificatePage/components/tables/TableWorkInProgress';
-import { ButtonContext } from '@contexts/ButtonContext';
 import '@app/styles/global.scss';
+import BtnHandMeasure from './components/buttons/BtnHandMeasure';
+import { ITableRow } from './types/workInProgressTypes';
 
 function WorkInProgress() {
-    const { showAdditionalButtons } = useContext(ButtonContext);
-    const navigate = useNavigate();
-    const [selectedRows, setSelectedRows] = useState([]);
+    const [selectedRows, setSelectedRows] = useState<ITableRow[]>([]);
+    const [dataSource, setDataSource] = useState<ITableRow[]>([]);
 
-    const handleMeasureProduct = () => {
-        if (selectedRows.length > 0) {
-            navigate('/handMeasure');
-        } else {
-            notification.error({
-                message: 'Error',
-                description: 'Пожалуйста, выберите хотя бы одно поле',
-            });
-        }
-    };
-
-    const handleCancel = () => {
-        notification.error({
-            message: 'Ошибка',
-            description: 'Действие отменено',
-        });
-    };
-    const handleCreateCertificate = () => {
-        navigate('create-certificate');
-    };
-
-    const handleAddSelectedItems = () => {
-        notification.success({
-            message: 'Success',
-            description: 'Выбранные позиции добавлены',
-        });
+    const updateDataSource = (updatedRows: ITableRow[]) => {
+        setDataSource((prevDataSource) =>
+            prevDataSource.map((item) => {
+                const updatedItem = updatedRows.find((row) => row.key === item.key);
+                return updatedItem ? { ...item, ...updatedItem } : item;
+            })
+        );
     };
 
     return (
         <>
             <div className="tab__title">Незавершённое производство</div>
-            <TableWorkInProgress onSelectionChange={setSelectedRows} />
-            <div className='button-container'>
-                {!showAdditionalButtons && (
-                    <>
-                        <Button onClick={handleMeasureProduct} disabled={selectedRows.length === 0}>Ручное взвешивание</Button>
-                        <Button  onClick={handleCancel}>Обработка накладных возврата</Button>
-                        <Button onClick={handleCreateCertificate}>Создание сертификата</Button>
-                    </>
-                )}
-                {showAdditionalButtons && (
-                    <>
-                        <Button >Отмена</Button>
-                        <Button type="primary" onClick={handleAddSelectedItems}>Добавить выбранные позиции</Button>
-                    </>
-                )}
+            <TableWorkInProgress
+                onSelectionChange={setSelectedRows}
+                dataSource={dataSource} 
+            />
+            <div className="button-container">
+                <BtnHandMeasure
+                    selectedRows={selectedRows}
+                    onSave={updateDataSource} 
+                />
+                <Button>Обработка накладных возврата</Button>
+                <Button>Создание сертификата</Button>
             </div>
         </>
     );
