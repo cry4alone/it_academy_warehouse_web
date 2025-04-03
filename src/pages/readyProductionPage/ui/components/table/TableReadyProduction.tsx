@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import axios from 'axios';
 import { ColumnsType } from 'antd/es/table';
+import { fetchReady } from '@/pages/readyProductionPage/api/fetchReady';
+import { useSelectedDataContext, useSelectedRowsContext } from '../../Context';
 
 interface Item {
     id: number;
@@ -18,29 +19,48 @@ interface Item {
     material: string;
     net: number;
     gross: number;
-    key?: number;
     package?: string;
     packageWeight?: number;
     comment?: string;
+    key?: number;
 }
 
-interface TableReadyProductionProps {
-    onSelectionChange: (selectedRowKeys: React.Key[], selectedData: Item[] ) => void;
-}
+const transformReadyDataToItem = (data: any): Item => {
+    return {
+        id: Number(data.id) || 0,
+        meltNumber: data.meltNumber,
+        packageNumber: Number(data.packageNumber),
+        date: data.date,
+        status: data.status,
+        length: Number(data.length),
+        specification: data.specification,
+        brand: data.brand,
+        certificateNumber: Number(data.certificateNumber),
+        section: Number(data.section),
+        controlScheme: data.controlScheme,
+        material: data.material,
+        net: Number(data.net),
+        gross: Number(data.gross),
+        package: undefined,
+        packageWeight: undefined,
+        comment: undefined,
+    };
+};
 
-const TableReadyProduction: React.FC<TableReadyProductionProps> = ({ onSelectionChange }) => {
+const TableReadyProduction: React.FC = () => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
+    const { setSelectedRows } = useSelectedRowsContext();
+    const { setSelectedData } = useSelectedDataContext();
 
     useEffect(() => {
-        axios
-            .get('http://localhost:3000/readyProduction')
-            .then((response) => {
-                const readyProduction = response.data.map((item: Item) => ({
+        fetchReady()
+            .then((readyProduction) => {
+                const formattedData = readyProduction.map(transformReadyDataToItem).map((item) => ({
                     ...item,
                     key: item.id,
                 }));
-                setDataSource(readyProduction);
+                setDataSource(formattedData);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -131,7 +151,10 @@ const TableReadyProduction: React.FC<TableReadyProductionProps> = ({ onSelection
         <Table
             rowSelection={{
                 type: 'checkbox',
-                onChange: onSelectionChange,
+                onChange: (selectedRowKeys, selectedRows) => {
+                    setSelectedRows(selectedRowKeys); 
+                    setSelectedData(selectedRows); 
+                },
             }}
             dataSource={dataSource}
             columns={columns}

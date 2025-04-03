@@ -4,16 +4,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Исполь
 import Layout from '@widgets/layout/Layout';
 import Auth from '@pages/authPage/Auth';
 import NotFoundPage from '@pages/NotFoundPage';
-import WorkInProgress from '@pages/workInProgressPage/WorkInProgress';
-import ReadyProduction from '@pages/readyProductionPage/ReadyProduction';
-import Certificates from '@pages/certificatesPage/Certificates';
-import Shipment from '@pages/shipmentPage/Shipment';
+import ReadyProduction from '@/pages/readyProductionPage/ui/ReadyProduction';
+import Certificates from '@/pages/certificatesPage/ui/Certificates';
+import Shipment from '@/pages/shipmentPage/ui/Shipment';
 import Invoice from '@/pages/invoicePage/ui/Invoice';
 import Main from '@pages/Main';
 import CreateCertificate from '@pages/workInProgressPage/createCertificatePage/CreateCertificate';
 import Print from '@pages/printPage/ui/Print';
 import PrivateRouter from './PrivateRouter';
 import './styles/global.scss';
+import WorkInProgress from '@/pages/workInProgressPage/WorkInProgress';
 
 const App = () => {
     {
