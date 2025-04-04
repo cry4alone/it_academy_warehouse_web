@@ -13,7 +13,7 @@
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
+        max-width: 450px;
         width: 100%;
 
         .input-field {
@@ -36,17 +36,17 @@
             margin: 0 0 5px;
         }
         div {
-            width: 90%;
-            height: 90%;
+            width: 95%;
+            height: 95%;
             margin-bottom: 15px;
             margin-top: 0px;
         }
         input {
             margin-top: 2px;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
         }
         button {
-            width: 90%;
+            width: 25%;
         }
     }
 }
