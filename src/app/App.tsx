@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Используем BrowserRouter
 import Layout from '@widgets/layout/Layout';
-import Auth from '@pages/authPage/Auth';
+import Auth from '@/pages/authPage/ui/Auth';
 import NotFoundPage from '@pages/NotFoundPage';
 import ReadyProduction from '@/pages/readyProductionPage/ui/ReadyProduction';
 import Certificates from '@/pages/certificatesPage/ui/Certificates';
