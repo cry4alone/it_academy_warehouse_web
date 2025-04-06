@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import TableWorkInProgress from './createCertificatePage/components/tables/TableWorkInProgress';
 import '@app/styles/global.scss';
 import BtnHandMeasure from './components/buttons/BtnHandMeasure';
@@ -8,7 +9,8 @@ import { ITableRow } from './types/workInProgressTypes';
 function WorkInProgress() {
     const [selectedRows, setSelectedRows] = useState<ITableRow[]>([]);
     const [dataSource, setDataSource] = useState<ITableRow[]>([]);
-
+    const navigate = useNavigate();
+    
     const updateDataSource = (updatedRows: ITableRow[]) => {
         setDataSource((prevDataSource) =>
             prevDataSource.map((item) => {
@@ -17,6 +19,12 @@ function WorkInProgress() {
             })
         );
     };
+
+    const handleCreateCertificate = () => {
+        navigate('/nzp/create-certificate');
+    }
+
+    
 
     return (
         <>
@@ -31,7 +39,7 @@ function WorkInProgress() {
                     onSave={updateDataSource} 
                 />
                 <Button>Обработка накладных возврата</Button>
-                <Button>Создание сертификата</Button>
+                <Button onClick={handleCreateCertificate}>Создание сертификата</Button>
             </div>
         </>
     );

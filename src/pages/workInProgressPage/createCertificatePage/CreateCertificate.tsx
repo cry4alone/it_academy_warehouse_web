@@ -2,7 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from 'antd';
 import CertificateModal from "./components/modals/CertificateModal";
-import TableCertificates from '@/pages/certificatesPage/ui/components/table/TableCertificates'; // может передвинуть в widgets так как используется в нескольких компонентах
+import TableCertificates from '@widgets/tables/TableCertificates';
+import { CertificateProvider } from '@pages/certificatesPage/ui/Context';
 
 
 const CreateCertificate = () => {
@@ -22,14 +23,16 @@ const CreateCertificate = () => {
 
     return (
         <>
-            <div className="tab__title">НЗП | Создание сертификата</div>
-            <TableCertificates />
-            <Button onClick={showCertificateModal}>Создать сертификат</Button>
-            <CertificateModal 
-                isCertificateModalVisible={isCertificateModalVisible}
-                handleOk={handleOk}
-                handleCancel={handleCancel}
-            />
+            <CertificateProvider>
+                <div className="tab__title">НЗП | Создание сертификата</div>
+                <TableCertificates />
+                <Button onClick={showCertificateModal}>Создать сертификат</Button>
+                <CertificateModal 
+                    isCertificateModalVisible={isCertificateModalVisible}
+                    handleOk={handleOk}
+                    handleCancel={handleCancel}
+                />
+            </CertificateProvider>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { useDefaultPropsContext } from '../../Context';
+import { useDefaultPropsContext } from '../../pages/certificatesPage/ui/Context';
 import { fetchCertificate } from "@/pages/certificatesPage/api/fetchCertificate";
 
 const TableCertificates = () => {

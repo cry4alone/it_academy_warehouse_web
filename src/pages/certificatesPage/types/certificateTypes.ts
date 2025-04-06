@@ -5,5 +5,5 @@ export interface ICertificateData {
     date: string;
     warehouse: string;
     signatory: string;
-    countPosition: string;
+    countPosition: number;
 }
