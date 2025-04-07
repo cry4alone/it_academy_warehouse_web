@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from 'antd';
 import CertificateModal from "./components/modals/CertificateModal";
-import TableCertificates from '@widgets/tables/TableCertificates';
+import TableCertificates from '@/pages/certificatesPage/ui/components/table/TableCertificates';
 import { CertificateProvider } from '@pages/certificatesPage/ui/Context';
 
 

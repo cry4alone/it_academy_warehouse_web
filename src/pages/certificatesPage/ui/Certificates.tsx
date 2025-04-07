@@ -1,5 +1,5 @@
 import React from 'react';
-import TableCertificates from '@widgets/tables/TableCertificates';
+import TableCertificates from './components/table/TableCertificates';
 import Buttons from './components/buttons/Buttons';
 import { CertificateProvider } from './Context';
 

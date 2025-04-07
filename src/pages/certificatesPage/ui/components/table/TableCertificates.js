@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Table } from "antd";
-import { useDefaultPropsContext } from '../../pages/certificatesPage/ui/Context';
-import { fetchCertificate } from "@/pages/certificatesPage/api/fetchCertificate";
+import React, { useEffect} from 'react';
+import { Table } from 'antd';
+import { useDefaultPropsContext, useCertificateContext } from '../../Context';
+import { fetchCertificate } from '@/pages/certificatesPage/api/fetchCertificate';
 
 const TableCertificates = () => {
-     const { certificates, setCertificates } = useDefaultPropsContext();
-        const [loading, setLoading] = useState(true);
-    
-        useEffect(() => {
-            const loadCertificates = async () => {
-                try {
-                    setLoading(true);
-                    const data = await fetchCertificate();
-                    setCertificates(data.map((item) => ({ ...item, key: item.id })));
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                } finally {
-                    setLoading(false); 
-                }
-            };
-            loadCertificates();
-        }, []);
+    const certificates  = useCertificateContext();
+    const { setSelectedData, setCertificates } = useDefaultPropsContext();
+
+    useEffect(() => {
+        const loadCertificates = async () => {
+            try {
+                const data = await fetchCertificate();
+                setCertificates(data.map((item) => ({ ...item, key: item.id })));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        loadCertificates();
+    }, []);
+
+    const handleSelectionChanged = (NewSelectedRows, NewSelectedData) => {
+        setSelectedData(NewSelectedData);
+    };
 
     const columns = [
         {
-            title: "№ сертификата",
-            dataIndex: "certificateNumber",
-            key: "certificateNumber",
+            title: '№ сертификата',
+            dataIndex: 'certificateNumber',
+            key: 'certificateNumber',
             sorter: (a, b) => a.certificateNumber - b.certificateNumber,
         },
         {
-            title: "Схема контроля",
-            dataIndex: "controlScheme",
-            key: "controlScheme",
+            title: 'Схема контроля',
+            dataIndex: 'controlScheme',
+            key: 'controlScheme',
             filters: [
                 {
                     text: 'ГОСТ 11069-2024',
@@ -50,15 +51,15 @@ const TableCertificates = () => {
             onFilter: (value, item) => item.controlScheme.includes(value),
         },
         {
-            title: "Дата",
-            dataIndex: "date",
-            key: "date",
+            title: 'Дата',
+            dataIndex: 'date',
+            key: 'date',
             sorter: (a, b) => new Date(a.date) - new Date(b.date),
         },
         {
-            title: "Склад",
-            dataIndex: "warehouse",
-            key: "warehouse",
+            title: 'Склад',
+            dataIndex: 'warehouse',
+            key: 'warehouse',
             filters: [
                 {
                     text: 'Склад ГП-1',
@@ -76,9 +77,9 @@ const TableCertificates = () => {
             onFilter: (value, item) => item.warehouse.includes(value),
         },
         {
-            title: "Подписант",
-            dataIndex: "signatory",
-            key: "signatory",
+            title: 'Подписант',
+            dataIndex: 'signatory',
+            key: 'signatory',
             filters: [
                 {
                     text: 'Шишкин Е. Н.',
@@ -104,9 +105,9 @@ const TableCertificates = () => {
             onFilter: (value, item) => item.signatory.includes(value),
         },
         {
-            title: "Количество позиций",
-            dataIndex: "countPosition",
-            key: "countPosition",
+            title: 'Количество позиций',
+            dataIndex: 'countPosition',
+            key: 'countPosition',
             sorter: (a, b) => a.countPosition - b.countPosition,
         },
     ];
@@ -115,11 +116,11 @@ const TableCertificates = () => {
         <Table
             rowSelection={{
                 type: 'checkbox',
+                onChange: handleSelectionChanged,
             }}
             dataSource={certificates}
             columns={columns}
             scroll={{ x: 'max-content' }}
-            loading={loading}
         />
     );
 };

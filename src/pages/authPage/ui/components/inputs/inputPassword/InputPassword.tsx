@@ -17,7 +17,6 @@ const InputPassword: React.FC<InputPasswordProps> = ({ placeholder, value, onCha
             onChange={onChange}
             required={required}
             autoComplete='current-password'
-            style={{ borderColor }}
         />
     );
 };

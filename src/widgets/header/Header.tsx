@@ -6,8 +6,6 @@ import DropdownMenu from './components/dropdownmenu/DropdownMenu';
 
 function Header() {
     const { user } = useAuth();
-    console.log('User in Header:', user);
-
     return (
         <header className='header'>
             <div className='header__logo'>

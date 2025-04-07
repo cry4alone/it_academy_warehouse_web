@@ -18,7 +18,7 @@ const BtnCheckPackage = () => {
     };
     return (
         <>
-            <Button type='primary' onClick={showPackageModal}>
+            <Button onClick={showPackageModal}>
                 Проверка упаковки
             </Button>
             <PackageModal

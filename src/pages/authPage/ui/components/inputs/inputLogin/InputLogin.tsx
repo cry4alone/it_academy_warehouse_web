@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 interface InputLoginProps {
     placeholder: string;
@@ -16,6 +17,7 @@ const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value, onChange, r
             onChange={onChange}
             required={required}
             autoComplete='username'
+            suffix={<UserOutlined />}
         />
     );
 };

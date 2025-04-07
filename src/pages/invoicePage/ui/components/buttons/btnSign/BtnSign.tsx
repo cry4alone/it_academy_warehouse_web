@@ -24,6 +24,7 @@ const BtnSign = () => {
             });
             return;
         }
+        
         signInvoice(selectedData, selectedItems);
         notification.success({
             message: 'Success',

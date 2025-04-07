@@ -18,7 +18,7 @@ const BtnCheckControl = () => {
 
     return (
         <>
-            <Button type='primary' onClick={showControlSchemeModal}>
+            <Button onClick={showControlSchemeModal}>
                 Проверка схемы контроля
             </Button>
             <ControlSchemeModal

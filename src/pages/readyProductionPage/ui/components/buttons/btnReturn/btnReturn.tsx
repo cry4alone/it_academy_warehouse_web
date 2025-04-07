@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelectedDataContext } from '../../../Context';
 
 const BtnReturn: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { selectedData } = useSelectedDataContext();
 
     const handleReturnProduct = () => {
@@ -14,7 +15,7 @@ const BtnReturn: React.FC = () => {
         }
 
         navigate('/documents/transfers', {
-            state: { selectedData },
+            state: { data: selectedData, from: location },
         });
     };
 
