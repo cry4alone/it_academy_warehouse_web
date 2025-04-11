@@ -41,10 +41,14 @@
         }
 
         .submenu {
-            position: absolute; 
-            left: 10px; 
-            top: 0; 
-            display: none; 
+            position: absolute;
+            left: 50px; // Смещаем подменю вправо от иконки
+            top: 0;
+            background-color: white; // Фон подменю
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); // Тень для визуального выделения
+            z-index: 10; // Чтобы подменю было поверх других элементов
+            padding: 10px;
+            border-radius: 4px;
         }
         
         .div__documents:hover + .submenu,
@@ -84,7 +88,7 @@
 .div__documents {
     display: flex;
     gap: 10px;
-    position: relative; /* Добавляем относительное позиционирование */
+    position: relative;
 
     > :last-child {
         margin-left: auto; 

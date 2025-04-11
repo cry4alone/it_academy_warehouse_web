@@ -6,6 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.js',
+        publicPath: '/',
     },
 
     plugins: [
@@ -17,6 +18,8 @@ module.exports = {
     devServer: {
         port: 8080,
         historyApiFallback: true,
+        hot: true, 
+        open: true, 
     },
 
     module: {
@@ -51,17 +54,22 @@ module.exports = {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
+
+            {
+                test: /\.(ttf|woff|woff2|eot)$/,
+                type: 'asset/resource',
+            },
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            "@": path.resolve(__dirname, 'src'),
-            "@pages": path.resolve(__dirname,'src/pages'),
-            "@widgets": path.resolve(__dirname,'src/widgets'),
-            "@contexts": path.resolve(__dirname,'src/contexts'),
-            "@app": path.resolve(__dirname,'src/app'),
-            "@shared": path.resolve(__dirname,'src/shared'),
-        }
+            '@': path.resolve(__dirname, 'src'),
+            '@pages': path.resolve(__dirname, 'src/pages'),
+            '@widgets': path.resolve(__dirname, 'src/widgets'),
+            '@contexts': path.resolve(__dirname, 'src/contexts'),
+            '@app': path.resolve(__dirname, 'src/app'),
+            '@shared': path.resolve(__dirname, 'src/shared'),
+        },
     },
 };

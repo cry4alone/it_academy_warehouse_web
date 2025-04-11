@@ -7,7 +7,7 @@ import { HomeOutlined, FileOutlined, ExceptionOutlined, FileDoneOutlined, MenuOu
 function Sidebar() {
     const [isDocumentsOpen, setIsDocumentsOpen] = useState(false); // Состояние для отображения подменю
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(false); // Состояние для отображения меню
-
+    const [isHovered, setIsHovered] = useState(false); // Новое состояние для наведения
 
     const toggleDocumentsMenu = () => {
         setIsDocumentsOpen((prevState) => !prevState); // Переключаем состояние подменю
@@ -15,22 +15,23 @@ function Sidebar() {
 
     const toggleMenuCollapsed = () => {
         setIsMenuCollapsed((prevState) => !prevState);
-    }
+    };
 
     return (
         <aside className={`sidebar ${isMenuCollapsed ? "collapsed" : ""}`}>
             <nav>
                 <ul className='menu'>
-
                     <li>
-                        <button className='menu__button' onClick={toggleMenuCollapsed}><MenuOutlined /></button>
+                        <button className='menu__button' onClick={toggleMenuCollapsed}>
+                            <MenuOutlined />
+                        </button>
                     </li>
 
                     {/* Главная */}
                     <li>
                         <NavLink to='/home' className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                            <HomeOutlined className='icon' /> 
-                            <span>  Главная</span>
+                            <HomeOutlined className='icon' />
+                            <span>Главная</span>
                         </NavLink>
                     </li>
 
@@ -51,9 +52,12 @@ function Sidebar() {
                     </li>
 
                     {/* Документы */}
-                    <li>
+                    <li
+                        onMouseEnter={() => setIsHovered(true)} // При наведении
+                        onMouseLeave={() => setIsHovered(false)} // При уходе курсора
+                    >
                         <div
-                            className='nav-link' 
+                            className='nav-link'
                             onClick={toggleDocumentsMenu} // Обработчик клика для переключения подменю
                         >
                             <div className='div__documents'>
@@ -66,7 +70,7 @@ function Sidebar() {
                                 />
                             </div>
                         </div>
-                        {isDocumentsOpen && (
+                        {(isDocumentsOpen || (isMenuCollapsed && isHovered)) && (
                             <ul className={`submenu ${isMenuCollapsed ? "collapsed-submenu" : ""}`}>
                                 <li>
                                     <NavLink

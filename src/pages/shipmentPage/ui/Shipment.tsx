@@ -9,7 +9,7 @@ function Shipment() {
 
     return (
         <ShipmentProvider>
-            <div className="tab__title">Документы | Отгрузка</div>
+            <div className="tab__title">Документы / Отгрузка</div>
             <TableShipment  />
             <Buttons />
         </ShipmentProvider>
