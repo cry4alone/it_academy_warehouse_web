@@ -786,28 +786,6 @@
       "countPosition": 6,
       "certificates": 18,
       "supplies": "0305026492"
-    },
-    {
-      "id": "14",
-      "shipmentNumber": "53-029079",
-      "date": "2023-01-14",
-      "warehouseSender": "Склад ГП-2",
-      "signatory": "Иванов А. А.",
-      "totalWeight": 8700,
-      "countPosition": 8,
-      "certificates": 21,
-      "supplies": "0305026493"
-    },
-    {
-      "id": "15",
-      "shipmentNumber": "54-029080",
-      "date": "2023-01-15",
-      "warehouseSender": "Склад ГП-1",
-      "signatory": "Петров В. В.",
-      "totalWeight": 7400,
-      "countPosition": 5,
-      "certificates": 13,
-      "supplies": "0305026494"
     }
   ],
   "invoice": [

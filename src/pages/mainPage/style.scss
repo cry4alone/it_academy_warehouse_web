@@ -1,0 +1,36 @@
+.main-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 86vh;
+    font-family: 'Arial', sans-serif;
+
+    .main-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #666;
+        }
+    }
+}

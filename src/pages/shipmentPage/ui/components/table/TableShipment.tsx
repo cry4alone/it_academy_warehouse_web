@@ -7,7 +7,7 @@ import { IShipmentData } from '../../../types/shipmentTypes';
 
 const TableShipment = () => {
     const shipments = useShipmentContext();
-    const { setShipments } = useDefaultPropsContext();
+    const { setShipments, setSelectedData } = useDefaultPropsContext();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,11 +19,11 @@ const TableShipment = () => {
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         };
         loadShipments();
-    }, []);
+    }, [shipments]);
 
     const columns: ColumnsType<IShipmentData> = [
         {
@@ -95,6 +95,9 @@ const TableShipment = () => {
         <Table
             rowSelection={{
                 type: 'checkbox',
+                onChange: (selectedRowKeys, selectedRows) => {
+                    setSelectedData(selectedRows);
+                },
             }}
             dataSource={shipments}
             columns={columns}

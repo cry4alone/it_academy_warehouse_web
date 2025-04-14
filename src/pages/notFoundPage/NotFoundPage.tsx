@@ -1,9 +1,11 @@
 import React from 'react';
+import { Typography } from 'antd';
 
 const NotFoundPage = () => {
+    const { Title } = Typography;
   return (
     <div className='pageNotFound'>
-      <h1>404 - Страница не найдена</h1>
+      <Title>404 - Страница не найдена</Title>
     </div>
   );
 };
