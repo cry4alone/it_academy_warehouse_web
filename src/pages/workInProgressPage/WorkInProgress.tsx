@@ -39,7 +39,7 @@ function WorkInProgress() {
                     onSave={updateDataSource} 
                 />
                 <Button>Обработка накладных возврата</Button>
-                <Button onClick={handleCreateCertificate}>Создание сертификата</Button>
+                <Button type='primary' onClick={handleCreateCertificate}>Создание сертификата</Button>
             </div>
         </>
     );

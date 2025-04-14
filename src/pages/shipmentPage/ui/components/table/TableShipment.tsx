@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import { useDefaultPropsContext } from '../../Context';
-import { fetchShipment } from "@/pages/shipmentPage/api/fetchShipment";
+import { ColumnsType } from 'antd/es/table';
+import { useDefaultPropsContext, useShipmentContext } from '../../Context';
+import { fetchShipment } from '@/pages/shipmentPage/api/fetchShipment';
+import { IShipmentData } from '../../../types/shipmentTypes';
 
 const TableShipment = () => {
-    const { shipments, setShipments } = useDefaultPropsContext();
+    const shipments = useShipmentContext();
+    const { setShipments } = useDefaultPropsContext();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,7 +25,7 @@ const TableShipment = () => {
         loadShipments();
     }, []);
 
-    const columns = [
+    const columns: ColumnsType<IShipmentData> = [
         {
             title: '№ отгрузки',
             dataIndex: 'shipmentNumber',
@@ -32,7 +35,7 @@ const TableShipment = () => {
             title: 'Дата',
             dataIndex: 'date',
             key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
+            sorter: (a, b) => new Date(a.date).getDate() - new Date(b.date).getDate(),
         },
         {
             title: 'Склад отправитель',
@@ -44,7 +47,7 @@ const TableShipment = () => {
                 { text: 'Склад ГП-3', value: 'Склад ГП-3' },
                 { text: 'Склад ГП-4', value: 'Склад ГП-4' },
             ],
-            onFilter: (value, item) => item.warehouseSender.includes(value),
+            onFilter: (value, item) => item.warehouseSender.includes(String(value)),
         },
         {
             title: 'Подписант',
@@ -55,19 +58,19 @@ const TableShipment = () => {
                 { text: 'Смирнов М. М.', value: 'Смирнов М. М.' },
                 { text: 'Сидоров С. С.', value: 'Сидоров С. С.' },
             ],
-            onFilter: (value, item) => item.signatory.includes(value),
+            onFilter: (value, item) => item.signatory.includes(String(value)),
         },
         {
             title: 'Общий вес',
             dataIndex: 'totalWeight',
             key: 'totalWeight',
-            sorter: (a, b) => a.totalWeight - b.totalWeight,
+            sorter: (a, b) => Number(a.totalWeight) - Number(b.totalWeight),
         },
         {
             title: 'Количество позиций',
             dataIndex: 'countPosition',
             key: 'countPosition',
-            sorter: (a, b) => a.countPosition - b.countPosition,
+            sorter: (a, b) => Number(a.countPosition) - Number(b.countPosition),
             filters: [
                 { text: 5, value: 5 },
                 { text: 7, value: 7 },
@@ -79,7 +82,7 @@ const TableShipment = () => {
             title: 'Сертификаты',
             dataIndex: 'certificates',
             key: 'certificates',
-            sorter: (a, b) => a.certificates - b.certificates,
+            sorter: (a, b) => Number(a.certificates) - Number(b.certificates),
         },
         {
             title: 'Поставки',

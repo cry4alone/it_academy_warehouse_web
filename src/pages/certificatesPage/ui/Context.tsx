@@ -1,8 +1,17 @@
 import React, { createContext, useState, useContext, useMemo } from 'react';
+import '../types/certificateTypes'
+import { ICertificateData } from '../types/certificateTypes';
 
-const Certificate = createContext<any>({} as any);
-const SelectedData = createContext<any>({} as any);
-const DefaultProps = createContext<any>({} as any);
+
+const Certificate = createContext<ICertificateData[] | undefined>(undefined);
+const SelectedData = createContext<ICertificateData[] | undefined>(undefined);
+
+interface IDefaultProps {
+    setCertificates: React.Dispatch<React.SetStateAction<ICertificateData[]>>;
+    setSelectedData: React.Dispatch<React.SetStateAction<ICertificateData[]>>;
+}
+
+const DefaultProps = createContext<IDefaultProps | undefined>(undefined);
 
 interface IProps {
     children: React.ReactNode;
@@ -10,8 +19,8 @@ interface IProps {
 
 export const CertificateProvider = (props: IProps) => {
     const { children } = props;
-    const [certificates, setCertificates] = useState<any[]>([]);
-    const [selectedData, setSelectedData] = useState<any[]>([]);
+    const [certificates, setCertificates] = useState<ICertificateData[]>([]);
+    const [selectedData, setSelectedData] = useState<ICertificateData[]>([]);
 
     const defaultProps = useMemo(
         () => ({
@@ -31,6 +40,20 @@ export const CertificateProvider = (props: IProps) => {
 };
 
 
-export const useCertificateContext = () => useContext(Certificate);
-export const useSelectedDataContext = () => useContext(SelectedData);
-export const useDefaultPropsContext = () => useContext(DefaultProps);
+export const useCertificateContext = () => {
+    const certificates = useContext(Certificate);
+    if (!certificates) throw new Error('useCertificateContext must be used within a CertificateProvider');
+    return certificates;
+};
+export const useSelectedDataContext = () => {
+    const selectedData = useContext(SelectedData);
+    if (!selectedData) throw new Error('useSelectedDataContext must be used within a CertificateProvider');
+    return selectedData;
+};
+export const useDefaultPropsContext = (): IDefaultProps => {
+    const context = useContext(DefaultProps);
+    if (!context) {
+        throw new Error('useDefaultPropsContext must be used within an InvoiceProvider');
+    }
+    return context;
+};

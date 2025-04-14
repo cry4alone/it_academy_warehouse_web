@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { fetchReady } from '@/pages/readyProductionPage/api/fetchReady';
-import { useSelectedDataContext, useSelectedRowsContext } from '../../Context';
+import { useDefaultPropsContext } from '../../Context';
 
 interface Item {
     id: number;
@@ -29,7 +29,7 @@ const transformReadyDataToItem = (data: any): Item => {
     return {
         id: Number(data.id) || 0,
         meltNumber: data.meltNumber,
-        packageNumber: Number(data.packageNumber),
+        packageNumber: data.packageNumber,
         date: data.date,
         status: data.status,
         length: Number(data.length),
@@ -50,8 +50,7 @@ const transformReadyDataToItem = (data: any): Item => {
 const TableReadyProduction: React.FC = () => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
-    const { setSelectedRows } = useSelectedRowsContext();
-    const { setSelectedData } = useSelectedDataContext();
+    const { setSelectedRows, setSelectedData } = useDefaultPropsContext();
 
     useEffect(() => {
         fetchReady()

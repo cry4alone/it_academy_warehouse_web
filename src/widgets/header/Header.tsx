@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '@shared/assets/Rusal.svg';
 import './header.scss';
-import { useAuth } from '@/contexts/Context';
+import { useAuth } from '@/contexts/AuthContext';
 import DropdownMenu from './components/dropdownmenu/DropdownMenu';
 
 function Header() {

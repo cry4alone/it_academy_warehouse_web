@@ -1,7 +1,7 @@
 //import axios from "axios"
-import { InvoiceData } from "../types/invoiceTypes";
+import { IInvoiceData } from "../types/invoiceTypes";
 
-export const signInvoice = async (invoice: InvoiceData[], items: any[] ) => {
+export const signInvoice = async (invoice: IInvoiceData[], items: any[] ) => {
     console.log(invoice);
     console.log(items);
     //logic for api call here

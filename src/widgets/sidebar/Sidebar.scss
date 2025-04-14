@@ -43,7 +43,6 @@
         .submenu {
             position: absolute;
             left: 50px; // Смещаем подменю вправо от иконки
-            top: 0;
             background-color: white; // Фон подменю
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); // Тень для визуального выделения
             z-index: 10; // Чтобы подменю было поверх других элементов

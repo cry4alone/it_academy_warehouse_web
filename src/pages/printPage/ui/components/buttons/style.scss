@@ -3,7 +3,7 @@
     justify-content: center; /* Distribute items across the container */
     gap: 15px;
     align-items: center; /* Vertically align items in the center */
-    width: 100%; /* Ensure the container spans the full width */
+    max-width: 100%; /* Ensure the container spans the full width */
     box-sizing: border-box; /* Ensure padding doesn't affect the width */
 }
 

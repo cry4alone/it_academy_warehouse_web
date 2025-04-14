@@ -1,7 +1,7 @@
 import React from 'react';
 import User from '@shared/assets/User.svg';
 import '@app/styles/global.scss';
-import { useAuth } from '@/contexts/Context';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Main = () => {
     const { user } = useAuth();

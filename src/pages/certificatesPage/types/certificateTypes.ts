@@ -1,6 +1,6 @@
 export interface ICertificateData {
     id?: string;
-    certificateNumber: string;
+    certificateNumber: number;
     controlScheme: string;
     date: string;
     warehouse: string;

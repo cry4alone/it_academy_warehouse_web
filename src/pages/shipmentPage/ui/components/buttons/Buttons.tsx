@@ -8,8 +8,8 @@ const Buttons = () => {
     return (
         <div className='button-container'>
             <BtnCancel />
-            <BtnSign />
             <BtnSave />
+            <BtnSign />
         </div>
     );
 };

@@ -7,7 +7,7 @@ import { signInvoice } from '../../../../api/signInvoice';
 const BtnSign = () => {
     const selectedData = useSelectedDataContext();
     const location = useLocation();
-    const selectedItems = location.state?.selectedData || {};
+    const selectedItems = location.state?.data || {};
 
     const handleSign = () => {
         if (selectedData.length === 0) {

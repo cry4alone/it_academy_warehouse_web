@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/Context';
+import { useAuth } from '@/contexts/AuthContext';
 import '@/pages/authPage/ui/style.scss';
 import { fetchUsers } from '@/pages/authPage/api/fetchUsers';
 import Inputs from '../inputs/Inputs';

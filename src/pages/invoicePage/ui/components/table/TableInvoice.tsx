@@ -1,5 +1,8 @@
 import { Table } from 'antd';
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { ColumnsType } from 'antd/es/table';
+import { RowSelectMethod } from 'antd/es/table/interface';
+import { IInvoiceData } from '../../../types/invoiceTypes';
 import { useInvoiceContext, useDefaultPropsContext } from '../../Context';
 import { fetchInvoices } from '../../../api/fetchInvoices';
 
@@ -7,9 +10,13 @@ const TableInvoice = () => {
     const invoices = useInvoiceContext();
     const { setSelectedData, setSelectedRows, setInvoices } = useDefaultPropsContext();
 
-    const onSelectionChange = (NewSelectedRows, NewSelectedData) => {
-        setSelectedRows(NewSelectedRows);
-        setSelectedData(NewSelectedData);
+    const handleSelectionChanged = (
+        selectedRowKeys: React.Key[],
+        selectedRows: IInvoiceData[],
+        info: { type: RowSelectMethod }
+    ) => {
+        setSelectedData(selectedRows);
+        setSelectedRows(selectedRowKeys);
     };
 
     useEffect(() => {
@@ -24,7 +31,7 @@ const TableInvoice = () => {
         loadInvoices();
     }, []);
 
-    const columns = [
+    const columns: ColumnsType<IInvoiceData> = [
         {
             title: 'Автор',
             dataIndex: 'author',
@@ -51,7 +58,7 @@ const TableInvoice = () => {
                     value: 'Смирнов О. Д.',
                 },
             ],
-            onFilter: (value, item) => item.signatory.includes(value),
+            onFilter: (value, item) => item.author.includes(String(value)),
         },
         {
             title: 'Куда',
@@ -71,7 +78,7 @@ const TableInvoice = () => {
                     value: 'Склад ЛО-3',
                 },
             ],
-            onFilter: (value, item) => item.warehouse.includes(value),
+            onFilter: (value, item) => item.warehouse.includes(String(value)),
         },
         {
             title: 'Тип возврата',
@@ -87,7 +94,7 @@ const TableInvoice = () => {
                     value: 'Переплав',
                 },
             ],
-            onFilter: (value, item) => item.controlScheme.includes(value),
+            onFilter: (value, item) => item.type.includes(String(value)),
         },
         {
             title: 'Причина возврата',
@@ -103,7 +110,7 @@ const TableInvoice = () => {
                     value: 'Дефект',
                 },
             ],
-            onFilter: (value, item) => item.controlScheme.includes(value),
+            onFilter: (value, item) => item.returnReason.includes(String(value)),
         },
         {
             title: 'Дефекты',
@@ -114,7 +121,7 @@ const TableInvoice = () => {
             title: 'Дата отчета',
             dataIndex: 'date',
             key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
+            sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         },
     ];
 
@@ -122,7 +129,7 @@ const TableInvoice = () => {
         <Table
             rowSelection={{
                 type: 'checkbox',
-                onChange: onSelectionChange,
+                onChange: handleSelectionChanged,
             }}
             dataSource={invoices}
             columns={columns}

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { InvoiceData } from '../types/invoiceTypes';
+import { IInvoiceData } from '../types/invoiceTypes';
 
-export const createInvoice = async (data: InvoiceData) => {
+export const createInvoice = async (data: IInvoiceData) => {
     try {
         const response = await axios.post('http://localhost:3000/invoice', data);
         return response.data;

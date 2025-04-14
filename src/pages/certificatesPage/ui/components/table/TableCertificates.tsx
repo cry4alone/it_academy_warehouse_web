@@ -1,7 +1,10 @@
 import React, { useEffect} from 'react';
 import { Table } from 'antd';
+import { ColumnsType } from 'antd/es/table';
+import { RowSelectMethod } from 'antd/es/table/interface';
 import { useDefaultPropsContext, useCertificateContext } from '../../Context';
 import { fetchCertificate } from '@/pages/certificatesPage/api/fetchCertificate';
+import { ICertificateData } from '@/pages/certificatesPage/types/certificateTypes';
 
 const TableCertificates = () => {
     const certificates  = useCertificateContext();
@@ -19,11 +22,15 @@ const TableCertificates = () => {
         loadCertificates();
     }, []);
 
-    const handleSelectionChanged = (NewSelectedRows, NewSelectedData) => {
-        setSelectedData(NewSelectedData);
+    const handleSelectionChanged = (
+        selectedRowKeys: React.Key[],
+        selectedRows: ICertificateData[],
+        info: { type: RowSelectMethod }
+    ) => {
+        setSelectedData(selectedRows);
     };
 
-    const columns = [
+    const columns: ColumnsType<ICertificateData> = [
         {
             title: '№ сертификата',
             dataIndex: 'certificateNumber',
@@ -48,13 +55,13 @@ const TableCertificates = () => {
                     value: 'ГОСТ 11071-2024',
                 },
             ],
-            onFilter: (value, item) => item.controlScheme.includes(value),
+            onFilter: (value, item) => item.controlScheme.includes(String(value)),
         },
         {
             title: 'Дата',
             dataIndex: 'date',
             key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
+            sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         },
         {
             title: 'Склад',
@@ -74,7 +81,7 @@ const TableCertificates = () => {
                     value: 'Склад ГП-3',
                 },
             ],
-            onFilter: (value, item) => item.warehouse.includes(value),
+            onFilter: (value, item) => item.warehouse.includes(String(value)),
         },
         {
             title: 'Подписант',
@@ -102,7 +109,7 @@ const TableCertificates = () => {
                     value: 'Смирнов О. Д.',
                 },
             ],
-            onFilter: (value, item) => item.signatory.includes(value),
+            onFilter: (value, item) => item.signatory.includes(String(value)),
         },
         {
             title: 'Количество позиций',

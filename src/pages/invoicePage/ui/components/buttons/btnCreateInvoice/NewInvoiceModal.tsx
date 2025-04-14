@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Form, Button, DatePicker, Select, Input } from 'antd';
 import { createInvoice } from '../../../../api/createInvoice';
-import { InvoiceData } from '../../../../types/invoiceTypes';
+import { IInvoiceData } from '../../../../types/invoiceTypes';
 import { useDefaultPropsContext } from '../../../Context';
 
 interface NewInvoiceModalProps {
@@ -19,9 +19,9 @@ export const NewInvoiceModal: React.FC<NewInvoiceModalProps> = ({ isVisible, onC
     const [form] = Form.useForm();
     const { setInvoices } = useDefaultPropsContext();
 
-    const handleOk = async (data: InvoiceData) => {
+    const handleOk = async (data: IInvoiceData) => {
         const newInvoice = await createInvoice(data);
-        setInvoices((prevInvoices: InvoiceData[]) => [...prevInvoices, { ...newInvoice, key: newInvoice.id }]);
+        setInvoices((prevInvoices: IInvoiceData[]) => [...prevInvoices, { ...newInvoice, key: newInvoice.id }]);
         onClose();
     };
 

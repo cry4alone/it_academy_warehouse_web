@@ -6,6 +6,7 @@ import { ICertificateData } from '../../../../types/certificateTypes';
 
 const BtnPrintCertificate = () => {
     const SelectedData: ICertificateData[] = useSelectedDataContext();
+
     const handlePrint = () => {
         makePDF(SelectedData);
         notification.success({
@@ -14,7 +15,7 @@ const BtnPrintCertificate = () => {
         });
     };
 
-    return <Button onClick={handlePrint}>Печать сертификата</Button>;
+    return <Button type='primary' onClick={handlePrint}>Печать сертификата</Button>;
 };
 
 export default BtnPrintCertificate;

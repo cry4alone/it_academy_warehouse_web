@@ -75,14 +75,16 @@ html {
 
 .button-container {
     display: flex;
-    gap: 10px;
-    justify-content: center;
+    // gap: 10px;
+    justify-content: space-between;
 
-    .ant-btn {
-        border-radius: 4px;
-        font-size: 16px;
-    }
+    // .ant-btn {
+    //     border-radius: 4px;
+    //     font-size: 16px;
+    // }
     .ant-btn-primary {
-        margin-left: 40%;
+        margin-left: 10vw;
     }
 }
+
+

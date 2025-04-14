@@ -3,7 +3,7 @@ import { Button } from 'antd'
 
 const BtnSave = () => {
   return (
-    <Button type="primary">Сохранить</Button>
+    <Button>Сохранить</Button>
   )
 }
 

@@ -1,11 +1,16 @@
-import React, { createContext, useState, useContext, useMemo } from 'react';
+import React, { createContext, useState, useContext, useMemo, Key } from 'react';
+import { IInvoiceData } from '../types/invoiceTypes';
 
-//interface user
+interface IDefaultProps {
+    setInvoices: React.Dispatch<React.SetStateAction<IInvoiceData[]>>;
+    setSelectedRows: React.Dispatch<React.SetStateAction<Key[]>>;
+    setSelectedData: React.Dispatch<React.SetStateAction<IInvoiceData[]>>;
+}
 
-const Invoice = createContext<any>({} as any);
-const SelectedData = createContext<any>({} as any);
-const SelectedRows = createContext<any>({} as any);
-const DefaultProps = createContext<any>({} as any);
+const Invoice = createContext<IInvoiceData[] | undefined>(undefined);
+const SelectedData = createContext<IInvoiceData[] | undefined>(undefined);
+const SelectedRows = createContext<Key[] | undefined>(undefined);
+const DefaultProps = createContext<IDefaultProps | undefined>(undefined);
 
 interface IProps {
     children: React.ReactNode;
@@ -13,9 +18,10 @@ interface IProps {
 
 export const InvoiceProvider = (props: IProps) => {
     const { children } = props;
-    const [invoices, setInvoices] = useState<any[]>([]);
-    const [selectedRows, setSelectedRows] = useState<any>({});
-    const [selectedData, setSelectedData] = useState<any[]>([]);
+
+    const [invoices, setInvoices] = useState<IInvoiceData[]>([]);
+    const [selectedRows, setSelectedRows] = useState<Key[]>([]);
+    const [selectedData, setSelectedData] = useState<IInvoiceData[]>([]);
 
     const defaultProps = useMemo(
         () => ({
@@ -37,7 +43,34 @@ export const InvoiceProvider = (props: IProps) => {
     );
 };
 
-export const useInvoiceContext = () => useContext(Invoice);
-export const useSelectedDataContext = () => useContext(SelectedData);
-export const useSelectedRowsContext = () => useContext(SelectedRows);
-export const useDefaultPropsContext = () => useContext(DefaultProps);
+export const useInvoiceContext = (): IInvoiceData[] => {
+    const context = useContext(Invoice);
+    if (!context) {
+        throw new Error('useInvoiceContext must be used within an InvoiceProvider');
+    }
+    return context;
+};
+
+export const useSelectedDataContext = (): IInvoiceData[] => {
+    const context = useContext(SelectedData);
+    if (!context) {
+        throw new Error('useSelectedDataContext must be used within an InvoiceProvider');
+    }
+    return context;
+};
+
+export const useSelectedRowsContext = (): Key[] => {
+    const context = useContext(SelectedRows);
+    if (!context) {
+        throw new Error('useSelectedRowsContext must be used within an InvoiceProvider');
+    }
+    return context;
+};
+
+export const useDefaultPropsContext = (): IDefaultProps => {
+    const context = useContext(DefaultProps);
+    if (!context) {
+        throw new Error('useDefaultPropsContext must be used within an InvoiceProvider');
+    }
+    return context;
+};

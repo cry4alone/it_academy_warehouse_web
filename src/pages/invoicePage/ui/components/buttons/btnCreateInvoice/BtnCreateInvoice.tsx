@@ -14,7 +14,7 @@ const BtnCreateInvoice = () => {
 
     return (
         <>
-            <Button onClick={handleOpenModal}>Создать накладную</Button>
+            <Button type='primary' onClick={handleOpenModal}>Создать накладную</Button>
             <NewInvoiceModal
                 isVisible={isModalOpen}
                 onClose={handleCloseModal}

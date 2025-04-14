@@ -8,7 +8,7 @@ const BtnCertificate = () => {
     const handleWorkCertificates = () => {
         navigate('/documents/certificates');
     };
-    return <Button onClick={handleWorkCertificates}>Работа с сертификатами</Button>;
+    return <Button type="primary" onClick={handleWorkCertificates}>Работа с сертификатами</Button>;
 };
 
 export default BtnCertificate;

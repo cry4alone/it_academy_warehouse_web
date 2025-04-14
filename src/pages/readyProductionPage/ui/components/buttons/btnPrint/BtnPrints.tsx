@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { useSelectedRowsContext } from '../../../Context';
 
 const BtnPrints = () => {
-    const { selectedRows } = useSelectedRowsContext(); 
+    const selectedRows: string[] = useSelectedRowsContext(); 
     const [isPrintModalOpen, setIsPrintModalOpen] = React.useState<boolean>(false);
 
     const showPrintModal = () => {

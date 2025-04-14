@@ -1,7 +1,8 @@
-export interface InvoiceData {
+export interface IInvoiceData {
     id?: string;
+    author: string;
     warehouse: string;
-    returnType: string;
+    type: string;
     returnReason: string;
     defect: string;
     date: string;
