@@ -7,7 +7,7 @@
       "@app/*": ["src/app/*"],
       "@pages/*": ["src/pages/*"],
       "@widgets/*": ["src/widgets/*"],
-      "@contexts/*": ["src/contexts/*"],
+      "@contexts/*": ["src/app/contexts/*"],
       "@shared/*": ["src/shared/*"]
     },
     /* Projects */

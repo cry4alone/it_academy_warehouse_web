@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from '@app/App';
 import '@app/styles/global.scss';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from '@/app/contexts/AuthContext';
 
 const container = document.getElementById('root');
 
