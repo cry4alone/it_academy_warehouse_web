@@ -1033,5 +1033,17 @@
       "typeDelivery": "Морской транспорт",
       "idDelivary": 304874895
     }
-  ]
+  ],
+  "labels": [
+  {
+    "id": 1,
+    "name": "example-label",
+    "imageURL": "/shared/assets/label.svg"
+  },
+  {
+    "id": 2,
+    "name": "example-label2",
+    "imageURL": "/shared/assets/label2.svg"
+  }
+]
 }
