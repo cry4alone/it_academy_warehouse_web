@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { fetchReady } from '@/pages/ReadyProductionPage/api/fetchReady';
+import { fetchControlSchemes } from '../../api/fetchControlScheme';
 import { useDefaultPropsContext } from '../Context';
+import { DatePicker, AutoComplete, Input } from 'antd';
 
-interface Item {
+
+export interface Item {
     id: number;
     meltNumber: string;
     packageNumber: number;
@@ -25,7 +28,7 @@ interface Item {
     key?: number;
 }
 
-const transformReadyDataToItem = (data: any): Item => {
+export const transformReadyDataToItem = (data: any): Item => {
     return {
         id: Number(data.id) || 0,
         meltNumber: data.meltNumber,
@@ -51,15 +54,29 @@ const TableReadyProduction: React.FC = () => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
     const { setSelectedRows, setSelectedData } = useDefaultPropsContext();
+    const [DateFrom, setDateFrom] = useState<string | undefined>()
+    const [DateTo, setDateTo] = useState<string | undefined>()
+    const [controlSchemes, setControlSchemes] = useState<string[]>([]);
+    const [selectedScheme, setSelectedScheme] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchReady()
+        fetchControlSchemes().then(schemes => setControlSchemes(schemes));
+    }, []);
+
+
+    useEffect(() => {
+        console.log("фетчим данные", DateFrom, DateTo)
+        fetchReady({
+            dateFrom: DateFrom,
+            dateTo: DateTo
+        })
             .then((readyProduction) => {
                 const formattedData = readyProduction.map(transformReadyDataToItem).map((item) => ({
                     ...item,
                     key: item.id,
                 }));
                 setDataSource(formattedData);
+                console.log(dataSource)
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -67,7 +84,15 @@ const TableReadyProduction: React.FC = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [DateFrom,DateTo]);
+
+    const handleDateFromChange = (date: any, dateString: string | string[]) => {
+        setDateFrom(Array.isArray(dateString) ? dateString[0] : dateString);
+      };
+      
+      const handleDateToChange = (date: any, dateString: string | string[]) => {
+        setDateTo(Array.isArray(dateString) ? dateString[0] : dateString);
+      };
 
     const columns: ColumnsType<Item> = [
         {
@@ -147,19 +172,35 @@ const TableReadyProduction: React.FC = () => {
     ];
 
     return (
-        <Table
-            rowSelection={{
-                type: 'checkbox',
-                onChange: (selectedRowKeys, selectedRows) => {
-                    setSelectedRows(selectedRowKeys); 
-                    setSelectedData(selectedRows); 
-                },
-            }}
-            dataSource={dataSource}
-            columns={columns}
-            scroll={{ x: 'max-content' }}
-            loading={loading}
-        />
+        <>
+            <div className='filter'>
+            <DatePicker id="DateFrom" onChange={handleDateFromChange} /> -  <DatePicker id="DateTo" onChange={handleDateToChange} />
+            <AutoComplete
+                    style={{ width: 250 }}
+                    options={controlSchemes.map(scheme => ({ value: scheme }))}
+                    placeholder="Выберите схему контроля"
+                    filterOption={(inputValue, option) =>
+                        option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                    }
+                    onChange={(value) => setSelectedScheme(value || null)}
+                    allowClear
+                />
+            </div>
+           
+            <Table
+                rowSelection={{
+                    type: 'checkbox',
+                    onChange: (selectedRowKeys, selectedRows) => {
+                        setSelectedRows(selectedRowKeys); 
+                        setSelectedData(selectedRows); 
+                    },
+                }}
+                dataSource={dataSource}
+                columns={columns}
+                scroll={{ x: 'max-content' }}
+                loading={loading}
+            />
+        </>
     );
 };
 
