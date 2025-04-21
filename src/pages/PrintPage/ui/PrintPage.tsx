@@ -11,7 +11,6 @@ export const PrintPage = () => {
     return (
         <>
             <PrintProvider>
-                <div className='tab__title'>Печать этикеток</div>
                 <div className='main'>
                     <div className='left_container'>
                         <Cascaders />

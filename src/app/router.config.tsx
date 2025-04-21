@@ -14,17 +14,65 @@ interface RouteType {
     path: string;
     element: React.ReactElement;
     isPrivate?: boolean;
+    breadcrumb?: string;
 }
 
 export const routes: RouteType[] = [
-    { path: '/auth', element: <AuthPage /> },
-    { path: '/home', element: <MainPage /> },
-    { path: '/nzp', element: <WorkInProgressPage />, isPrivate: true },
-    { path: '/nzp/create-certificate', element: <CreateCertificate />, isPrivate: true },
-    { path: '/gp', element: <ReadyProductionPage />, isPrivate: true },
-    { path: '/documents/certificates', element: <CertificatesPage />, isPrivate: true },
-    { path: '/documents/shipment', element: <ShipmentPage />, isPrivate: true },
-    { path: '/documents/transfers', element: <InvoicePage />, isPrivate: true },
-    { path: '/print', element: <PrintPage />, isPrivate: true },
-    { path: '*', element: <NotFoundPage /> },
+    {
+        path: '/auth',
+        element: <AuthPage />,
+        breadcrumb: 'Авторизация', 
+    },
+    {
+        path: '/home',
+        element: <MainPage />,
+        breadcrumb: 'Главная',
+    },
+    {
+        path: '/nzp',
+        element: <WorkInProgressPage />,
+        isPrivate: true,
+        breadcrumb: 'НЗП',
+    },
+    {
+        path: '/nzp/create-certificate',
+        element: <CreateCertificate />,
+        isPrivate: true,
+        breadcrumb: 'Создание сертификата',
+    },
+    {
+        path: '/gp',
+        element: <ReadyProductionPage />,
+        isPrivate: true,
+        breadcrumb: 'Готовая продукция',
+    },
+    {
+        path: '/documents/certificates',
+        element: <CertificatesPage />,
+        isPrivate: true,
+        breadcrumb: 'Документы / Сертификаты',
+    },
+    {
+        path: '/documents/shipment',
+        element: <ShipmentPage />,
+        isPrivate: true,
+        breadcrumb: 'Документы / Отгрузка',
+    },
+    {
+        path: '/documents/transfers',
+        element: <InvoicePage />,
+        isPrivate: true,
+        breadcrumb: 'Документы / Перемещения',
+    },
+    {
+        path: '/print',
+        element: <PrintPage />,
+        isPrivate: true,
+        breadcrumb: 'Печать',
+    },
+    {
+        path: '*',
+        element: <NotFoundPage />,
+        breadcrumb: ' ',
+    },
 ];

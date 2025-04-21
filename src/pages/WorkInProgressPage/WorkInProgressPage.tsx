@@ -27,7 +27,6 @@ export const WorkInProgressPage = () => {
 
     return (
         <>
-            <div className="tab__title">Незавершённое производство</div>
             <TableWorkInProgress
                 onSelectionChange={setSelectedRows}
                 dataSource={dataSource} 

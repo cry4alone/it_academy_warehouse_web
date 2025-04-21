@@ -9,7 +9,6 @@ export const ShipmentPage = () => {
 
     return (
         <ShipmentProvider>
-            <div className="tab__title">Документы / Отгрузка</div>
             <TableShipment  />
             <Buttons />
         </ShipmentProvider>
