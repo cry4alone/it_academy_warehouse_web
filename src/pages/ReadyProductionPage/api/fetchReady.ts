@@ -17,7 +17,7 @@ export const fetchReady = async (params?: {
         (params?.dateFrom === undefined || item.date >= params.dateFrom) &&
         (params?.dateTo === undefined || item.date <= params.dateTo)
       );
-    if (params?.controlScheme !== undefined) {
+    if (params?.controlScheme !== undefined && params.controlScheme !== '') {
         filteredData = filteredData.filter((item : IReadyData) => 
             item.controlScheme.includes(params.controlScheme as string)
         );

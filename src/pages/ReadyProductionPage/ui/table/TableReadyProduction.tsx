@@ -56,8 +56,8 @@ const TableReadyProduction: React.FC = () => {
     const { setSelectedRows, setSelectedData } = useDefaultPropsContext();
     const [DateFrom, setDateFrom] = useState<string | undefined>()
     const [DateTo, setDateTo] = useState<string | undefined>()
-    const [controlSchemes, setControlSchemes] = useState<string[]>([]);
-    const [selectedScheme, setSelectedScheme] = useState<string | null>(null);
+    const [controlSchemes, setControlSchemes] = useState<string[] | undefined>([]);
+    const [selectedScheme, setSelectedScheme] = useState<string | undefined>();
 
     useEffect(() => {
         fetchControlSchemes().then(schemes => setControlSchemes(schemes));
@@ -65,10 +65,11 @@ const TableReadyProduction: React.FC = () => {
 
 
     useEffect(() => {
-        console.log("фетчим данные", DateFrom, DateTo)
+        console.log("фетчим данные", DateFrom, DateTo, selectedScheme)
         fetchReady({
             dateFrom: DateFrom,
-            dateTo: DateTo
+            dateTo: DateTo,
+            controlScheme: selectedScheme
         })
             .then((readyProduction) => {
                 const formattedData = readyProduction.map(transformReadyDataToItem).map((item) => ({
@@ -84,14 +85,14 @@ const TableReadyProduction: React.FC = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [DateFrom,DateTo]);
+    }, [DateFrom,DateTo, selectedScheme]);
 
     const handleDateFromChange = (date: any, dateString: string | string[]) => {
-        setDateFrom(Array.isArray(dateString) ? dateString[0] : dateString);
+        setDateFrom(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
       };
       
       const handleDateToChange = (date: any, dateString: string | string[]) => {
-        setDateTo(Array.isArray(dateString) ? dateString[0] : dateString);
+        setDateTo(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
       };
 
     const columns: ColumnsType<Item> = [
@@ -173,8 +174,10 @@ const TableReadyProduction: React.FC = () => {
 
     return (
         <>
-            <div className='filter'>
-            <DatePicker id="DateFrom" onChange={handleDateFromChange} /> -  <DatePicker id="DateTo" onChange={handleDateToChange} />
+            <div className='filter'  style={{ display: "flex", justifyContent: "space-between"  }}>
+            <div> Дата: 
+                От <DatePicker id="DateFrom" onChange={handleDateFromChange} /> - До <DatePicker id="DateTo" onChange={handleDateToChange} />
+            </div>
             <AutoComplete
                     style={{ width: 250 }}
                     options={controlSchemes.map(scheme => ({ value: scheme }))}
@@ -182,7 +185,9 @@ const TableReadyProduction: React.FC = () => {
                     filterOption={(inputValue, option) =>
                         option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                     }
-                    onChange={(value) => setSelectedScheme(value || null)}
+                    onChange={(value) => {setSelectedScheme(value); console.log(selectedScheme)}}
+                    onSelect={(value: string) => setSelectedScheme(value)} 
+                    onClear={() => setSelectedScheme('')}
                     allowClear
                 />
             </div>
