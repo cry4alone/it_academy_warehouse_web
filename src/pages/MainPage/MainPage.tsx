@@ -16,6 +16,8 @@ export const MainPage = () => {
                 <img src={User} alt='User Logo' />
                 <h1>Здравствуйте, {user?.name || 'Гость'}!</h1>
                 {user ? (
+                    <p>Выберите необходимый пункт меню слева.</p>
+                ) : (
                     <Button
                         type='primary'
                         onClick={() => {
@@ -24,8 +26,6 @@ export const MainPage = () => {
                     >
                         Авторизация
                     </Button>
-                ) : (
-                    <p>Выберите необходимый пункт меню слева.</p>
                 )}
             </div>
         </div>
