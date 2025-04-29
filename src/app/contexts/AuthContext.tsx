@@ -21,27 +21,3 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-// export default Context
-
-// import React from 'react';
-
-// const SelectionData = React.createReact<string>({} as string);
-
-// type IDefaultProps = {
-// 	setState: ISetState<string>
-// }
-// const DefaultProps = React.createReact<string>({} as string);
-
-// const [state, setState] = useState('');
-
-// const defaultProps = useMemo(() => ({
-// 	setState,
-// }), []);
-
-// <DefaultProps.Provider value={defaultProps}>
-// 	<SelectionData.Provider value={state}>
-// 		{children}
-// 	</SelectionData.Provider>
-// </DefaultProps.Provider>
-
-// export const useContextDefaultProps = React.useContext(defaultProps);
