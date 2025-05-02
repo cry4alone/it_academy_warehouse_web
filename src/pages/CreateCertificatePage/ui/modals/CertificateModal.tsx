@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Select, Input, InputNumber } from 'antd';
-import DelivaryModal from "./DeliveryModal";
-import ControlSchemeModal from "./ControlSchemeModal";
+import { DeliveryModal } from "./DeliveryModal";
+import { ControlSchemeModal } from "./ControlSchemeModal";
+import { CertificateModalProps } from '../../types/modalsProps';
 
 
-interface CertificateModalProps {
-    isCertificateModalVisible: boolean;
-    handleOk: () => void;
-    handleCancel: () => void
-}
-
-const CertificateModal: React.FC<CertificateModalProps> = ({isCertificateModalVisible, handleOk, handleCancel}) => {
+export const CertificateModal: React.FC<CertificateModalProps> = ({isCertificateModalVisible, handleOk, handleCancel}) => {
     
     // Для модульного окна поставки (DelivaryModal)
     const [isDelivaryModalVisible, setIsDeliveryModalVisible] = useState<boolean>(false);
@@ -94,7 +89,7 @@ const CertificateModal: React.FC<CertificateModalProps> = ({isCertificateModalVi
                     <InputNumber min={100}/>
                 </Form.Item>
             </Form>
-            <DelivaryModal 
+            <DeliveryModal 
                 isDelivaryModalVisible={isDelivaryModalVisible}
                 handleOk={handleOkDelivaryModal}    
                 handleCancel={handleCancelDelivaryModal}
@@ -109,5 +104,3 @@ const CertificateModal: React.FC<CertificateModalProps> = ({isCertificateModalVi
         </Modal>
     );
 };
-
-export default CertificateModal;

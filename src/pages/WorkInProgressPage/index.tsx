@@ -1,1 +1,1 @@
-export { WorkInProgressPage } from './WorkInProgressPage';
+export { WorkInProgressPage } from './ui/WorkInProgressPage';

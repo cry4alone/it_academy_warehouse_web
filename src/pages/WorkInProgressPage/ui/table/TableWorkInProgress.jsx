@@ -2,41 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Table, Tag } from 'antd';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { useWorkInProgressContext, useDefaultPropsContext } from '../Context';
 
-const TableWorkInProgress = ({ onSelectionChange, dataSource: initialDataSource }) => {
-    const [dataSource, setDataSource] = useState([]);
+
+const TableWorkInProgress = () => {
+    const workInProgress = useWorkInProgressContext();
+    const { setSelectedRows } = useDefaultPropsContext();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!initialDataSource || initialDataSource.length === 0) {
-            axios
-                .get('http://localhost:3000/workInProgress')
-                .then((response) => {
-                    const workInProgress = response.data.map((item) => ({
-                        ...item,
-                        key: item.id,
-                        isModified: false,
-                    }));
-                    setDataSource(workInProgress);
-                })
-                .catch((err) => {
-                    console.error('Error fetching data:', err);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        } else {
-            setDataSource(initialDataSource);
+        if (workInProgress !== null) {
             setLoading(false);
         }
-    }, [initialDataSource]);
 
-    useEffect(() => {
-        console.log('InitialDataSource updated:', initialDataSource);
-        if (initialDataSource && initialDataSource.length > 0) {
-            setDataSource(initialDataSource);
-        }
-    }, [initialDataSource]);
+    })
 
     const columns = [
         {
@@ -149,8 +128,8 @@ const TableWorkInProgress = ({ onSelectionChange, dataSource: initialDataSource 
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            if (onSelectionChange) {
-                onSelectionChange(selectedRows);
+            if (setSelectedRows) {
+                setSelectedRows(selectedRows);
             }
         },
     };
@@ -158,25 +137,12 @@ const TableWorkInProgress = ({ onSelectionChange, dataSource: initialDataSource 
     return (
         <Table
             rowSelection={rowSelection}
-            dataSource={dataSource}
+            dataSource={workInProgress}
             columns={columns}
             scroll={{ x: 'max-content' }}
             loading={loading}
         />
     );
-};
-
-TableWorkInProgress.propTypes = {
-    onSelectionChange: PropTypes.func.isRequired,
-    dataSource: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            meltNumber: PropTypes.string,
-            packageNumber: PropTypes.number,
-            net: PropTypes.number,
-            isModified: PropTypes.bool,
-        })
-    ),
 };
 
 export default TableWorkInProgress;

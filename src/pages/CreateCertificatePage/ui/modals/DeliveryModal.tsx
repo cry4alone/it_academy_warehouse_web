@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { Modal, Form, Input, Select, Button, InputNumber } from 'antd';
-import OrderTable from '../tables/OrderTable';
+import { OrderTable } from '../table/OrderTable';
+import { DelivaryModalProps } from '../../types/modalsProps';
 
 const { Option } = Select;
 
-interface DelivaryModalProps {
-    isDelivaryModalVisible: boolean;
-    handleOk: () => void;
-    handleCancel: () => void;
-    onSaveDelivary: (delivary: number ) => void;
-}
-
-const DeliveryModal: React.FC<DelivaryModalProps> = ({isDelivaryModalVisible, handleOk, handleCancel, onSaveDelivary}) => {
+export const DeliveryModal: React.FC<DelivaryModalProps> = ({isDelivaryModalVisible, handleOk, handleCancel, onSaveDelivary}) => {
 
     const [selectedRow, setSelectedRow] = useState<React.Key[]>([]);
     const [selectedRowData, setSelectedRowData] = useState<any>(null);
@@ -84,5 +78,3 @@ const DeliveryModal: React.FC<DelivaryModalProps> = ({isDelivaryModalVisible, ha
         </>
     );
 };
-
-export default DeliveryModal;
