@@ -2,25 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import axios from 'axios';
 import { ColumnsType } from 'antd/es/table';
+import { TableOrderProps, Item } from '../../types/tableProps';
 
 
-interface Item {
-    id: number;
-    idClient: number;
-    customer: string;
-    size?: string;
-    specification: string;
-    typeDelivery: string;
-    idDelivary: number;
-    
-}
-
-interface TableOrderProps {
-    selectedDeliveryNumber: number | null;
-    onSelectionChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => void;
-}
-
-const OrderTable: React.FC<TableOrderProps> = ({ selectedDeliveryNumber, onSelectionChange }) => {
+export const OrderTable: React.FC<TableOrderProps> = ({ selectedDeliveryNumber, onSelectionChange }) => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -95,5 +80,3 @@ const OrderTable: React.FC<TableOrderProps> = ({ selectedDeliveryNumber, onSelec
     );
 
 };
-
-export default OrderTable;

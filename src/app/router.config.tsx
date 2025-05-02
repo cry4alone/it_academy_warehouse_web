@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateCertificate from '@/pages/CreateCertificatePage/CreateCertificate';
+import { CreateCertificate } from '@/pages/CreateCertificatePage/ui/CreateCertificate';
 import { MainPage } from '@/pages/MainPage/MainPage';
 import { PrintPage } from '@/pages/PrintPage/';
 import { WorkInProgressPage } from '@/pages/WorkInProgressPage';
