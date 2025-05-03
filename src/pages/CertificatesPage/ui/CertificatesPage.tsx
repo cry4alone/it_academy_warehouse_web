@@ -6,7 +6,6 @@ import { CertificateProvider } from './Context';
 export const CertificatesPage = () => {
     return (
         <CertificateProvider>
-            <div className='tab__title'>Документы | Сертификат</div>
             <TableCertificates />
             <Buttons />
         </ CertificateProvider>

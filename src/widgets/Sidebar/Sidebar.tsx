@@ -4,7 +4,7 @@ import './Sidebar.scss';
 import Arrow from '../../shared/assets/Arrow.svg';
 import { HomeOutlined, FileOutlined, ExceptionOutlined, FileDoneOutlined, MenuOutlined } from '@ant-design/icons';
 
-function Sidebar() {
+export const Sidebar = () => {
     const [isDocumentsOpen, setIsDocumentsOpen] = useState(false); // Состояние для отображения подменю
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(false); // Состояние для отображения меню
     const [isHovered, setIsHovered] = useState(false); // Новое состояние для наведения
@@ -112,5 +112,3 @@ function Sidebar() {
         </aside>
     );
 }
-
-export default Sidebar;

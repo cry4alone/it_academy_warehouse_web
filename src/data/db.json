@@ -20,6 +20,13 @@
       "name": "Алексей",
       "surname": "Смирнов",
       "id": "c5a6"
+    },
+    {
+      "username": "user",
+      "password": "11111111",
+      "name": "Иван",
+      "surname": "Иванов",
+      "id": "c2a4"
     }
   ],
   "workInProgress": [
@@ -36,8 +43,9 @@
       "section": 1,
       "controlScheme": "ГОСТ 11059-2019",
       "material": "Жидкий",
-      "net": 700,
-      "gross": 800
+      "net": 710,
+      "gross": 800,
+      "isModified": true
     },
     {
       "id": "2",
@@ -52,8 +60,9 @@
       "section": 1,
       "controlScheme": "ГОСТ 11059-2019",
       "material": "Жидкий",
-      "net": 670,
-      "gross": 720
+      "net": 700,
+      "gross": 720,
+      "isModified": true
     },
     {
       "id": "3",
@@ -100,8 +109,9 @@
       "section": 2,
       "controlScheme": "ТУ 14-3-190-2004",
       "material": "Твёрдый",
-      "net": 640,
-      "gross": 680
+      "net": 647,
+      "gross": 680,
+      "isModified": true
     },
     {
       "id": "6",
@@ -1035,15 +1045,15 @@
     }
   ],
   "labels": [
-  {
-    "id": 1,
-    "name": "example-label",
-    "imageURL": "/shared/assets/label.svg"
-  },
-  {
-    "id": 2,
-    "name": "example-label2",
-    "imageURL": "/shared/assets/label2.svg"
-  }
-]
+    {
+      "id": "1",
+      "name": "example-label",
+      "imageURL": "/shared/assets/label.svg"
+    },
+    {
+      "id": "2",
+      "name": "example-label2",
+      "imageURL": "/shared/assets/label2.svg"
+    }
+  ]
 }

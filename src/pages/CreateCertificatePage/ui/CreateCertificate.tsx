@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button } from 'antd';
-import CertificateModal from "./components/modals/CertificateModal";
+import { CertificateModal } from "./modals/CertificateModal";
 import TableCertificates from '@/pages/CertificatesPage/ui/table/TableCertificates';
 import { CertificateProvider } from '@/pages/CertificatesPage/ui/Context';
 
 
-const CreateCertificate = () => {
+export const CreateCertificate = () => {
     const [isCertificateModalVisible, setIsCertificateModalVisible] = useState<boolean>(false);
 
     const showCertificateModal = () => {
@@ -24,7 +24,6 @@ const CreateCertificate = () => {
     return (
         <>
             <CertificateProvider>
-                <div className="tab__title">НЗП | Создание сертификата</div>
                 <TableCertificates />
                 <Button onClick={showCertificateModal}>Создать сертификат</Button>
                 <CertificateModal 
@@ -36,5 +35,3 @@ const CreateCertificate = () => {
         </>
     );
 };
-
-export default CreateCertificate;

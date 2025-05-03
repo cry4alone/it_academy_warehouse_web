@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, Form, Select, Button } from 'antd';
-
+import { ControlSchemeModalProps } from '../../types/modalsProps';
 
 const { Option } = Select;
 
-interface ControlSchemeModalProps {
-    isControlSchemeModalVisible: boolean;
-    handleOk: () => void;
-    handleCancel: () => void;
-    onSaveControlScheme: (controlScheme: string) => void;
-}
-
-const ControlSchemeModal: React.FC<ControlSchemeModalProps> = ({isControlSchemeModalVisible, handleOk, handleCancel, onSaveControlScheme }) => {
+export const ControlSchemeModal: React.FC<ControlSchemeModalProps> = ({isControlSchemeModalVisible, handleOk, handleCancel, onSaveControlScheme }) => {
     
     const [selectedStandard, setSelectedStandard] = useState<string | null>(null);
     const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
@@ -94,6 +87,4 @@ const ControlSchemeModal: React.FC<ControlSchemeModalProps> = ({isControlSchemeM
             </Modal>
         </>
     );
-}
-
-export default ControlSchemeModal;
+};
