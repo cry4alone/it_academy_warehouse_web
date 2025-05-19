@@ -20,7 +20,7 @@ const TableCertificates = () => {
             }
         };
         loadCertificates();
-    }, []);
+    }, [certificates]);
 
     const handleSelectionChanged = (
         selectedRowKeys: React.Key[],

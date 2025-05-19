@@ -180,7 +180,7 @@ const TableReadyProduction: React.FC = () => {
             </div>
             <AutoComplete
                     style={{ width: 250 }}
-                    options={controlSchemes.map(scheme => ({ value: scheme }))}
+                    options={controlSchemes?.map(scheme => ({ value: scheme }))}
                     placeholder="Выберите схему контроля"
                     filterOption={(inputValue, option) =>
                         option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
