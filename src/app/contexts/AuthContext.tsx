@@ -1,17 +1,21 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from 'react';
 
-//inteface user
+interface User {
+    id: string;
+    username: string;
+    password: string;
+    name: string;
+    surname: string;
+}
+interface AuthContextType {
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
 
-const AuthContext = createContext();
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  // const defaultProps = useMemo(
-  //   () => ({
-  //     setState,
-  //   }),
-  //   []
-  // );
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}
@@ -19,5 +23,10 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
-
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

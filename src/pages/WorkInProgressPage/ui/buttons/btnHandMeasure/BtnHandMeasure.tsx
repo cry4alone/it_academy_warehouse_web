@@ -5,7 +5,8 @@ import { useSelectedRowsContext } from '../../Context';
 
 
 const BtnHandMeasure = () => {
-    const selectedRows = useSelectedRowsContext();
+    const selectedRows = useSelectedRowsContext() || [];
+    console.log(selectedRows);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleCancel = () => {
@@ -28,6 +29,7 @@ const BtnHandMeasure = () => {
         <Button
             onClick={handleMeasureProduct}
             aria-label="Ручное взвешивание"
+            disabled={selectedRows.length === 0}
         >
             Ручное взвешивание
         </Button>

@@ -533,17 +533,8 @@
       "controlScheme": "ГОСТ 11069-2024",
       "date": "2024-05-02",
       "warehouse": "Склад ГП-2",
-      "signatory": "Кузнецов А. С.",
+      "signatory": "Алексей Петров",
       "countPosition": 6
-    },
-    {
-      "id": "3",
-      "certificateNumber": 221001432,
-      "controlScheme": "ГОСТ 11070-2024",
-      "date": "2024-05-03",
-      "warehouse": "Склад ГП-3",
-      "signatory": "Иванова М. И.",
-      "countPosition": 5
     },
     {
       "id": "4",
@@ -606,17 +597,6 @@
       "countPosition": 6,
       "certificates": 16,
       "supplies": "0305026488"
-    },
-    {
-      "id": "10",
-      "shipmentNumber": "49-029075",
-      "date": "2023-01-10",
-      "warehouseSender": "Склад ГП-3",
-      "signatory": "Орлов И. И.",
-      "totalWeight": 8500,
-      "countPosition": 7,
-      "certificates": 20,
-      "supplies": "0305026489"
     },
     {
       "id": "11",
@@ -993,6 +973,25 @@
       },
       "reason": "Несоответствие1",
       "revokedAt": "2025-05-19T10:35:44.815Z",
+      "revokedBy": "current_user"
+    },
+    {
+      "id": "2c14",
+      "shipmentNumber": "49-029075",
+      "originalData": {
+        "id": "10",
+        "shipmentNumber": "49-029075",
+        "date": "2023-01-10",
+        "warehouseSender": "Склад ГП-3",
+        "signatory": "Орлов И. И.",
+        "totalWeight": 8500,
+        "countPosition": 7,
+        "certificates": 20,
+        "supplies": "0305026489",
+        "key": "10"
+      },
+      "reason": "",
+      "revokedAt": "2025-05-26T14:36:06.092Z",
       "revokedBy": "current_user"
     }
   ]

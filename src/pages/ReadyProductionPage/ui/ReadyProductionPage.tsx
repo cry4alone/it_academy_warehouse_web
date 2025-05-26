@@ -9,7 +9,6 @@ import {Item} from "./table/TableReadyProduction"
 export const ReadyProductionPage = () => {
     return (
         <ReadyProvider>
-            <div className='tab__title'><p>Готовое производство</p></div>
             <TableReadyProduction />
             <Buttons />
         </ReadyProvider>

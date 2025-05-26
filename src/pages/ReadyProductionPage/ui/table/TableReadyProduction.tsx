@@ -6,7 +6,6 @@ import { fetchControlSchemes } from '../../api/fetchControlScheme';
 import { useDefaultPropsContext } from '../Context';
 import { DatePicker, AutoComplete, Input } from 'antd';
 
-
 export interface Item {
     id: number;
     meltNumber: string;
@@ -54,22 +53,21 @@ const TableReadyProduction: React.FC = () => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
     const { setSelectedRows, setSelectedData } = useDefaultPropsContext();
-    const [DateFrom, setDateFrom] = useState<string | undefined>()
-    const [DateTo, setDateTo] = useState<string | undefined>()
+    const [DateFrom, setDateFrom] = useState<string | undefined>();
+    const [DateTo, setDateTo] = useState<string | undefined>();
     const [controlSchemes, setControlSchemes] = useState<string[] | undefined>([]);
     const [selectedScheme, setSelectedScheme] = useState<string | undefined>();
 
     useEffect(() => {
-        fetchControlSchemes().then(schemes => setControlSchemes(schemes));
+        fetchControlSchemes().then((schemes) => setControlSchemes(schemes));
     }, []);
 
-
     useEffect(() => {
-        console.log("фетчим данные", DateFrom, DateTo, selectedScheme)
+        console.log('фетчим данные', DateFrom, DateTo, selectedScheme);
         fetchReady({
             dateFrom: DateFrom,
             dateTo: DateTo,
-            controlScheme: selectedScheme
+            controlScheme: selectedScheme,
         })
             .then((readyProduction) => {
                 const formattedData = readyProduction.map(transformReadyDataToItem).map((item) => ({
@@ -77,7 +75,7 @@ const TableReadyProduction: React.FC = () => {
                     key: item.id,
                 }));
                 setDataSource(formattedData);
-                console.log(dataSource)
+                console.log(dataSource);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -85,15 +83,15 @@ const TableReadyProduction: React.FC = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [DateFrom,DateTo, selectedScheme]);
+    }, [DateFrom, DateTo, selectedScheme]);
 
     const handleDateFromChange = (date: any, dateString: string | string[]) => {
         setDateFrom(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
-      };
-      
-      const handleDateToChange = (date: any, dateString: string | string[]) => {
+    };
+
+    const handleDateToChange = (date: any, dateString: string | string[]) => {
         setDateTo(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
-      };
+    };
 
     const columns: ColumnsType<Item> = [
         {
@@ -174,30 +172,34 @@ const TableReadyProduction: React.FC = () => {
 
     return (
         <>
-            <div className='filter'  style={{ display: "flex", justifyContent: "space-between"  }}>
-            <div> Дата: 
-                От <DatePicker id="DateFrom" onChange={handleDateFromChange} /> - До <DatePicker id="DateTo" onChange={handleDateToChange} />
-            </div>
-            <AutoComplete
+            <div className='filter' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                    Дата: От <DatePicker id='DateFrom' onChange={handleDateFromChange} /> - До{' '}
+                    <DatePicker id='DateTo' onChange={handleDateToChange} />
+                </div>
+                <AutoComplete
                     style={{ width: 250 }}
-                    options={controlSchemes?.map(scheme => ({ value: scheme }))}
-                    placeholder="Выберите схему контроля"
+                    options={controlSchemes?.map((scheme) => ({ value: scheme }))}
+                    placeholder='Выберите схему контроля'
                     filterOption={(inputValue, option) =>
                         option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                     }
-                    onChange={(value) => {setSelectedScheme(value); console.log(selectedScheme)}}
-                    onSelect={(value: string) => setSelectedScheme(value)} 
+                    onChange={(value) => {
+                        setSelectedScheme(value);
+                        console.log(selectedScheme);
+                    }}
+                    onSelect={(value: string) => setSelectedScheme(value)}
                     onClear={() => setSelectedScheme('')}
                     allowClear
                 />
             </div>
-           
+
             <Table
                 rowSelection={{
                     type: 'checkbox',
                     onChange: (selectedRowKeys, selectedRows) => {
-                        setSelectedRows(selectedRowKeys); 
-                        setSelectedData(selectedRows); 
+                        setSelectedRows(selectedRowKeys);
+                        setSelectedData(selectedRows);
                     },
                 }}
                 dataSource={dataSource}

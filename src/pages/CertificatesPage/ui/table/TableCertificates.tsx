@@ -1,26 +1,31 @@
-import React, { useEffect} from 'react';
-import { Table } from 'antd';
+import React, { useEffect } from 'react';
+import { Table, Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { RowSelectMethod } from 'antd/es/table/interface';
+import { EditOutlined } from '@ant-design/icons';
 import { useDefaultPropsContext, useCertificateContext } from '../Context';
 import { fetchCertificate } from '@/pages/CertificatesPage/api/fetchCertificate';
 import { ICertificateData } from '@/pages/CertificatesPage/types/certificateTypes';
+import { signCertificate } from '../../api/signCertificate';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 const TableCertificates = () => {
-    const certificates  = useCertificateContext();
+    const certificates = useCertificateContext();
     const { setSelectedData, setCertificates } = useDefaultPropsContext();
+    const { user } = useAuth();
+
+    const loadCertificates = async () => {
+        try {
+            const data = await fetchCertificate();
+            setCertificates(data.map((item) => ({ ...item, key: item.id })));
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     useEffect(() => {
-        const loadCertificates = async () => {
-            try {
-                const data = await fetchCertificate();
-                setCertificates(data.map((item) => ({ ...item, key: item.id })));
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
         loadCertificates();
-    }, [certificates]);
+    }, []);
 
     const handleSelectionChanged = (
         selectedRowKeys: React.Key[],
@@ -28,6 +33,16 @@ const TableCertificates = () => {
         info: { type: RowSelectMethod }
     ) => {
         setSelectedData(selectedRows);
+    };
+
+    const signBtn = async (id: string | undefined) => {
+        if (!id) return;
+        try {
+            await signCertificate(id, `${user?.name} ${user?.surname}`);
+            await loadCertificates(); 
+        } catch (error) {
+            console.error('Error signing certificate:', error);
+        }
     };
 
     const columns: ColumnsType<ICertificateData> = [
@@ -116,6 +131,16 @@ const TableCertificates = () => {
             dataIndex: 'countPosition',
             key: 'countPosition',
             sorter: (a, b) => a.countPosition - b.countPosition,
+        },
+        {
+            title: 'Action',
+            dataIndex: '',
+            key: 'x',
+            render: (_, record) => (
+                <Button onClick={() => signBtn(record.id)}>
+                    <EditOutlined />
+                </Button>
+            ),
         },
     ];
 

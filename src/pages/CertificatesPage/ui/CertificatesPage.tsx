@@ -8,7 +8,7 @@ export const CertificatesPage = () => {
         <CertificateProvider>
             <TableCertificates />
             <Buttons />
-        </ CertificateProvider>
+        </CertificateProvider>
     );
 }
 
