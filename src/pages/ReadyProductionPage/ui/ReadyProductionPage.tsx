@@ -4,12 +4,13 @@ import { ReadyProvider } from './Context';
 import Buttons from './buttons/Buttons';
 import { useDefaultPropsContext } from './Context';
 import {Item} from "./table/TableReadyProduction"
+import Filters from "./filters/Filters.tsx";
 
 
 export const ReadyProductionPage = () => {
     return (
         <ReadyProvider>
-            <div className='tab__title'><p>Готовое производство</p></div>
+            <Filters/>
             <TableReadyProduction />
             <Buttons />
         </ReadyProvider>

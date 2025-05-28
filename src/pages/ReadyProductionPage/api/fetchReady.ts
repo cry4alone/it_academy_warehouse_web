@@ -10,21 +10,21 @@ export const fetchReady = async (params?: {
      // Запрашиваем ВСЕ данные с сервера
     const response = await axios.get('http://localhost:3000/readyProduction');
     
-    // Фильтруем на клиенте, если переданы параметры дат
-    let filteredData = response.data;
-    
-    filteredData = filteredData.filter((item: IReadyData) => 
-        (params?.dateFrom === undefined || item.date >= params.dateFrom) &&
-        (params?.dateTo === undefined || item.date <= params.dateTo)
-      );
-    if (params?.controlScheme !== undefined && params.controlScheme !== '') {
-        filteredData = filteredData.filter((item : IReadyData) => 
-            item.controlScheme.includes(params.controlScheme as string)
-        );
-    }
+    // // Фильтруем на клиенте, если переданы параметры дат
+    // let filteredData = response.data;
+    //
+    // filteredData = filteredData.filter((item: IReadyData) =>
+    //     (params?.dateFrom === undefined || item.date >= params.dateFrom) &&
+    //     (params?.dateTo === undefined || item.date <= params.dateTo)
+    //   );
+    // if (params?.controlScheme !== undefined && params.controlScheme !== '') {
+    //     filteredData = filteredData.filter((item : IReadyData) =>
+    //         item.controlScheme.includes(params.controlScheme as string)
+    //     );
+    // }
       
     
-    return filteredData;
+    return response.data;
     } catch (error) {
       console.error('Error fetching ready:', error);
       return []; 

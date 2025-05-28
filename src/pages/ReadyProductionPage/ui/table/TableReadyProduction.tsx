@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { fetchReady } from '@/pages/ReadyProductionPage/api/fetchReady';
-import { fetchControlSchemes } from '../../api/fetchControlScheme';
-import { useDefaultPropsContext } from '../Context';
-import { DatePicker, AutoComplete, Input } from 'antd';
+import {useDefaultPropsContext, useFiltersContext} from '../Context';
+import {applyFilters} from "../filters/filterService/filterService.tsx";
 
 
 export interface Item {
@@ -54,29 +53,23 @@ const TableReadyProduction: React.FC = () => {
     const [dataSource, setDataSource] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
     const { setSelectedRows, setSelectedData } = useDefaultPropsContext();
-    const [DateFrom, setDateFrom] = useState<string | undefined>()
-    const [DateTo, setDateTo] = useState<string | undefined>()
-    const [controlSchemes, setControlSchemes] = useState<string[] | undefined>([]);
-    const [selectedScheme, setSelectedScheme] = useState<string | undefined>();
-
-    useEffect(() => {
-        fetchControlSchemes().then(schemes => setControlSchemes(schemes));
-    }, []);
+    const {filters} = useFiltersContext()
 
 
     useEffect(() => {
-        console.log("фетчим данные", DateFrom, DateTo, selectedScheme)
         fetchReady({
-            dateFrom: DateFrom,
-            dateTo: DateTo,
-            controlScheme: selectedScheme
+            dateFrom: filters.dateFrom,
+            dateTo: filters.dateTo,
+            controlScheme: filters.controlScheme
         })
             .then((readyProduction) => {
-                const formattedData = readyProduction.map(transformReadyDataToItem).map((item) => ({
+                const filteredData = applyFilters(readyProduction, filters)
+                const formattedData = filteredData.map(transformReadyDataToItem).map((item) => ({
                     ...item,
                     key: item.id,
                 }));
                 setDataSource(formattedData);
+
                 console.log(dataSource)
             })
             .catch((error) => {
@@ -85,15 +78,9 @@ const TableReadyProduction: React.FC = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [DateFrom,DateTo, selectedScheme]);
+    }, [filters]);
 
-    const handleDateFromChange = (date: any, dateString: string | string[]) => {
-        setDateFrom(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
-      };
-      
-      const handleDateToChange = (date: any, dateString: string | string[]) => {
-        setDateTo(Array.isArray(dateString) ? dateString[0] : dateString || undefined);
-      };
+
 
     const columns: ColumnsType<Item> = [
         {
@@ -174,23 +161,23 @@ const TableReadyProduction: React.FC = () => {
 
     return (
         <>
-            <div className='filter'  style={{ display: "flex", justifyContent: "space-between"  }}>
-            <div> Дата: 
-                От <DatePicker id="DateFrom" onChange={handleDateFromChange} /> - До <DatePicker id="DateTo" onChange={handleDateToChange} />
-            </div>
-            <AutoComplete
-                    style={{ width: 250 }}
-                    options={controlSchemes?.map(scheme => ({ value: scheme }))}
-                    placeholder="Выберите схему контроля"
-                    filterOption={(inputValue, option) =>
-                        option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                    onChange={(value) => {setSelectedScheme(value); console.log(selectedScheme)}}
-                    onSelect={(value: string) => setSelectedScheme(value)} 
-                    onClear={() => setSelectedScheme('')}
-                    allowClear
-                />
-            </div>
+            {/*<div className='filter'  style={{ display: "flex", justifyContent: "space-between"  }}>*/}
+            {/*<div> Дата: */}
+            {/*    От <DatePicker id="DateFrom" onChange={handleDateFromChange} /> - До <DatePicker id="DateTo" onChange={handleDateToChange} />*/}
+            {/*</div>*/}
+            {/*<AutoComplete*/}
+            {/*        style={{ width: 250 }}*/}
+            {/*        options={controlSchemes?.map(scheme => ({ value: scheme }))}*/}
+            {/*        placeholder="Выберите схему контроля"*/}
+            {/*        filterOption={(inputValue, option) =>*/}
+            {/*            option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1*/}
+            {/*        }*/}
+            {/*        onChange={(value) => {setSelectedScheme(value); console.log(selectedScheme)}}*/}
+            {/*        onSelect={(value: string) => setSelectedScheme(value)} */}
+            {/*        onClear={() => setSelectedScheme('')}*/}
+            {/*        allowClear*/}
+            {/*    />*/}
+            {/*</div>*/}
            
             <Table
                 rowSelection={{

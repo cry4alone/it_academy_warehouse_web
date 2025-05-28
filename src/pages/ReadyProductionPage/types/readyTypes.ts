@@ -14,3 +14,8 @@ export interface IReadyData {
     net: string;
     gross: string;
 }
+export interface IFilters{
+    dateFrom?: string | undefined,
+    dateTo?: string | undefined,
+    controlScheme?: string | undefined
+}
