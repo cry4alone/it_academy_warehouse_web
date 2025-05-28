@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/app/contexts/AuthContext';
@@ -6,21 +7,35 @@ import '@/pages/AuthPage/ui/style.scss';
 import { fetchUsers } from '@/pages/AuthPage/api/fetchUsers';
 import Inputs from '../inputs/Inputs';
 import BtnSubmit from '../button/btnSubmit/BtnSubmit';
+import { setUserRedux } from '@/app/store/userSlice';
 
 const AuthForm: React.FC = () => {
+    const dispatch = useDispatch();
+    const userRedux = useSelector((state: any) => state.user.user);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [passwordError, setPasswordError] = useState(false);
-    const { setUser } = useAuth();
+    const { setUser, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from || '/home';
 
+    useEffect(() => {
+        if (user != null) {
+            navigate(from, { replace: true });
+        }
+    }, [user]);
+
+    useEffect(() => {
+        console.log('User from redux (в useEffect):', userRedux);
+    }, [userRedux]);
+
     const handleSubmit = async () => {
         setError('');
         setPasswordError(false);
+        dispatch(setUserRedux({ id: 1, name: 'Иван' }));
 
         if (password.length < 8) {
             setPasswordError(true);
@@ -45,14 +60,12 @@ const AuthForm: React.FC = () => {
                 return;
             }
 
-            console.log('User set in context:', user);
             setUser(user);
             navigate(from, { replace: true });
         } catch (error) {
             console.error('Ошибка при авторизации:', error);
             setError('Ошибка при авторизации. Попробуйте позже.');
         }
-        
     };
 
     return (

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button, notification } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectedDataContext } from '../../Context';
 import { signInvoice } from '../../../api/signInvoice';
 
 const BtnSign = () => {
     const selectedData = useSelectedDataContext();
     const location = useLocation();
+    const navigate = useNavigate();
     const selectedItems = location.state?.data || {};
 
     const handleSign = () => {
@@ -30,9 +31,11 @@ const BtnSign = () => {
             message: 'Success',
             description: 'Накладная подписана',
         });
+
+        navigate('/gp');
     };
 
-    return <Button onClick={handleSign}>Подписать</Button>;
+    return <Button onClick={handleSign} disabled={selectedData.length === 0}>Подписать</Button>;
 };
 
 export default BtnSign;

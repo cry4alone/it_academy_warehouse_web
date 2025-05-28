@@ -40,7 +40,7 @@ const BtnSign = () => {
         }
     };
 
-    return <Button type="primary" onClick={handleSign}>Подписать</Button>;
+    return <Button type="primary" onClick={handleSign} disabled={selectedData.length === 0}>Подписать</Button>;
 };
 
 export default BtnSign;

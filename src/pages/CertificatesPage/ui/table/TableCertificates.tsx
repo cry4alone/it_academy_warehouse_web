@@ -3,7 +3,7 @@ import { Table, Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { RowSelectMethod } from 'antd/es/table/interface';
 import { EditOutlined } from '@ant-design/icons';
-import { useDefaultPropsContext, useCertificateContext } from '../Context';
+import { useDefaultPropsContext, useCertificateContext, useSelectedDataContext } from '../Context';
 import { fetchCertificate } from '@/pages/CertificatesPage/api/fetchCertificate';
 import { ICertificateData } from '@/pages/CertificatesPage/types/certificateTypes';
 import { signCertificate } from '../../api/signCertificate';
@@ -11,13 +11,19 @@ import { useAuth } from '@/app/contexts/AuthContext';
 
 const TableCertificates = () => {
     const certificates = useCertificateContext();
+    const selectedData = useSelectedDataContext();
     const { setSelectedData, setCertificates } = useDefaultPropsContext();
     const { user } = useAuth();
 
     const loadCertificates = async () => {
         try {
             const data = await fetchCertificate();
-            setCertificates(data.map((item) => ({ ...item, key: item.id })));
+            setCertificates(
+                data.map((item) => ({
+                    ...item,
+                    key: item.id || `cert-${item.certificateNumber}`,
+                }))
+            );
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -35,11 +41,12 @@ const TableCertificates = () => {
         setSelectedData(selectedRows);
     };
 
+    // можно оптимизировать, обновлять только выбранную строку
     const signBtn = async (id: string | undefined) => {
         if (!id) return;
         try {
             await signCertificate(id, `${user?.name} ${user?.surname}`);
-            await loadCertificates(); 
+            await loadCertificates();
         } catch (error) {
             console.error('Error signing certificate:', error);
         }
@@ -133,7 +140,7 @@ const TableCertificates = () => {
             sorter: (a, b) => a.countPosition - b.countPosition,
         },
         {
-            title: 'Action',
+            title: 'Подпись',
             dataIndex: '',
             key: 'x',
             render: (_, record) => (
@@ -149,6 +156,7 @@ const TableCertificates = () => {
             rowSelection={{
                 type: 'checkbox',
                 onChange: handleSelectionChanged,
+                selectedRowKeys: selectedData.map((row) => row.key),
             }}
             dataSource={certificates}
             columns={columns}

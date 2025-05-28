@@ -19,26 +19,28 @@ export const WorkInProgressProvider = (props: IProps) => {
 
     const [updataWorkInProgress, setUpdataWorkInProgress] = useState<boolean>(false);
 
-    useEffect(() => {
-        const loadWorkInProgress = async () => {
-            const data = await fetchWork();
-            setWorkInProgress(data.map((item) => ({
+    const loadWorkInProgress = async () => {
+        const data = await fetchWork();
+        setWorkInProgress(
+            data.map((item) => ({
                 ...item,
                 key: item.id,
                 // isModified: false,
-            })))
-            setUpdataWorkInProgress(!updataWorkInProgress); 
-        };
+            }))
+        );
+        setUpdataWorkInProgress((prev) => !prev);
+    };
+    
+    useEffect(() => {
         loadWorkInProgress();
-    }, [updataWorkInProgress]);
-
+    }, []);
 
     const defaultProps = useMemo(
         () => ({
-        setWorkInProgress,
-        setSelectedRows,
-        setSelectedData,
-        setUpdataWorkInProgress,
+            setWorkInProgress,
+            setSelectedRows,
+            setSelectedData,
+            setUpdataWorkInProgress,
         }),
         []
     );

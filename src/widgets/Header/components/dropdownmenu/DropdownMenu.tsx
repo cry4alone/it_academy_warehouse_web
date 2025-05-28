@@ -4,34 +4,41 @@ import { Dropdown, Menu, Button } from 'antd';
 import { FaRegUser } from 'react-icons/fa';
 import { useAuth } from '../../../../app/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './dropdownmenu.scss'; 
+import './dropdownmenu.scss';
 
 const UserMenu = () => {
-  const { user, setUser } = useAuth();
-  const navigate = useNavigate();
+    const { user, setUser } = useAuth();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setUser(null);
-    navigate('/auth');
-  };
+    const handleLogout = () => {
+        setUser(null);
+        navigate('/auth');
+    };
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="logout" onClick={handleLogout}>
-        Выйти
-      </Menu.Item>
-    </Menu>
-  );
+    const items = [
+        {
+            key: 'main',
+            label: 'Главная',
+            onClick: () => {
+                navigate('/home');
+            },
+        },
+        {
+            key: 'logout',
+            label: 'Выйти',
+            onClick: handleLogout,
+        },
+    ];
 
-  return (
-    <div className="user-menu">
-      {user && (
-        <Dropdown overlay={menu} trigger={['click']}>
-          <Button icon={<FaRegUser />} />
-        </Dropdown>
-      )}
-    </div>
-  );
+    return (
+        <div className='user-menu'>
+            {user && (
+                <Dropdown menu={{ items }} trigger={['click']}>
+                    <Button icon={<FaRegUser />} />
+                </Dropdown>
+            )}
+        </div>
+    );
 };
 
 export default UserMenu;

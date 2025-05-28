@@ -1,42 +1,26 @@
 import React from 'react';
-import { Cascader } from 'antd';
+import { Select } from 'antd';
 import { usePrintContext } from '../../Context';
 
-interface Option {
-    value: string;
-    label: string;
-}
-
-const options: Option[] = [
-    {
-        value: 'ETR',
-        label: 'ETR',
-    },
-    {
-        value: 'TBR',
-        label: 'TBR',
-    },
-    {
-        value: 'SOW',
-        label: 'SOW',
-    },
-];
-
-const CascaderLabel = () => {
+const PrinterSelector: React.FC = () => {
     const { setSelectedLabel } = usePrintContext();
 
-    const onChange = (value: string[]) => {
-        if (value.length > 0) {
-            setSelectedLabel(value[0]); // Update the selected label in context
-        }
+    const options = [
+        { value: 'ETR', label: 'ETR' },
+        { value: 'TBR', label: 'TBR' },
+        { value: 'SOW', label: 'SOW' },
+    ];
+
+    const handleChange = (value: string) => {
+        setSelectedLabel(value);
     };
 
     return (
         <div>
             <h5>Этикетка</h5>
-            <Cascader options={options} onChange={onChange} placeholder="Выберите" />
+            <Select  placeholder='Выберите' onChange={handleChange} options={options} />
         </div>
     );
 };
 
-export default CascaderLabel;
+export default PrinterSelector;

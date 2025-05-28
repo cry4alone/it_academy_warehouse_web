@@ -43,7 +43,7 @@
       "section": 1,
       "controlScheme": "ГОСТ 11059-2019",
       "material": "Жидкий",
-      "net": 710,
+      "net": 706,
       "gross": 800,
       "isModified": true
     },
@@ -77,8 +77,9 @@
       "section": 3,
       "controlScheme": "ГОСТ 11059-2019",
       "material": "Твёрдый",
-      "net": 850,
-      "gross": 920
+      "net": 848,
+      "gross": 920,
+      "isModified": true
     },
     {
       "id": "4",
@@ -109,7 +110,7 @@
       "section": 2,
       "controlScheme": "ТУ 14-3-190-2004",
       "material": "Твёрдый",
-      "net": 647,
+      "net": 500,
       "gross": 680,
       "isModified": true
     },
@@ -277,38 +278,6 @@
   ],
   "readyProduction": [
     {
-      "id": "1",
-      "meltNumber": "01-9001",
-      "packageNumber": 60,
-      "date": "2023-01-01",
-      "status": "Можно вовлекать в шихтование",
-      "length": 15,
-      "specification": "ГОСТ 11089-2019",
-      "brand": "A8",
-      "certificateNumber": 221001300,
-      "section": 1,
-      "controlScheme": "ГОСТ 11059-2019",
-      "material": "Жидкий",
-      "net": 700,
-      "gross": 800
-    },
-    {
-      "id": "2",
-      "meltNumber": "36-9496",
-      "packageNumber": 64,
-      "date": "2023-01-02",
-      "status": "Готово к отгрузке",
-      "length": 20,
-      "specification": "ГОСТ 11089-2019",
-      "brand": "A8",
-      "certificateNumber": 221001301,
-      "section": 1,
-      "controlScheme": "ГОСТ 11059-2019",
-      "material": "Жидкий",
-      "net": 670,
-      "gross": 720
-    },
-    {
       "id": "3",
       "meltNumber": "05-9862",
       "packageNumber": 88,
@@ -323,22 +292,6 @@
       "material": "Твёрдый",
       "net": 850,
       "gross": 920
-    },
-    {
-      "id": "4",
-      "meltNumber": "22-9034",
-      "packageNumber": 72,
-      "date": "2023-01-04",
-      "status": "Можно вовлекать в шихтование",
-      "length": 18,
-      "specification": "ГОСТ 11089-2019",
-      "brand": "A8",
-      "certificateNumber": 221001303,
-      "section": 1,
-      "controlScheme": "ГОСТ 11059-2019",
-      "material": "Жидкий",
-      "net": 710,
-      "gross": 780
     },
     {
       "id": "5",
@@ -551,7 +504,7 @@
       "controlScheme": "ГОСТ 11069-2024",
       "date": "2024-05-05",
       "warehouse": "Склад ГП-2",
-      "signatory": "Смирнов О. Д.",
+      "signatory": "Алексей Петров",
       "countPosition": 7
     },
     {
@@ -588,17 +541,6 @@
       "supplies": "0305026487"
     },
     {
-      "id": "9",
-      "shipmentNumber": "48-029074",
-      "date": "2023-01-09",
-      "warehouseSender": "Склад ГП-1",
-      "signatory": "Петров В. В.",
-      "totalWeight": 7800,
-      "countPosition": 6,
-      "certificates": 16,
-      "supplies": "0305026488"
-    },
-    {
       "id": "11",
       "shipmentNumber": "50-029076",
       "date": "2023-01-11",
@@ -608,17 +550,6 @@
       "countPosition": 5,
       "certificates": 14,
       "supplies": "0305026490"
-    },
-    {
-      "id": "13",
-      "shipmentNumber": "52-029078",
-      "date": "2023-01-13",
-      "warehouseSender": "Склад ГП-3",
-      "signatory": "Смирнов М. М.",
-      "totalWeight": 8000,
-      "countPosition": 6,
-      "certificates": 18,
-      "supplies": "0305026492"
     }
   ],
   "invoice": [
@@ -773,6 +704,14 @@
       "reason": "Дефект",
       "defect": "Сколы на продукции",
       "date": "2025-03-27"
+    },
+    {
+      "id": "64d7",
+      "where": "Склад ЛО-1",
+      "type": "Доработка",
+      "reason": "Невостребованная продукция",
+      "defect": "123",
+      "date": "2025-05-27"
     }
   ],
   "nzpCreateCertificateOrder": [
@@ -992,6 +931,25 @@
       },
       "reason": "",
       "revokedAt": "2025-05-26T14:36:06.092Z",
+      "revokedBy": "current_user"
+    },
+    {
+      "id": "742f",
+      "shipmentNumber": "52-029078",
+      "originalData": {
+        "id": "13",
+        "shipmentNumber": "52-029078",
+        "date": "2023-01-13",
+        "warehouseSender": "Склад ГП-3",
+        "signatory": "Смирнов М. М.",
+        "totalWeight": 8000,
+        "countPosition": 6,
+        "certificates": 18,
+        "supplies": "0305026492",
+        "key": "13"
+      },
+      "reason": "",
+      "revokedAt": "2025-05-27T12:09:25.438Z",
       "revokedBy": "current_user"
     }
   ]

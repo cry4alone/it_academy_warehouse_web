@@ -6,4 +6,5 @@ export interface ICertificateData {
     warehouse: string;
     signatory: string;
     countPosition: number;
+    key: React.Key;
 }

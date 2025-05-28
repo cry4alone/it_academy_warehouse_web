@@ -15,7 +15,7 @@ const TableWorkInProgress = () => {
             setLoading(false);
         }
 
-    })
+    }, [])
 
     const columns = [
         {

@@ -8,7 +8,6 @@ import { useAuth } from '@/app/contexts/AuthContext';
 export const MainPage = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
-    console.log('User in Main:', user);
     //добавить кнопку авторизации
     return (
         <div className='main-page'>

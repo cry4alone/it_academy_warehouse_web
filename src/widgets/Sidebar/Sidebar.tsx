@@ -82,14 +82,6 @@ export const Sidebar = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to='/documents/inventory'
-                                        className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-                                    >
-                                        Инвентаризация
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
                                         to='/documents/certificates'
                                         className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
                                     >

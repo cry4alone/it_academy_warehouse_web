@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button, notification } from 'antd';
 import { useSelectedDataContext } from '../../Context';
-import HandReverseModal from "./HandReverseModal.tsx";
+import HandReverseModal from "./HandReverseModal";
 
 const BtnReverse = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const selectedData = useSelectedDataContext(); // Получаем выбранные данные из контекста
+    const selectedData = useSelectedDataContext(); 
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -17,7 +17,7 @@ const BtnReverse = () => {
             notification.error({
                 message: 'Ошибка',
                 description: 'Выберите документы для сторнирования',
-                duration: 3, // Уведомление закроется через 3 секунды
+                duration: 3, 
             });
             return;
         }
@@ -26,7 +26,7 @@ const BtnReverse = () => {
 
     return (
         <div>
-            <Button onClick={handleOpenModal}>Сторнировать</Button>
+            <Button onClick={handleOpenModal} disabled={selectedData.length === 0}>Сторнировать</Button>
             <HandReverseModal
                 visibleModal={isModalVisible}
                 onCancel={handleCancel}

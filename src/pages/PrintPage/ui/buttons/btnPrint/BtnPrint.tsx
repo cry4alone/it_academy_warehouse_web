@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, notification } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { usePrintContext } from '../../Context';
 
 const BtnPrint = () => {
     const { isPrinterAndLabelSelected } = usePrintContext();
-
+    const navigate = useNavigate();
     const handlePrint = () => {
         if (!isPrinterAndLabelSelected) {
             notification.error({
@@ -18,6 +19,8 @@ const BtnPrint = () => {
             message: 'Успех',
             description: 'Этикетки распечатаны',
         });
+        navigate('/gp');
+
     };
 
     return (

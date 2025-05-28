@@ -1,10 +1,10 @@
 import React from 'react';
 import {Table, Button, Modal, Input, DatePicker, Typography, notification} from 'antd';
-import { useSelectedDataContext } from "../../Context.tsx";
-import { IShipmentData } from "../../../types/shipmentTypes.ts";
+import { useSelectedDataContext } from "../../Context";
+import { IShipmentData } from "../../../types/shipmentTypes";
 import dayjs from 'dayjs';
-import {revokeShipment} from "../../../api/revokeShipment.ts";
-import {signShipment} from "../../../api/signShipment.ts";
+import {revokeShipment} from "../../../api/revokeShipment";
+import {signShipment} from "../../../api/signShipment";
 
 interface HandReverseModalProps {
     visibleModal: boolean;

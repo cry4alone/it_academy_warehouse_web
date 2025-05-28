@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { IRevokedShipment } from '../types/revokeShipmentType.ts';
-import {IShipmentData} from "../types/shipmentTypes.ts";
+import { IRevokedShipment } from '../types/revokeShipmentType';
+import {IShipmentData} from "../types/shipmentTypes";
 
 export const revokeShipment = async (params: {
     shipments: IShipmentData[];

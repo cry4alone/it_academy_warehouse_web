@@ -1,38 +1,31 @@
 import React from 'react';
-import { Cascader } from 'antd';
+import { Select } from 'antd';
+
 import { usePrintContext } from '../../Context';
 
-interface Option {
+type PrinterOption = {
     value: string;
     label: string;
-}
+};
 
-const options: Option[] = [
-    {
-        value: 'Принтер 1',
-        label: 'Принтер 1',
-    },
-    {
-        value: 'Принтер 2',
-        label: 'Принтер 2',
-    },
-];
-
-const CascaderPrinter = () => {
+const PrinterSelector: React.FC = () => {
     const { setSelectedPrinter } = usePrintContext();
 
-    const onChange = (value: string[]) => {
-        if (value.length > 0) {
-            setSelectedPrinter(value[0]);
-        }
+    const options: PrinterOption[] = [
+        { value: 'Принтер 1', label: 'Принтер 1' },
+        { value: 'Принтер 2', label: 'Принтер 2' },
+    ];
+
+    const handleChange = (value: string) => {
+        setSelectedPrinter(value);
     };
 
     return (
         <div>
             <h5>Принтер</h5>
-            <Cascader options={options} onChange={onChange} placeholder="Выберите" />
+            <Select placeholder='Выберите принтер' onChange={handleChange} options={options} />
         </div>
     );
 };
 
-export default CascaderPrinter;
+export default PrinterSelector;
