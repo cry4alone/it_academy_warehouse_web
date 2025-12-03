@@ -1,6 +1,9 @@
 @Storage.API_HostAddress = http://localhost:5199
 
-GET {{Storage.API_HostAddress}}/weatherforecast/
+GET http://localhost:5199/api/melt
 Accept: application/json
 
 ###
+
+GET http://localhost:5199/api/user/1
+Accept: application/json
