@@ -1,9 +1,10 @@
+using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories;
 
 namespace Storage.BLL.Services;
 
-public class MeltService
+public class MeltService : IMeltService
 {
     private readonly MeltRepository  _meltRepository;
 
