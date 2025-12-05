@@ -815,7 +815,7 @@ public partial class WarehouseContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(20);
             entity.Property(e => e.MiddleName).HasMaxLength(30);
             entity.Property(e => e.PasswordHash)
-                .HasMaxLength(60)
+                .HasMaxLength(128)
                 .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.Surname).HasMaxLength(30);

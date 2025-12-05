@@ -21,13 +21,25 @@ public class PasswordHashingService : IPasswordHashingService
 
     public bool VerifyHashedPassword(string hashedPassword, string providedPassword)
     {
+        if (string.IsNullOrEmpty(hashedPassword) || string.IsNullOrEmpty(providedPassword)) return false;
+
         var parts = hashedPassword.Split('-');
-        
-        var hash = Convert.FromBase64String(parts[0]);
-        var salt = Convert.FromBase64String(parts[1]);
-        
-        Rfc2898DeriveBytes.Pbkdf2(providedPassword, salt, iterations, Algorithm, hashSize);
-        
-        return CryptographicOperations.FixedTimeEquals(hash, salt);
+        if (parts.Length != 2) return false;
+
+        byte[] storedHash;
+        byte[] salt;
+        try
+        {
+            storedHash = Convert.FromBase64String(parts[0]);
+            salt = Convert.FromBase64String(parts[1]);
+        }
+        catch
+        {
+            return false;
+        }
+
+        var derivedHash = Rfc2898DeriveBytes.Pbkdf2(providedPassword, salt, iterations, Algorithm, hashSize);
+
+        return CryptographicOperations.FixedTimeEquals(storedHash, derivedHash);
     }
 }

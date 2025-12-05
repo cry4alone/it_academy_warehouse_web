@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Storage.BLL.Services;
+using Storage.BLL.Services.Interfaces;
 
 namespace Storage.API.Controllers;
 
@@ -7,9 +7,9 @@ namespace Storage.API.Controllers;
 [Route("api/[controller]")]
 public class MeltController : ControllerBase
 {
-      private readonly MeltService _meltService;
+      private readonly IMeltService _meltService;
 
-      public MeltController(MeltService meltService)
+      public MeltController(IMeltService meltService)
       {
             _meltService = meltService;
       }

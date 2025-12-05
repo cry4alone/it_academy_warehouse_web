@@ -14,6 +14,8 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         
+        services.AddSingleton<IPasswordHashingService, PasswordHashingService>();
+        
         return services;
     }
 

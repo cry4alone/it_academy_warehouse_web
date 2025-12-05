@@ -5,5 +5,5 @@ namespace Storage.BLL.Services.Interfaces;
 
 public interface IAuthenticationService
 {
-    Task<LoginResponse> Authenticate(LoginRequest request);
+    Task<LoginResponse?> Authenticate(LoginRequest request);
 }

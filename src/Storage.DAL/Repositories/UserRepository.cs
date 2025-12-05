@@ -22,5 +22,17 @@ public class UserRepository
     {
         return await _context.SystemUsers.FirstOrDefaultAsync(u => u.UserId == userId);
     }
-    
+
+    public async Task<SystemUser?> GetByUsernameAndPasswordAsync(string username, string hashedPassword)
+    {
+        return await _context.SystemUsers.FirstOrDefaultAsync(u =>
+            u.Username == username && u.PasswordHash == hashedPassword);
+    }
+
+    public async Task<SystemUser?> AddUserAsync(SystemUser newUser)
+    {
+        _context.SystemUsers.Add(newUser);
+        await _context.SaveChangesAsync();
+        return newUser;
+    }
 }

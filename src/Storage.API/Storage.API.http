@@ -7,3 +7,28 @@ Accept: application/json
 
 GET http://localhost:5199/api/user/1
 Accept: application/json
+
+###
+
+POST http://localhost:5199/api/user/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <your_jwt_token_here>
+
+{
+  "userName": "myUser",
+  "password": "P@ssw0rd!",
+  "surname": "Ivanov",
+  "firstName": "Ivan",
+  "middleName": "Ivanovich"
+}
+
+###
+
+POST http://localhost:5199/api/authentication/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "userName": "myUser",
+  "password": "P@ssw0rd!"
+}
+

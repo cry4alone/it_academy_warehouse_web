@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 
@@ -13,15 +12,19 @@ public class AuthenticationController : ControllerBase
     
     public AuthenticationController(IAuthenticationService authenticationService)
     {
-        _authenticationService = authenticationService;
+        _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
     }
     
-    [HttpGet]
-    public async Task<IActionResult> Login(LoginRequest loginRequest)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest? loginRequest)
     {
-        var authReponse = await _authenticationService.Authenticate(loginRequest);
-        
-        return Ok(authReponse);
+        if (loginRequest == null) return BadRequest();
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var loginResponse = await _authenticationService.Authenticate(loginRequest);
+        if (loginResponse == null) return Unauthorized();
+
+        return Ok(loginResponse);
     }
     
 }
