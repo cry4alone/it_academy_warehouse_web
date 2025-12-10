@@ -12,14 +12,13 @@ public class AuthenticationController : ControllerBase
     
     public AuthenticationController(IAuthenticationService authenticationService)
     {
-        _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
+        _authenticationService = authenticationService;
     }
     
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest? loginRequest)
+    public async Task<IActionResult> Login([FromBody] AuthenticationRequest? loginRequest)
     {
         if (loginRequest == null) return BadRequest();
-        if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var loginResponse = await _authenticationService.Authenticate(loginRequest);
         if (loginResponse == null) return Unauthorized();

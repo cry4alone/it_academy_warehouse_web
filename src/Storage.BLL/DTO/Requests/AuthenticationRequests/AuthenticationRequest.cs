@@ -1,6 +1,6 @@
 namespace Storage.BLL.DTO.Requests;
 
-public record LoginRequest(
+public record AuthenticationRequest(
     string Username,
     string Password
 );

@@ -1,6 +1,6 @@
 namespace Storage.BLL.DTO.Requests;
 
-public record UserRequest(
+public record CreateUserRequest(
     int UserId,
     string? Password,
     string? UserName,

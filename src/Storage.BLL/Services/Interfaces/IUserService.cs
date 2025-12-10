@@ -6,5 +6,5 @@ namespace Storage.BLL.Services.Interfaces;
 public interface IUserService
 {
     public Task<UserResponse> GetUserByIdAsync(int userId);
-    public Task<UserResponse> CreateUserAsync(UserRequest userRequest, string currentUsername);
+    public Task<UserResponse> CreateUserAsync(CreateUserRequest createUserRequest);
 }

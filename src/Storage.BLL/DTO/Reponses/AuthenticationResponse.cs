@@ -1,6 +1,6 @@
 namespace Storage.BLL.DTO.Reponses;
 
-public record LoginResponse(
+public record AuthenticationResponse(
     int UserId,
     string Username,
     string FirstName,

@@ -7,6 +7,7 @@ using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Repositories;
+using Storage.DAL.Repositories.Interfaces;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Storage.BLL.Services;
@@ -14,17 +15,17 @@ namespace Storage.BLL.Services;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IPasswordHashingService _passwordHashingService;
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
 
-    public AuthenticationService(IPasswordHashingService passwordHashingService, UserRepository userRepository, IConfiguration configuration)
+    public AuthenticationService(IPasswordHashingService passwordHashingService, IUserRepository userRepository, IConfiguration configuration)
     {
         _passwordHashingService = passwordHashingService;
         _userRepository = userRepository;
         _configuration = configuration;
     }
 
-    public async Task<LoginResponse?> Authenticate(LoginRequest request)
+    public async Task<AuthenticationResponse?> Authenticate(AuthenticationRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
         
@@ -37,9 +38,9 @@ public class AuthenticationService : IAuthenticationService
         var passwordMatches = _passwordHashingService.VerifyHashedPassword(user.PasswordHash, request.Password);
         if (!passwordMatches) return null;
 
-        var token = GenerateJwtToken(user.UserId, user.Username, user.FirstName, user.Surname);
+        var token = await GenerateJwtToken(user.UserId, user.Username, user.FirstName, user.Surname);
 
-        return new LoginResponse(
+        return new AuthenticationResponse(
             user.UserId,
             user.Username,
             user.FirstName,
@@ -47,9 +48,9 @@ public class AuthenticationService : IAuthenticationService
             token);
     }
 
-    private string GenerateJwtToken(int userId, string username, string firstName, string surname)
+    private async Task<string> GenerateJwtToken(int userId, string username, string firstName, string surname)
     {
-        var secret = _configuration["Jwt:Secret"]; 
+        var secret = _configuration["Jwt:Secret"];
         if (string.IsNullOrWhiteSpace(secret))
             throw new InvalidOperationException("JWT secret is not configured.");
 
@@ -64,9 +65,14 @@ public class AuthenticationService : IAuthenticationService
             new Claim(JwtRegisteredClaimNames.Sub, username),
             new Claim(JwtRegisteredClaimNames.FamilyName, surname),
             new Claim(JwtRegisteredClaimNames.Name, firstName),
-            // add role somewhere here
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+        
+        var userPermissions = await _userRepository.GetUserRolesAsync(userId);
+        foreach (var permission in userPermissions)
+        {
+            claims = claims.Append(new Claim("permission", permission)).ToArray();
+        }
 
         var expiryText = _configuration["JwtSettings:ExpiryMinutes"];
         if (!double.TryParse(expiryText, out var expiration)) expiration = 60;
