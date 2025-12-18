@@ -1,3 +1,4 @@
+using AutoMapper;
 using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests;
@@ -12,14 +13,16 @@ public class CertificateService : ICertificateService
     private readonly ICertificatesRepository  _certificatesRepository;
     private readonly ICurrentUserService _currentUserService;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IMapper _mapper;
 
     public CertificateService(ICertificatesRepository certificatesRepository,
         ICurrentUserService currentUserService,
-        IDateTimeProvider dateTimeProvider)
+        IDateTimeProvider dateTimeProvider, IMapper mapper)
     {
         _certificatesRepository = certificatesRepository;
         _currentUserService = currentUserService;
         _dateTimeProvider = dateTimeProvider;
+        _mapper = mapper;
     }
 
     public async Task DeleteCertificateAsync(int certificateId)
@@ -43,7 +46,7 @@ public class CertificateService : ICertificateService
         
         foreach (var certificate in certificates)
         {
-            certificateResponses.Add(MapToResponse(certificate));
+            certificateResponses.Add(_mapper.Map<CertificateResponse>(certificate));
         }
         
         return certificateResponses;
@@ -54,7 +57,7 @@ public class CertificateService : ICertificateService
         var certificate = await _certificatesRepository.GetByIdAsync(certificateId);
         if (certificate == null) throw new Exception("Certificate not found");
         
-        return MapToResponse(certificate);
+        return _mapper.Map<CertificateResponse>(certificate);
     }
     
     public async Task<CertificateResponse> CreateCertificateAsync(CreateCertificateRequest createCertificateRequest)
@@ -76,7 +79,7 @@ public class CertificateService : ICertificateService
 
         var certificateToMap = await _certificatesRepository.GetByIdAsync(newCertificate.CertificateId);
         
-        return MapToResponse(certificateToMap);
+        return _mapper.Map<CertificateResponse>(certificateToMap);
     }
 
     public async Task<CertificateResponse> SignCertificateAsync(int certificateId)
@@ -93,21 +96,6 @@ public class CertificateService : ICertificateService
         certificate.UpdatedDate = _dateTimeProvider.UtcNow;
         
         await _certificatesRepository.UpdateAsync(certificate);
-        return MapToResponse(certificate);
+        return _mapper.Map<CertificateResponse>(certificate);
     }
-    
-    private static CertificateResponse MapToResponse(Certificate cert)
-    {
-        var response = new CertificateResponse(
-            cert.CertificateId,
-            cert.ControlScheme?.Specification.Name ?? string.Empty,
-            cert.CreatedDate,
-            cert.Warehouse.Name,
-            cert.User?.Surname,
-            cert.Melts.Count
-        );
-        
-        return response;
-    }
-
 }

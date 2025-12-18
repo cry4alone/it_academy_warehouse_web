@@ -1,3 +1,4 @@
+using AutoMapper;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
@@ -9,16 +10,19 @@ namespace Storage.BLL.Services;
 public class MeltService : IMeltService
 {
     private readonly IMeltRepository  _meltRepository;
+    private readonly IMapper _mapper;
 
-    public MeltService(IMeltRepository meltRepository)
+    public MeltService(IMeltRepository meltRepository, IMapper mapper)
     {
         _meltRepository = meltRepository;
+        _mapper = mapper;
     }
 
     public async Task<ICollection<MeltResponse>> ListMeltsAsync()
     {
         var melts = await _meltRepository.GetAllAsync();
-        return melts.Select(MapToMeltResponse).ToList();
+        var meltResponses = _mapper.Map<List<MeltResponse>>(melts);
+        return meltResponses;
     }
     
     public async Task<MeltResponse> GetMeltByIdAsync(int id)
@@ -26,12 +30,13 @@ public class MeltService : IMeltService
         var melt = await _meltRepository.GetByIdAsync(id);
         if (melt == null) throw new Exception("Melt not found");
         
-        return MapToMeltResponse(melt);
+        return _mapper.Map<MeltResponse>(melt);
     }
 
     public async Task DeleteMeltAsync(int meltId)
     {
         var meltToUpdate = await _meltRepository.GetByIdAsync(meltId);
+        if (meltToUpdate == null) throw new Exception("Melt not found");
         
         await _meltRepository.UpdateAsync(meltToUpdate);
     }
@@ -48,20 +53,8 @@ public class MeltService : IMeltService
             MeltStatusId = melt.MeltStatusId
         };
         
-        await _meltRepository.CreateAsync(newMelt);
+        var created = await _meltRepository.CreateAsync(newMelt);
         
-        return MapToMeltResponse(newMelt);
+        return _mapper.Map<MeltResponse>(created);
     }
-
-    private static MeltResponse MapToMeltResponse(Melt melt)
-    {
-        return new MeltResponse(
-            melt.MeltId,
-            melt.ProductionDate,
-            melt.MeltStatus?.Name ?? "none",
-            melt.Specification?.Name ?? string.Empty,
-            melt.Brand?.Name ?? string.Empty
-        );
-    }
-
 }

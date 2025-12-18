@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Storage.API;
 using Storage.API.Authorization;
+using Storage.BLL.Mappings;
 using Storage.DAL.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,11 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Services.AddAutoMapper(cfg => { },
+    typeof(UserProfile),
+    typeof(MeltProfile),
+    typeof(CertificateProfile));
 
 builder.Services.AddHttpContextAccessor();
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Storage.API.Authorization;
 using Storage.BLL.Common;
 using Storage.BLL.Common.Services;
+using Storage.BLL.Mappings;
 using Storage.BLL.Services;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
@@ -37,4 +38,5 @@ public static class DependencyInjection
         
         return services;
     }
+    
 }

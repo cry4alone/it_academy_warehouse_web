@@ -26,14 +26,21 @@ public class MeltRepository : IMeltRepository
 
     public async Task<Melt?> GetByIdAsync(int id)
     {
-        return await _context.Melts.FirstOrDefaultAsync(m => m.MeltId == id);
+        return await _context.Melts
+            .Include(m => m.Brand)
+            .Include(m => m.Product)
+            .Include(m => m.Specification)
+            .Include(m => m.MeltStatus)
+            .Include(m => m.Certificate)
+            .FirstOrDefaultAsync(m => m.MeltId == id);
     }
 
     public async Task<Melt> CreateAsync(Melt melt)
     {
         _context.Melts.Add(melt);
         await _context.SaveChangesAsync();
-        return melt;
+        var created = await GetByIdAsync(melt.MeltId);
+        return created ?? melt;
     }
 
     public async Task<Melt> UpdateAsync(Melt melt)

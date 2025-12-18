@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
@@ -14,20 +15,22 @@ public class UserService : IUserService
     private readonly IPasswordHashingService _passwordHashingService;
     private readonly ICurrentUserService _currentUserService;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IMapper _mapper;
 
-    public UserService(IUserRepository userRepository, IPasswordHashingService passwordHashingService, ICurrentUserService currentUserService, IDateTimeProvider dateTimeProvider)
+    public UserService(IUserRepository userRepository, IPasswordHashingService passwordHashingService, ICurrentUserService currentUserService, IDateTimeProvider dateTimeProvider, IMapper mapper)
     {
         _userRepository = userRepository;
         _passwordHashingService = passwordHashingService;
         _currentUserService = currentUserService;
         _dateTimeProvider = dateTimeProvider;
+        _mapper = mapper;
     }
 
     public async Task<UserResponse> GetUserByIdAsync(int userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
         
-        return MapToResponse(user);
+        return _mapper.Map<UserResponse>(user);
     }
 
     public async Task<UserResponse> CreateUserAsync(CreateUserRequest userRequest)
@@ -53,13 +56,6 @@ public class UserService : IUserService
 
         await _userRepository.AddUserAsync(newUser);
         
-        return MapToResponse(newUser);
+        return _mapper.Map<UserResponse>(newUser);
     }
-    
-    private static UserResponse MapToResponse(SystemUser user) => new(
-        user.UserId,
-        user.Username,
-        user.Surname,
-        user.FirstName,
-        user.MiddleName);
 }
