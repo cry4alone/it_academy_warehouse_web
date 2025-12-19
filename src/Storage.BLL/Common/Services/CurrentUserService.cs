@@ -17,7 +17,8 @@ public class CurrentUserService : ICurrentUserService
     }
 
 
-    public int UserId => Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+    public int UserId => Convert.ToInt32(_httpContextAccessor.HttpContext.User.Claims
+        .First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
     public async Task<SystemUser> GetCurrentUserAsync()
     {

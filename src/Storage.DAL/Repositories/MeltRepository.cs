@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
+using System.Threading;
 
 namespace Storage.DAL.Repositories;
 
@@ -13,7 +14,7 @@ public class MeltRepository : IMeltRepository
         _context = context;
     }
     
-    public async Task<List<Melt>> GetAllAsync()
+    public async Task<List<Melt>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Melts
             .Include(m => m.Brand)
@@ -21,10 +22,10 @@ public class MeltRepository : IMeltRepository
             .Include(m => m.Specification)
             .Include(m => m.MeltStatus)
             .Include(m => m.Certificate)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<Melt?> GetByIdAsync(int id)
+    public async Task<Melt?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.Melts
             .Include(m => m.Brand)
@@ -32,21 +33,21 @@ public class MeltRepository : IMeltRepository
             .Include(m => m.Specification)
             .Include(m => m.MeltStatus)
             .Include(m => m.Certificate)
-            .FirstOrDefaultAsync(m => m.MeltId == id);
+            .FirstOrDefaultAsync(m => m.MeltId == id, cancellationToken);
     }
 
-    public async Task<Melt> CreateAsync(Melt melt)
+    public async Task<Melt> CreateAsync(Melt melt, CancellationToken cancellationToken = default)
     {
         _context.Melts.Add(melt);
-        await _context.SaveChangesAsync();
-        var created = await GetByIdAsync(melt.MeltId);
+        await _context.SaveChangesAsync(cancellationToken);
+        var created = await GetByIdAsync(melt.MeltId, cancellationToken);
         return created ?? melt;
     }
 
-    public async Task<Melt> UpdateAsync(Melt melt)
+    public async Task<Melt> UpdateAsync(Melt melt, CancellationToken cancellationToken = default)
     {
         _context.Melts.Update(melt);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
         return melt;
     }
 }

@@ -35,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<IMeltRepository, MeltRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICertificatesRepository, CertificateRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         
         return services;
     }

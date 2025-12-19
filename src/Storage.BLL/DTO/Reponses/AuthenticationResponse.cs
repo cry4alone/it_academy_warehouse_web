@@ -5,4 +5,5 @@ public record AuthenticationResponse(
     string Username,
     string FirstName,
     string Surname,
-    string Token);
+    string AccessToken,
+    string RefreshToken);

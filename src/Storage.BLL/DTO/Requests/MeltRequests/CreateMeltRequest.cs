@@ -1,4 +1,4 @@
-namespace Storage.BLL.DTO.Requests;
+namespace Storage.BLL.DTO.Requests.MeltRequests;
 
 public record CreateMeltRequest(
     int MeltId,

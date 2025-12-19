@@ -1,4 +1,4 @@
-namespace Storage.BLL.DTO.Requests;
+namespace Storage.BLL.DTO.Requests.CertificateRequests;
 
 public record CreateCertificateRequest(
     int UserId,

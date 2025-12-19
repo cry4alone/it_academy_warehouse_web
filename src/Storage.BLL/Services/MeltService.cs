@@ -4,6 +4,8 @@ using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
+using System.Threading;
+using Storage.BLL.DTO.Requests.MeltRequests;
 
 namespace Storage.BLL.Services;
 
@@ -18,30 +20,30 @@ public class MeltService : IMeltService
         _mapper = mapper;
     }
 
-    public async Task<ICollection<MeltResponse>> ListMeltsAsync()
+    public async Task<ICollection<MeltResponse>> ListMeltsAsync(CancellationToken cancellationToken = default)
     {
-        var melts = await _meltRepository.GetAllAsync();
+        var melts = await _meltRepository.GetAllAsync(cancellationToken);
         var meltResponses = _mapper.Map<List<MeltResponse>>(melts);
         return meltResponses;
     }
     
-    public async Task<MeltResponse> GetMeltByIdAsync(int id)
+    public async Task<MeltResponse> GetMeltByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        var melt = await _meltRepository.GetByIdAsync(id);
+        var melt = await _meltRepository.GetByIdAsync(id, cancellationToken);
         if (melt == null) throw new Exception("Melt not found");
         
         return _mapper.Map<MeltResponse>(melt);
     }
 
-    public async Task DeleteMeltAsync(int meltId)
+    public async Task DeleteMeltAsync(int meltId, CancellationToken cancellationToken = default)
     {
-        var meltToUpdate = await _meltRepository.GetByIdAsync(meltId);
+        var meltToUpdate = await _meltRepository.GetByIdAsync(meltId, cancellationToken);
         if (meltToUpdate == null) throw new Exception("Melt not found");
         
-        await _meltRepository.UpdateAsync(meltToUpdate);
+        await _meltRepository.UpdateAsync(meltToUpdate, cancellationToken);
     }
 
-    public async Task<MeltResponse> CreateMeltAsync(CreateMeltRequest melt)
+    public async Task<MeltResponse> CreateMeltAsync(CreateMeltRequest melt, CancellationToken cancellationToken = default)
     {
         var newMelt = new Melt
         {
@@ -53,7 +55,7 @@ public class MeltService : IMeltService
             MeltStatusId = melt.MeltStatusId
         };
         
-        var created = await _meltRepository.CreateAsync(newMelt);
+        var created = await _meltRepository.CreateAsync(newMelt, cancellationToken);
         
         return _mapper.Map<MeltResponse>(created);
     }

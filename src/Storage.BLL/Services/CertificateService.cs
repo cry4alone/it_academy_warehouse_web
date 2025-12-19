@@ -5,6 +5,8 @@ using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
+using System.Threading;
+using Storage.BLL.DTO.Requests.CertificateRequests;
 
 namespace Storage.BLL.Services;
 
@@ -25,9 +27,9 @@ public class CertificateService : ICertificateService
         _mapper = mapper;
     }
 
-    public async Task DeleteCertificateAsync(int certificateId)
+    public async Task DeleteCertificateAsync(int certificateId, CancellationToken cancellationToken = default)
     {
-        var certificateToDelete = await _certificatesRepository.GetByIdAsync(certificateId);
+        var certificateToDelete = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
         if (certificateToDelete == null) throw new Exception("Certificate not found");
         
         var currentUserId = _currentUserService.UserId;
@@ -36,12 +38,12 @@ public class CertificateService : ICertificateService
         certificateToDelete.DeletedByUserId = currentUserId;
         certificateToDelete.DeletedByUser = currentUser;
         certificateToDelete.DeletedDate = _dateTimeProvider.UtcNow;
-        await _certificatesRepository.UpdateAsync(certificateToDelete);
+        await _certificatesRepository.UpdateAsync(certificateToDelete, cancellationToken);
     }
 
-    public async Task<List<CertificateResponse>> GetAllCertificatesAsync()
+    public async Task<List<CertificateResponse>> GetAllCertificatesAsync(CancellationToken cancellationToken = default)
     {
-        var certificates =  await _certificatesRepository.GetAllAsync();
+        var certificates =  await _certificatesRepository.GetAllAsync(cancellationToken);
         var certificateResponses = new List<CertificateResponse>();
         
         foreach (var certificate in certificates)
@@ -52,15 +54,15 @@ public class CertificateService : ICertificateService
         return certificateResponses;
     }
 
-    public async Task<CertificateResponse> GetCertificateByIdAsync(int certificateId)
+    public async Task<CertificateResponse> GetCertificateByIdAsync(int certificateId, CancellationToken cancellationToken = default)
     {
-        var certificate = await _certificatesRepository.GetByIdAsync(certificateId);
+        var certificate = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
         if (certificate == null) throw new Exception("Certificate not found");
         
         return _mapper.Map<CertificateResponse>(certificate);
     }
     
-    public async Task<CertificateResponse> CreateCertificateAsync(CreateCertificateRequest createCertificateRequest)
+    public async Task<CertificateResponse> CreateCertificateAsync(CreateCertificateRequest createCertificateRequest, CancellationToken cancellationToken = default)
     {
         var currentUserId = _currentUserService.UserId;
         var currentUser = await _currentUserService.GetCurrentUserAsync();
@@ -75,16 +77,16 @@ public class CertificateService : ICertificateService
             CreatedDate = _dateTimeProvider.UtcNow,
         };
         
-        await _certificatesRepository.CreateAsync(newCertificate);
+        var created = await _certificatesRepository.CreateAsync(newCertificate, cancellationToken);
 
-        var certificateToMap = await _certificatesRepository.GetByIdAsync(newCertificate.CertificateId);
+        var certificateToMap = await _certificatesRepository.GetByIdAsync(created.CertificateId, cancellationToken);
         
         return _mapper.Map<CertificateResponse>(certificateToMap);
     }
 
-    public async Task<CertificateResponse> SignCertificateAsync(int certificateId)
+    public async Task<CertificateResponse> SignCertificateAsync(int certificateId, CancellationToken cancellationToken = default)
     {
-        var certificate = await _certificatesRepository.GetByIdAsync(certificateId);
+        var certificate = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
         if (certificate == null) throw new Exception("Certificate not found");
         
         var currentUserId = _currentUserService.UserId;
@@ -95,7 +97,7 @@ public class CertificateService : ICertificateService
         certificate.UpdatedByUserId = currentUserId;
         certificate.UpdatedDate = _dateTimeProvider.UtcNow;
         
-        await _certificatesRepository.UpdateAsync(certificate);
+        await _certificatesRepository.UpdateAsync(certificate, cancellationToken);
         return _mapper.Map<CertificateResponse>(certificate);
     }
 }

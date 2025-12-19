@@ -38,6 +38,8 @@ public partial class SystemUser
     public virtual ICollection<Certificate> CertificateUpdatedByUsers { get; set; } = new List<Certificate>();
 
     public virtual ICollection<Certificate> CertificateUsers { get; set; } = new List<Certificate>();
+    
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
     public virtual SystemUser? CreatedByUser { get; set; }
 

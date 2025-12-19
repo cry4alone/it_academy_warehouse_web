@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
+using System.Threading;
 
 namespace Storage.DAL.Repositories;
 
@@ -13,25 +14,25 @@ public class UserRepository : IUserRepository
         _context = context;
     }
     
-    public async Task<SystemUser?> GetByUsernameAsync(string username)
+    public async Task<SystemUser?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
     {
         return await _context.SystemUsers
-            .FirstOrDefaultAsync(u => u.Username == username);
+            .FirstOrDefaultAsync(u => u.Username == username, cancellationToken);
     }
 
-    public async Task<SystemUser?> GetByIdAsync(int userId)
+    public async Task<SystemUser?> GetByIdAsync(int userId, CancellationToken cancellationToken = default)
     {
-        return await _context.SystemUsers.FirstOrDefaultAsync(u => u.UserId == userId);
+        return await _context.SystemUsers.FirstOrDefaultAsync(u => u.UserId == userId, cancellationToken);
     }
     
-    public async Task<SystemUser?> AddUserAsync(SystemUser newUser)
+    public async Task<SystemUser?> AddUserAsync(SystemUser newUser, CancellationToken cancellationToken = default)
     {
         _context.SystemUsers.Add(newUser);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
         return newUser;
     }
 
-    public async Task<List<string>> GetUserRolesAsync(int userId)
+    public async Task<List<string>> GetUserRolesAsync(int userId, CancellationToken cancellationToken = default)
     {
         return await _context.UserRoles
             .Where(ur => ur.UserId == userId)
@@ -43,6 +44,6 @@ public class UserRepository : IUserRepository
                 permissionId => permissionId,
                 p => p.PermissionId,
                 (permissionId, p) => p.Name)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 }

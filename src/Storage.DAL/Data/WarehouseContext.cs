@@ -51,6 +51,8 @@ public partial class WarehouseContext : DbContext
     public virtual DbSet<ReasonForReturn> ReasonForReturns { get; set; }
 
     public virtual DbSet<RedistributionOfMelting> RedistributionOfMeltings { get; set; }
+    
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public virtual DbSet<ReturnInvoice> ReturnInvoices { get; set; }
 
@@ -623,6 +625,22 @@ public partial class WarehouseContext : DbContext
                 .HasForeignKey(d => d.MeltId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_RedistributionOfMelting_Melt");
+        });
+        
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(e => e.RefreshTokenId).HasName("PK__RefreshT__F5845E593752DA6A");
+
+            entity.ToTable("RefreshToken");
+
+            entity.Property(e => e.RefreshTokenId).HasColumnName("RefreshTokenID");
+            entity.Property(e => e.ExpiresAt).HasColumnType("datetime");
+            entity.Property(e => e.Token)
+                .HasMaxLength(60)
+                .IsUnicode(false);
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.User).WithMany(p => p.RefreshTokens).HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<ReturnInvoice>(entity =>

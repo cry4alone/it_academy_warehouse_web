@@ -1,5 +1,5 @@
-namespace Storage.BLL.DTO.Requests;
+namespace Storage.BLL.DTO.Requests.CertificateRequests;
 
 public record GetCertificateRequest(
-    int certificateId,
-    int userId);
+    int CertificateId,
+    int UserId);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Storage.BLL.Services.Interfaces;
+using System.Threading;
 
 namespace Storage.API.Controllers;
 
@@ -18,9 +19,9 @@ public class MeltController : ControllerBase
 
       [HttpGet]
       [Authorize(Policy = "Melt.View")]
-      public async Task<IActionResult> GetAsync()
+      public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
       {
-            var melts = await _meltService.ListMeltsAsync();
+            var melts = await _meltService.ListMeltsAsync(cancellationToken);
             return Ok(melts);
       }
 }
