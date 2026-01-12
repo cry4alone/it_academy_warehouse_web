@@ -5,8 +5,8 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Storage.BLL.Common;
+using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Reponses;
-using Storage.BLL.DTO.Requests;
 using Storage.BLL.DTO.Requests.AuthenticationRequests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
@@ -15,13 +15,23 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace Storage.BLL.Services;
 
+/// <inheritdoc cref="IAuthenticationService" />
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IPasswordHashingService _passwordHashingService;
+    
+    /// <inheritdoc cref="IUserRepository"/>>
     private readonly IUserRepository _userRepository;
+    
     private readonly IConfiguration _configuration;
+    
+    /// <inheritdoc cref="IRefreshTokenRepository"/>>
     private readonly IRefreshTokenRepository _refreshTokenRepository;
+    
+    /// <inheritdoc cref="ICurrentUserService"/>>
     private readonly ICurrentUserService _currentUserService;
+    
+    /// <inheritdoc cref="IDateTimeProvider"/>>
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public AuthenticationService(IPasswordHashingService passwordHashingService,
@@ -55,7 +65,7 @@ public class AuthenticationService : IAuthenticationService
         var accessToken = await GenerateJwtToken(user.UserId, user.Username, user.FirstName, user.Surname, cancellationToken);
         
         var refreshToken = GenerateRefreshToken();
-        await _refreshTokenRepository.RemoveAllAsync(cancellationToken);
+        await _refreshTokenRepository.RemoveAllAsync(user.UserId, cancellationToken);
         
         var newRefreshToken = new RefreshToken()
         {
@@ -137,10 +147,12 @@ public class AuthenticationService : IAuthenticationService
         };
         
         var userPermissions = await _userRepository.GetUserRolesAsync(userId, cancellationToken);
+        var permissionClaims = new List<Claim>();
         foreach (var permission in userPermissions)
         {
-            claims = claims.Append(new Claim("permission", permission)).ToArray();
+           permissionClaims.Add(new Claim("permission", permission));
         }
+        var allClaims = claims.Concat(permissionClaims);
 
         var expiryText = _configuration["JwtSettings:ExpiryMinutes"];
         if (!double.TryParse(expiryText, out var expiration)) expiration = 60;
@@ -148,8 +160,8 @@ public class AuthenticationService : IAuthenticationService
         var token = new JwtSecurityToken(
             audience: _configuration["JwtSettings:Audience"],
             issuer: _configuration["JwtSettings:Issuer"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(expiration),
+            claims: allClaims,
+            expires: _dateTimeProvider.UtcMinutesFromNow(30),
             signingCredentials: signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

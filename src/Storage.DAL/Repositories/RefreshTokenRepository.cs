@@ -4,10 +4,16 @@ using Storage.DAL.Repositories.Interfaces;
 
 namespace Storage.DAL.Repositories;
 
+/// <inheritdoc cref="IRefreshTokenRepository" />
 public class RefreshTokenRepository : IRefreshTokenRepository
 {
     private readonly WarehouseContext _context;
 
+    /// <summary>
+    /// Создаёт экземпляр репозитория для refresh-токенов с указанным контекстом БД.
+    /// </summary>
+    /// <param name="context">Контекст БД.</param>
+    /// <exception cref="ArgumentNullException">Если <paramref name="context"/> равен <c>null</c>.</exception>
     public RefreshTokenRepository(WarehouseContext context)
     {
         _context = context;
@@ -40,9 +46,10 @@ public class RefreshTokenRepository : IRefreshTokenRepository
         return await _context.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == token, cancellationToken);
     }
 
-    public async Task RemoveAllAsync(CancellationToken cancellationToken = default)
+    public async Task RemoveAllAsync(int userId, CancellationToken cancellationToken = default)
     {
-        _context.RefreshTokens.RemoveRange(_context.RefreshTokens);
+        _context.RefreshTokens.RemoveRange(
+            _context.RefreshTokens.Where(rt => rt.UserId == userId));
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

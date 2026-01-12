@@ -1,19 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
 
 namespace Storage.DAL.Repositories;
 
+/// <inheritdoc cref="ICertificatesRepository" />
 public class CertificateRepository : ICertificatesRepository
 {
-    public readonly WarehouseContext _context;
+    private readonly WarehouseContext _context;
     
+    /// <summary>
+    /// Создаёт экземпляр <see cref="CertificateRepository"/>, использующий указанный контекст хранилища.
+    /// </summary>
+    /// <param name="context">Экземпляр <see cref="WarehouseContext"/>, через который выполняются операции с БД.</param>
+    /// <exception cref="ArgumentNullException">Если <paramref name="context"/> равен <c>null</c>.</exception>
     public CertificateRepository(WarehouseContext context)
     {
         _context = context;
     }
     
+    /// <inheritdoc />
     public async Task<List<Certificate>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Certificates
@@ -24,7 +30,7 @@ public class CertificateRepository : ICertificatesRepository
             .Include(c => c.User)
             .ToListAsync(cancellationToken);
     }
-
+    
     public async Task<Certificate?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.Certificates
@@ -35,7 +41,7 @@ public class CertificateRepository : ICertificatesRepository
             .Include(c => c.User)
             .FirstOrDefaultAsync(c => c.CertificateId == id, cancellationToken);
     }
-
+    
     public async Task<Certificate> CreateAsync(Certificate certificate, CancellationToken cancellationToken = default)
     {
         _context.Certificates.Add(certificate);
@@ -43,7 +49,7 @@ public class CertificateRepository : ICertificatesRepository
         var created = await GetByIdAsync(certificate.CertificateId, cancellationToken);
         return created ?? certificate;
     }
-
+    
     public async Task<Certificate> UpdateAsync(Certificate certificate, CancellationToken cancellationToken = default)
     {
         _context.Certificates.Update(certificate);

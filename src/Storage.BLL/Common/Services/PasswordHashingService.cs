@@ -3,6 +3,7 @@ using Storage.BLL.Services.Interfaces;
 
 namespace Storage.BLL.Services;
 
+/// <inheritdoc cref="IPasswordHashingService" />
 public class PasswordHashingService : IPasswordHashingService
 {
     private const int saltSize = 128 / 8;

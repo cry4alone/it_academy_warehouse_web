@@ -1,22 +1,29 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
-using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
+using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Requests.UserRequests;
 
 namespace Storage.BLL.Services;
 
+/// <inheritdoc cref="IUserService" />
 public class UserService : IUserService
 {
+    /// <inheritdoc cref="IUserRepository"/>
     private readonly IUserRepository _userRepository;
+    
+    /// <inheritdoc cref="IPasswordHashingService"/>
     private readonly IPasswordHashingService _passwordHashingService;
+    
+    /// <inheritdoc cref="ICurrentUserService"/>
     private readonly ICurrentUserService _currentUserService;
+    
+    /// <inheritdoc cref="IDateTimeProvider"/>
     private readonly IDateTimeProvider _dateTimeProvider;
+    
     private readonly IMapper _mapper;
 
     public UserService(IUserRepository userRepository, IPasswordHashingService passwordHashingService, ICurrentUserService currentUserService, IDateTimeProvider dateTimeProvider, IMapper mapper)

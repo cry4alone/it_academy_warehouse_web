@@ -1,20 +1,26 @@
 using AutoMapper;
 using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
-using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
+using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Requests.CertificateRequests;
 
 namespace Storage.BLL.Services;
 
+/// <inheritdoc cref="ICertificateService" />
 public class CertificateService : ICertificateService
 {
+    /// <inheritdoc cref="ICertificatesRepository"/>
     private readonly ICertificatesRepository  _certificatesRepository;
+    
+    /// <inheritdoc cref="ICurrentUserService"/>
     private readonly ICurrentUserService _currentUserService;
+    
+    /// <inheritdoc cref="IDateTimeProvider"/>
     private readonly IDateTimeProvider _dateTimeProvider;
+    
     private readonly IMapper _mapper;
 
     public CertificateService(ICertificatesRepository certificatesRepository,

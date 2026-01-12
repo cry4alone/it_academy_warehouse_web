@@ -9,6 +9,7 @@ using Storage.BLL.DTO.Requests.MeltRequests;
 
 namespace Storage.BLL.Services;
 
+/// <inheritdoc cref="IMeltService" />
 public class MeltService : IMeltService
 {
     private readonly IMeltRepository  _meltRepository;

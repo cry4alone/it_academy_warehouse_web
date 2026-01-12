@@ -1,14 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
 
 namespace Storage.DAL.Repositories;
 
+/// <inheritdoc cref="IUserRepository" />
 public class UserRepository : IUserRepository
 {
     private readonly WarehouseContext _context;
     
+    /// <summary>
+    /// Создаёт экземпляр <see cref="UserRepository"/>, использующий указанный контекст хранилища.
+    /// </summary>
+    /// <param name="context">Экземпляр <see cref="WarehouseContext"/>, через который выполняются операции с БД.</param>
+    /// <exception cref="ArgumentNullException">Если <paramref name="context"/> равен <c>null</c>.</exception>
     public UserRepository(WarehouseContext context)
     {
         _context = context;

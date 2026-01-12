@@ -1,14 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
 
 namespace Storage.DAL.Repositories;
 
+/// <inheritdoc cref="IMeltRepository" />
 public class MeltRepository : IMeltRepository
 {
     private readonly WarehouseContext _context;
 
+    /// <summary>
+    /// Создаёт экземпляр <see cref="MeltRepository"/>, использующий указанный контекст хранилища.
+    /// </summary>
+    /// <param name="context">Экземпляр <see cref="WarehouseContext"/>, через который выполняются операции с БД.</param>
+    /// <exception cref="ArgumentNullException">Если <paramref name="context"/> равен <c>null</c>.</exception>
     public MeltRepository(WarehouseContext context)
     {
         _context = context;
