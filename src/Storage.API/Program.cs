@@ -44,7 +44,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(cfg => { },
     typeof(UserProfile),
     typeof(MeltProfile),
-    typeof(CertificateProfile));
+    typeof(CertificateProfile),
+    typeof(RoleProfile));
 
 builder.Services.AddHttpContextAccessor();
 

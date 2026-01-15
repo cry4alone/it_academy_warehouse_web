@@ -1,5 +1,8 @@
 namespace Storage.BLL.DTO.Reponses;
 
+/// <summary>
+/// DTO — ответ для аутентификации: данные пользователя и токены доступа/обновления.
+/// </summary>
 public record AuthenticationResponse(
     int UserId,
     string Username,

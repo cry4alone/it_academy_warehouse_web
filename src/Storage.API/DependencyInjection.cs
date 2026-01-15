@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Storage.API.Authorization;
-using Storage.BLL.Common;
 using Storage.BLL.Common.Services;
 using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.Services;
@@ -21,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<ICertificateService, CertificateService>();
+        services.AddScoped<IRoleService, RoleService>();
         
         services.AddSingleton<IPasswordHashingService, PasswordHashingService>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -34,6 +34,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICertificatesRepository, CertificateRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IPermissionRepository, PermissionRepository>();
         
         return services;
     }

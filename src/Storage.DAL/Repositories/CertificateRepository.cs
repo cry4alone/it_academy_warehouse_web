@@ -19,7 +19,6 @@ public class CertificateRepository : ICertificatesRepository
         _context = context;
     }
     
-    /// <inheritdoc />
     public async Task<List<Certificate>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Certificates

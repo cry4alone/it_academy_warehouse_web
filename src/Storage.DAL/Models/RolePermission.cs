@@ -10,6 +10,11 @@ namespace Storage.DAL.Models;
 public partial class RolePermission
 {
     /// <summary>
+    /// Идентификатор связи (FK).
+    /// </summary>
+    public int Id { get; set; }
+    
+    /// <summary>
     /// Идентификатор роли (FK на Role).
     /// </summary>
     public int RoleId { get; set; }

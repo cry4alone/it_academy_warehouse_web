@@ -727,10 +727,10 @@ public partial class WarehouseContext : DbContext
 
         modelBuilder.Entity<RolePermission>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Role_Permission");
-
+            entity.HasKey(e => e.Id);
+            
+            entity.ToTable("Role_Permission");
+            
             entity.Property(e => e.PermissionId).HasColumnName("PermissionID");
             entity.Property(e => e.RoleId).HasColumnName("RoleID");
 

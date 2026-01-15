@@ -1,5 +1,4 @@
 using AutoMapper;
-using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
@@ -47,9 +46,10 @@ public class UserService : IUserService
         var existingUser = await _userRepository.GetByUsernameAsync(userRequest.UserName, cancellationToken);
         if (existingUser != null) throw new Exception("User already exists");
         
-        var currentUsername = _currentUserService.GetCurrentUserAsync().Result.Username;
+        var currentUser = await _currentUserService.GetCurrentUserAsync();
+        var currentUsername = currentUser?.Username;
         
-        var currentUser = await _userRepository.GetByUsernameAsync(currentUsername, cancellationToken);
+        var currentUserModel = await _userRepository.GetByUsernameAsync(currentUsername, cancellationToken);
         var hashedPassword = _passwordHashingService.HashPassword(userRequest.Password);
 
         var newUser = new SystemUser()
@@ -59,7 +59,7 @@ public class UserService : IUserService
             Surname = userRequest.Surname ?? string.Empty,
             FirstName = userRequest.FirstName ?? string.Empty,
             MiddleName = userRequest.MiddleName,
-            CreatedByUser = currentUser,
+            CreatedByUser = currentUserModel,
             CreatedDate = _dateTimeProvider.UtcNow
         };
 
