@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
@@ -25,14 +26,17 @@ public class UserService : IUserService
     private readonly IDateTimeProvider _dateTimeProvider;
     
     private readonly IMapper _mapper;
+    
+    private readonly IValidator<CreateUserRequest> _validator;
 
-    public UserService(IUserRepository userRepository, IPasswordHashingService passwordHashingService, ICurrentUserService currentUserService, IDateTimeProvider dateTimeProvider, IMapper mapper)
+    public UserService(IUserRepository userRepository, IPasswordHashingService passwordHashingService, ICurrentUserService currentUserService, IDateTimeProvider dateTimeProvider, IMapper mapper, IValidator<CreateUserRequest> validator)
     {
         _userRepository = userRepository;
         _passwordHashingService = passwordHashingService;
         _currentUserService = currentUserService;
         _dateTimeProvider = dateTimeProvider;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public async Task<UserResponse> GetUserByIdAsync(int userId, CancellationToken cancellationToken = default)
@@ -45,6 +49,8 @@ public class UserService : IUserService
 
     public async Task<UserResponse> CreateUserAsync(CreateUserRequest userRequest, CancellationToken cancellationToken = default)
     {
+        await _validator.ValidateAndThrowAsync(userRequest, cancellationToken);
+        
         var existingUser = await _userRepository.GetByUsernameAsync(userRequest.UserName, cancellationToken);
         if (existingUser != null) throw new ConflictException("User already exists");
         

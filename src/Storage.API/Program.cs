@@ -1,4 +1,5 @@
 using System.Text;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using Storage.API;
 using Storage.API.Authorization;
 using Storage.API.Middleware;
 using Storage.BLL.Mappings;
+using Storage.BLL.Validators;
 using Storage.DAL.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +50,10 @@ builder.Services.AddAutoMapper(cfg => { },
     typeof(CertificateProfile),
     typeof(RoleProfile));
 
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserRequestValidator>();
+
 builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddHttpContextAccessor();

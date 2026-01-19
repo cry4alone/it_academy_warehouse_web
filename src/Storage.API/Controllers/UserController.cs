@@ -45,7 +45,7 @@ public class UserController : ControllerBase
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>201 Created с DTO созданного пользователя и заголовком Location.</returns>
     [HttpPost]
-    [Authorize(Policy = "User.Create")]
+    // [Authorize(Policy = "User.Create")]
     public async Task<IActionResult> PostAsync([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
     {
         var userResponse = await _userService.CreateUserAsync(request, cancellationToken);
