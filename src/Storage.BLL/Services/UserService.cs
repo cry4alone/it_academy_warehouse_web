@@ -5,6 +5,7 @@ using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
 using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Requests.UserRequests;
+using Storage.BLL.Exceptions;
 
 namespace Storage.BLL.Services;
 
@@ -37,6 +38,7 @@ public class UserService : IUserService
     public async Task<UserResponse> GetUserByIdAsync(int userId, CancellationToken cancellationToken = default)
     {
         var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+        if (user == null) throw new NotFoundException(nameof(user));
         
         return _mapper.Map<UserResponse>(user);
     }
@@ -44,7 +46,7 @@ public class UserService : IUserService
     public async Task<UserResponse> CreateUserAsync(CreateUserRequest userRequest, CancellationToken cancellationToken = default)
     {
         var existingUser = await _userRepository.GetByUsernameAsync(userRequest.UserName, cancellationToken);
-        if (existingUser != null) throw new Exception("User already exists");
+        if (existingUser != null) throw new ConflictException("User already exists");
         
         var currentUser = await _currentUserService.GetCurrentUserAsync();
         var currentUsername = currentUser?.Username;

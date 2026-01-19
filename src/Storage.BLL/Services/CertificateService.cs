@@ -1,11 +1,11 @@
 using AutoMapper;
-using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
 using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Requests.CertificateRequests;
+using Storage.BLL.Exceptions;
 
 namespace Storage.BLL.Services;
 
@@ -36,10 +36,12 @@ public class CertificateService : ICertificateService
     public async Task DeleteCertificateAsync(int certificateId, CancellationToken cancellationToken = default)
     {
         var certificateToDelete = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
-        if (certificateToDelete == null) throw new Exception("Certificate not found");
+        if (certificateToDelete == null) throw new KeyNotFoundException("Certificate not found");
         
         var currentUserId = _currentUserService.UserId;
         var currentUser = await _currentUserService.GetCurrentUserAsync();
+        if (currentUser == null) throw new ForbiddenException("User context is missing or invalid");
+        
         
         certificateToDelete.DeletedByUserId = currentUserId;
         certificateToDelete.DeletedByUser = currentUser;
@@ -63,7 +65,7 @@ public class CertificateService : ICertificateService
     public async Task<CertificateResponse> GetCertificateByIdAsync(int certificateId, CancellationToken cancellationToken = default)
     {
         var certificate = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
-        if (certificate == null) throw new Exception("Certificate not found");
+        if (certificate == null) throw new KeyNotFoundException("Certificate not found");
         
         return _mapper.Map<CertificateResponse>(certificate);
     }
@@ -72,6 +74,7 @@ public class CertificateService : ICertificateService
     {
         var currentUserId = _currentUserService.UserId;
         var currentUser = await _currentUserService.GetCurrentUserAsync();
+        if (currentUser == null) throw new ForbiddenException("User context is missing or invalid");
         
         var newCertificate = new Certificate()
         {
@@ -93,10 +96,11 @@ public class CertificateService : ICertificateService
     public async Task<CertificateResponse> SignCertificateAsync(int certificateId, CancellationToken cancellationToken = default)
     {
         var certificate = await _certificatesRepository.GetByIdAsync(certificateId, cancellationToken);
-        if (certificate == null) throw new Exception("Certificate not found");
+        if (certificate == null) throw new KeyNotFoundException("Certificate not found");
         
         var currentUserId = _currentUserService.UserId;
         var currentUser = await _currentUserService.GetCurrentUserAsync();
+        if (currentUser == null) throw new ForbiddenException("User context is missing or invalid");
         
         certificate.UserId = currentUserId;
         certificate.UpdatedByUser = currentUser;

@@ -4,10 +4,10 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Storage.BLL.Common;
 using Storage.BLL.Common.Services.Interfaces;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests.AuthenticationRequests;
+using Storage.BLL.Exceptions;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
@@ -57,10 +57,10 @@ public class AuthenticationService : IAuthenticationService
             return null;
         
         var user = await _userRepository.GetByUsernameAsync(request.Username, cancellationToken);
-        if (user == null) return null;
+        if (user == null) throw new NotFoundException(nameof(user));
 
         var passwordMatches = _passwordHashingService.VerifyHashedPassword(user.PasswordHash, request.Password);
-        if (!passwordMatches) return null;
+        if (!passwordMatches) throw new InvalidCredentialsException();
 
         var accessToken = await GenerateJwtToken(user.UserId, user.Username, user.FirstName, user.Surname, cancellationToken);
         
@@ -89,12 +89,16 @@ public class AuthenticationService : IAuthenticationService
     public async Task<AuthenticationResponse?> RefreshToken(RefreshTokenRequest refreshToken, CancellationToken cancellationToken = default)
     {
         var checkedRefreshToken = await _refreshTokenRepository.GetAsync(refreshToken.Token, cancellationToken);
-        if (checkedRefreshToken is null || checkedRefreshToken.ExpiresAt <= _dateTimeProvider.UtcNow) {
+        if (checkedRefreshToken is null) throw new InvalidRefreshTokenException();
+        
+        if (checkedRefreshToken.ExpiresAt <= _dateTimeProvider.UtcNow) {
             await _refreshTokenRepository.RemoveAsync(checkedRefreshToken,  cancellationToken);
-            return null; //user should authenticate again
+            throw new InvalidRefreshTokenException();
         }
         
         var currentUser = await _currentUserService.GetCurrentUserAsync();
+        if (currentUser is null) throw new NotFoundException(nameof(currentUser));
+        
         var newRefreshToken = GenerateRefreshToken();
         
         checkedRefreshToken.ExpiresAt = _dateTimeProvider.UtcMonthFromNow(1);
@@ -155,13 +159,13 @@ public class AuthenticationService : IAuthenticationService
         var allClaims = claims.Concat(permissionClaims);
 
         var expiryText = _configuration["JwtSettings:ExpiryMinutes"];
-        if (!double.TryParse(expiryText, out var expiration)) expiration = 60;
+        if (!int.TryParse(expiryText, out var expiration)) expiration = 30;
 
         var token = new JwtSecurityToken(
             audience: _configuration["JwtSettings:Audience"],
             issuer: _configuration["JwtSettings:Issuer"],
             claims: allClaims,
-            expires: _dateTimeProvider.UtcMinutesFromNow(30),
+            expires: _dateTimeProvider.UtcMinutesFromNow(expiration),
             signingCredentials: signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

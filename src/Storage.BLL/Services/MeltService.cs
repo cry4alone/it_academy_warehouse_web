@@ -1,10 +1,8 @@
 using AutoMapper;
 using Storage.BLL.DTO.Reponses;
-using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
-using System.Threading;
 using Storage.BLL.DTO.Requests.MeltRequests;
 
 namespace Storage.BLL.Services;
@@ -31,7 +29,7 @@ public class MeltService : IMeltService
     public async Task<MeltResponse> GetMeltByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         var melt = await _meltRepository.GetByIdAsync(id, cancellationToken);
-        if (melt == null) throw new Exception("Melt not found");
+        if (melt == null) throw new KeyNotFoundException("Melt not found");
         
         return _mapper.Map<MeltResponse>(melt);
     }
@@ -39,7 +37,7 @@ public class MeltService : IMeltService
     public async Task DeleteMeltAsync(int meltId, CancellationToken cancellationToken = default)
     {
         var meltToUpdate = await _meltRepository.GetByIdAsync(meltId, cancellationToken);
-        if (meltToUpdate == null) throw new Exception("Melt not found");
+        if (meltToUpdate == null) throw new KeyNotFoundException("Melt not found");
         
         await _meltRepository.UpdateAsync(meltToUpdate, cancellationToken);
     }

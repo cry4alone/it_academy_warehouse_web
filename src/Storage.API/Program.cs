@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Storage.API;
 using Storage.API.Authorization;
+using Storage.API.Middleware;
 using Storage.BLL.Mappings;
 using Storage.DAL.Models;
 
@@ -46,6 +47,9 @@ builder.Services.AddAutoMapper(cfg => { },
     typeof(MeltProfile),
     typeof(CertificateProfile),
     typeof(RoleProfile));
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -92,6 +96,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
