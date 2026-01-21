@@ -4,7 +4,6 @@ namespace Storage.BLL.DTO.Requests.MeltRequests;
 /// DTO — запрос на создание записи о плавке: дата производства, статус, спецификация и марка.
 /// </summary>
 public record CreateMeltRequest(
-    int MeltId,
     int ProductId,
     int BrandId,
     int? CertificateId,

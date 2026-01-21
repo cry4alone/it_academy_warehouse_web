@@ -55,4 +55,18 @@ public class MeltRepository : IMeltRepository
         await _context.SaveChangesAsync(cancellationToken);
         return melt;
     }
+
+    public async Task<HashSet<Melt>> GetExistingByIdsAsync(List<int> ids, CancellationToken cancellationToken = default)
+    {
+        var melts = await _context.Melts
+            .Where(m => ids.Contains(m.MeltId))
+            .Include(m => m.Brand)
+            .Include(m => m.Product)
+            .Include(m => m.Specification)
+            .Include(m => m.MeltStatus)
+            .Include(m => m.Certificate)
+            .ToListAsync(cancellationToken: cancellationToken);
+        
+        return melts.ToHashSet();
+    }
 }

@@ -1,9 +1,11 @@
 using AutoMapper;
+using FluentValidation;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
 using Storage.DAL.Repositories.Interfaces;
 using Storage.BLL.DTO.Requests.MeltRequests;
+using Storage.BLL.Exceptions;
 
 namespace Storage.BLL.Services;
 
@@ -12,11 +14,15 @@ public class MeltService : IMeltService
 {
     private readonly IMeltRepository  _meltRepository;
     private readonly IMapper _mapper;
+    private readonly IProductRepository _productRepository;
+    private readonly IValidator<CreateMeltRequest> _validator;
 
-    public MeltService(IMeltRepository meltRepository, IMapper mapper)
+    public MeltService(IMeltRepository meltRepository, IMapper mapper, IProductRepository productRepository, IValidator<CreateMeltRequest> validator)
     {
         _meltRepository = meltRepository;
         _mapper = mapper;
+        _productRepository = productRepository;
+        _validator = validator;
     }
 
     public async Task<ICollection<MeltResponse>> ListMeltsAsync(CancellationToken cancellationToken = default)
@@ -44,6 +50,11 @@ public class MeltService : IMeltService
 
     public async Task<MeltResponse> CreateMeltAsync(CreateMeltRequest melt, CancellationToken cancellationToken = default)
     {
+        await _validator.ValidateAndThrowAsync(melt, cancellationToken);
+        
+        var product = await _productRepository.GetByIdAsync(melt.ProductId, cancellationToken);
+        if (product == null) throw new NotFoundException("Product not found");
+        
         var newMelt = new Melt
         {
             ProductId = melt.ProductId,
@@ -57,5 +68,16 @@ public class MeltService : IMeltService
         var created = await _meltRepository.CreateAsync(newMelt, cancellationToken);
         
         return _mapper.Map<MeltResponse>(created);
+    }
+
+    public async Task<MeltResponse> UpdateMeltAsync(UpdateMeltRequest melt, CancellationToken cancellationToken = default)
+    {
+        var meltToUpdate = await _meltRepository.GetByIdAsync(melt.MeltId, cancellationToken);
+        if(meltToUpdate == null) throw new NotFoundException("Melt not found");
+        
+        _mapper.Map(melt, meltToUpdate);
+        await _meltRepository.UpdateAsync(meltToUpdate, cancellationToken);
+        
+        return _mapper.Map<MeltResponse>(meltToUpdate);
     }
 }

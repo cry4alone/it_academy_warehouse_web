@@ -31,7 +31,7 @@ public class UserController : ControllerBase
     /// <returns>200 OK с DTO пользователя.</returns>
     [HttpGet("{userId:int}", Name = "GetUserById")]
     [Authorize(Policy = "User.View")]
-    public async Task<IActionResult> GetAsync([FromRoute] int userId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetByIdAsync([FromRoute] int userId, CancellationToken cancellationToken)
     {
         var userResponse = await _userService.GetUserByIdAsync(userId, cancellationToken);
         return Ok(userResponse);

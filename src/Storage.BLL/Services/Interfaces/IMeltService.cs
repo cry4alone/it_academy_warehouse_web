@@ -41,4 +41,12 @@ public interface IMeltService
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>DTO <see cref="MeltResponse"/> созданной выплавки.</returns>
     public Task<MeltResponse> CreateMeltAsync(CreateMeltRequest melt, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Изменяет существующую выплавку на основе запроса <see cref="UpdateMeltRequest"/>.
+    /// </summary>
+    /// <param name="melt">Данные для изменения в выплавке.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>DTO <see cref="MeltResponse"/> созданной выплавки.</returns>
+    public Task<MeltResponse> UpdateMeltAsync(UpdateMeltRequest melt, CancellationToken cancellationToken = default);
 }

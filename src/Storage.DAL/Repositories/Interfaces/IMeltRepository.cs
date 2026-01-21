@@ -38,4 +38,12 @@ public interface IMeltRepository
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>Обновлённый экземпляр <see cref="Melt"/>.</returns>
     Task<Melt> UpdateAsync(Melt melt, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Возвращает множество существующих выплавок по их идентификаторам.
+    /// </summary>
+    /// <param name="ids">Массив идентификаторов плавок.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>Существующие выплавки.</returns>
+    Task<HashSet<Melt>> GetExistingByIdsAsync(List<int> ids, CancellationToken cancellationToken = default);
 }

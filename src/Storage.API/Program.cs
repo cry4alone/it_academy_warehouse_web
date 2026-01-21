@@ -80,14 +80,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddRepositories();
 builder.Services.AddServices();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Melt.View", policy => policy.Requirements.Add(new PermissionRequirement("Melt.View")));
-    options.AddPolicy("User.Create", policy => policy.Requirements.Add(new PermissionRequirement("User.Create")));
-    options.AddPolicy("User.View", policy => policy.Requirements.Add(new PermissionRequirement("User.View")));
-    options.AddPolicy("Certificate.View", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.View")));
-    options.AddPolicy("Certificate.Create", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.Create")));
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("Melt.View", policy => policy.Requirements.Add(new PermissionRequirement("Melt.View")))
+    .AddPolicy("Melt.Delete", policy => policy.Requirements.Add(new PermissionRequirement("Melt.Delete")))
+    .AddPolicy("User.Create", policy => policy.Requirements.Add(new PermissionRequirement("User.Create")))
+    .AddPolicy("User.View", policy => policy.Requirements.Add(new PermissionRequirement("User.View")))
+    .AddPolicy("Certificate.View", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.View")))
+    .AddPolicy("Certificate.Create", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.Create")))
+    .AddPolicy("Certificate.Sign", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.Sign")));
 
 builder.Services.AddControllers();
 
@@ -101,12 +101,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseExceptionHandler();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();

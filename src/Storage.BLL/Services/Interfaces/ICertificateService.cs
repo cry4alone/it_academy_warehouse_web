@@ -48,4 +48,22 @@ public interface ICertificateService
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>DTO <see cref="CertificateResponse"/> созданного сертификата.</returns>
     public Task<CertificateResponse> CreateCertificateAsync(CreateCertificateRequest createCertificateRequest, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Добавляет плавки к сертификату.
+    /// </summary>
+    /// <param name="certificateId">Идентификатор плавки.</param>
+    /// <param name="request">Данные по плавкам.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns></returns>
+    Task<CertificateResponse> AddMeltsToCertificateAsync(int certificateId, AddMeltsToCertificateRequest request, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Удаляет плавку из сертификата.
+    /// </summary>
+    /// <param name="certificateId">Идентификатор сертификата.</param>
+    /// <param name="meltId">Идентификатор плавки.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns></returns>
+    Task DeleteMeltFromCertificateAsync(int certificateId, int meltId, CancellationToken cancellationToken);
 }

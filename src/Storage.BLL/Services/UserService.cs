@@ -55,7 +55,9 @@ public class UserService : IUserService
         if (existingUser != null) throw new ConflictException("User already exists");
         
         var currentUser = await _currentUserService.GetCurrentUserAsync();
-        var currentUsername = currentUser?.Username;
+        if (currentUser is null) throw new NotFoundException(nameof(currentUser));
+        var currentUsername = currentUser.Username;
+        
         
         var currentUserModel = await _userRepository.GetByUsernameAsync(currentUsername, cancellationToken);
         var hashedPassword = _passwordHashingService.HashPassword(userRequest.Password);
@@ -63,7 +65,7 @@ public class UserService : IUserService
         var newUser = new SystemUser()
         {
             PasswordHash = hashedPassword,
-            Username = userRequest.UserName ?? string.Empty,
+            Username = userRequest.UserName,
             Surname = userRequest.Surname ?? string.Empty,
             FirstName = userRequest.FirstName ?? string.Empty,
             MiddleName = userRequest.MiddleName,

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Storage.BLL.DTO.Requests;
 using Storage.BLL.Services.Interfaces;
-using System.Threading;
 using Storage.BLL.DTO.Requests.CertificateRequests;
 
 namespace Storage.API.Controllers;
@@ -70,11 +68,41 @@ public class CertificateController : ControllerBase
     /// <param name="certificateId">Идентификатор сертификата для подписи.</param>
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>204 NoContent при успешной подписи.</returns>
-    [HttpPatch("{certificateId:int}")]
-    [Authorize(Policy = "Certificate.Delete")]
+    [HttpPatch("{certificateId:int}/sign")]
+    [Authorize(Policy = "Certificate.Sign")]
     public async Task<IActionResult> SignAsync([FromRoute] int certificateId, CancellationToken cancellationToken)
     {
         await _certificateService.SignCertificateAsync(certificateId, cancellationToken);
+        return NoContent();
+    }
+    
+    /// <summary>
+    /// Добавление плавки к сертификату.
+    /// </summary>
+    /// <param name="certificateId">Идентификатор сертификата.</param>
+    /// <param name="request">Данные по плавкам.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>200 OK с DTO обновленного сертификата.</returns>
+    [HttpPost("{certificateId:int}/melts")]
+    // [Authorize(Policy = "Certificate.Edit")]
+    public async Task<IActionResult> AddMeltsToCertificateAsync([FromRoute] int certificateId, [FromBody] AddMeltsToCertificateRequest request, CancellationToken cancellationToken)
+    {
+        var certificate = await _certificateService.AddMeltsToCertificateAsync(certificateId, request, cancellationToken);
+        return Ok(certificate); 
+    }
+    
+    /// <summary>
+    /// Удаление плавки из сертификата.
+    /// </summary>
+    /// <param name="certificateId">Идентификатор сертификата.</param>
+    /// <param name="meltId">Идентификатор плавки.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>204 No Content</returns>
+    [HttpDelete("{certificateId:int}/melts/{meltId:int}")]
+    // [Authorize(Policy = "Certificate.Edit")]
+    public async Task<IActionResult> DeleteMeltFromCertificateAsync([FromRoute] int certificateId, int meltId, CancellationToken cancellationToken)
+    {
+        await _certificateService.DeleteMeltFromCertificateAsync(certificateId, meltId, cancellationToken);
         return NoContent();
     }
 }
