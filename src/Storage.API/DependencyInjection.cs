@@ -21,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<ICertificateService, CertificateService>();
         services.AddScoped<IRoleService, RoleService>();
+        services.AddScoped<IAcceptanceInvoiceService, AcceptanceInvoiceService>();
         
         services.AddSingleton<IPasswordHashingService, PasswordHashingService>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();

@@ -2,6 +2,7 @@ using Storage.BLL.DTO.Reponses;
 using Storage.BLL.DTO.Requests;
 using Storage.DAL.Models;
 using System.Threading;
+using Storage.BLL.Common;
 using Storage.BLL.DTO.Requests.MeltRequests;
 
 namespace Storage.BLL.Services.Interfaces;
@@ -49,4 +50,16 @@ public interface IMeltService
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>DTO <see cref="MeltResponse"/> созданной выплавки.</returns>
     public Task<MeltResponse> UpdateMeltAsync(UpdateMeltRequest melt, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Возвращает постраничный набор выплавок (melts).
+    /// </summary>
+    /// <param name="page">Номер страницы (1‑индексация). Если передано значение меньше 1 — рассматривается как 1.</param>
+    /// <param name="pageSize">Количество элементов на странице. Должно быть положительным; Максимум 20 элементов на странице.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>
+    /// Объект <see cref="PagedResponse{MeltResponse}"/>, содержащий коллекцию DTO <see cref="MeltResponse"/> для запрошенной страницы
+    /// и метаданные пагинации (общее число элементов, номер страницы, размер страницы и т.д.).
+    /// </returns>
+    Task<PagedResponse<MeltResponse>> GetPagedMeltsAsync(GetMeltsRequest request, CancellationToken cancellationToken);
 }

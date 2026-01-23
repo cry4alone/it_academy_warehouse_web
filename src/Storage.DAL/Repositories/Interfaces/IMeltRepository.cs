@@ -14,6 +14,15 @@ public interface IMeltRepository
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>Список всех <see cref="Melt"/> в хранилище.</returns>
     Task<List<Melt>> GetAllAsync(CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Возвращает постраничный набор выплавок (<see cref="Melt"/>) из хранилища.
+    /// </summary>
+    /// <param name="page">Номер страницы (1‑индексация).</param>
+    /// <param name="pageSize">Количество элементов на странице.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>Список <see cref="Melt"/> для запрошенной страницы.</returns>
+    Task<List<Melt>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Возвращает выплавку по её идентификатору.

@@ -1,5 +1,6 @@
 using AutoMapper;
 using FluentValidation;
+using Storage.BLL.Common;
 using Storage.BLL.DTO.Reponses;
 using Storage.BLL.Services.Interfaces;
 using Storage.DAL.Models;
@@ -12,17 +13,29 @@ namespace Storage.BLL.Services;
 /// <inheritdoc cref="IMeltService" />
 public class MeltService : IMeltService
 {
+    /// <inheritdoc cref="IMeltRepository" />
     private readonly IMeltRepository  _meltRepository;
+    
     private readonly IMapper _mapper;
+    
+    /// <inheritdoc cref="IProductRepository" />
     private readonly IProductRepository _productRepository;
-    private readonly IValidator<CreateMeltRequest> _validator;
+    
+    private readonly IValidator<CreateMeltRequest> _createValidator;
+    
+    private readonly IValidator<GetMeltsRequest> _getValidator;
 
-    public MeltService(IMeltRepository meltRepository, IMapper mapper, IProductRepository productRepository, IValidator<CreateMeltRequest> validator)
+    public MeltService(IMeltRepository meltRepository,
+        IMapper mapper,
+        IProductRepository productRepository,
+        IValidator<CreateMeltRequest> validator,
+        IValidator<GetMeltsRequest> getValidator)
     {
         _meltRepository = meltRepository;
         _mapper = mapper;
         _productRepository = productRepository;
-        _validator = validator;
+        _createValidator = validator;
+        _getValidator = getValidator;
     }
 
     public async Task<ICollection<MeltResponse>> ListMeltsAsync(CancellationToken cancellationToken = default)
@@ -50,7 +63,7 @@ public class MeltService : IMeltService
 
     public async Task<MeltResponse> CreateMeltAsync(CreateMeltRequest melt, CancellationToken cancellationToken = default)
     {
-        await _validator.ValidateAndThrowAsync(melt, cancellationToken);
+        await _createValidator.ValidateAndThrowAsync(melt, cancellationToken);
         
         var product = await _productRepository.GetByIdAsync(melt.ProductId, cancellationToken);
         if (product == null) throw new NotFoundException("Product not found");
@@ -79,5 +92,20 @@ public class MeltService : IMeltService
         await _meltRepository.UpdateAsync(meltToUpdate, cancellationToken);
         
         return _mapper.Map<MeltResponse>(meltToUpdate);
+    }
+
+    public async Task<PagedResponse<MeltResponse>> GetPagedMeltsAsync(GetMeltsRequest request, CancellationToken cancellationToken)
+    {
+        await _getValidator.ValidateAndThrowAsync(request, cancellationToken);
+        
+        var melts = await _meltRepository.GetPagedAsync(request.Page, request.PageSize, cancellationToken);
+        var meltResponses = _mapper.Map<List<MeltResponse>>(melts);
+        return new PagedResponse<MeltResponse>()
+        {
+            Items = meltResponses,
+            Page = request.Page,
+            PageSize = request.PageSize,
+            TotalCount = melts.Count
+        };
     }
 }

@@ -30,6 +30,19 @@ public class MeltRepository : IMeltRepository
             .ToListAsync(cancellationToken);
     }
 
+    public Task<List<Melt>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    {
+        return _context.Melts
+            .Include(m => m.Brand)
+            .Include(m => m.Product)
+            .Include(m => m.Specification)
+            .Include(m => m.MeltStatus)
+            .Include(m => m.Certificate)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<Melt?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.Melts

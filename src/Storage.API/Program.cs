@@ -80,7 +80,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddRepositories();
 builder.Services.AddServices();
-builder.Services.AddAuthorizationBuilder()
+builder.Services.AddAuthorizationBuilder()  
     .AddPolicy("Melt.View", policy => policy.Requirements.Add(new PermissionRequirement("Melt.View")))
     .AddPolicy("Melt.Delete", policy => policy.Requirements.Add(new PermissionRequirement("Melt.Delete")))
     .AddPolicy("User.Create", policy => policy.Requirements.Add(new PermissionRequirement("User.Create")))
