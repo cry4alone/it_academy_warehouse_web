@@ -1,13 +1,7 @@
-using System.Text;
 using FluentValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Storage.API;
-using Storage.API.Authorization;
 using Storage.API.Middleware;
-using Storage.BLL.Mappings;
 using Storage.BLL.Validators;
 using Storage.DAL.Models;
 
@@ -16,80 +10,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Введите 'Bearer' [пробел] и ваш JWT-токен.\n\nПример: \"Bearer eyJhbGciOi...\""
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            []
-        }
-    });
-});
-
-builder.Services.AddAutoMapper(cfg => { },
-    typeof(UserProfile),
-    typeof(MeltProfile),
-    typeof(CertificateProfile),
-    typeof(RoleProfile));
-
+builder.Services.AddSwagger();
+builder.Services.AddMapping();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserRequestValidator>();
-
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+builder.Services.AddAuthorizationPolicies();
+builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("WarehouseDb");
 builder.Services.AddDbContext<WarehouseContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-            ValidAudience = builder.Configuration["JwtSettings:Audience"],
-            IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"] ?? string.Empty))
-        };
-    });
-
-builder.Services.AddRepositories();
-builder.Services.AddServices();
-builder.Services.AddAuthorizationBuilder()  
-    .AddPolicy("Melt.View", policy => policy.Requirements.Add(new PermissionRequirement("Melt.View")))
-    .AddPolicy("Melt.Delete", policy => policy.Requirements.Add(new PermissionRequirement("Melt.Delete")))
-    .AddPolicy("User.Create", policy => policy.Requirements.Add(new PermissionRequirement("User.Create")))
-    .AddPolicy("User.View", policy => policy.Requirements.Add(new PermissionRequirement("User.View")))
-    .AddPolicy("Certificate.View", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.View")))
-    .AddPolicy("Certificate.Create", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.Create")))
-    .AddPolicy("Certificate.Sign", policy => policy.Requirements.Add(new PermissionRequirement("Certificate.Sign")));
-
-builder.Services.AddControllers();
 
 var app = builder.Build();
 
