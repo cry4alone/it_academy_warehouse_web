@@ -1,0 +1,125 @@
+.sidebar {
+    width: 150px;
+    padding: 20px;
+    color: white;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+
+    .menu__button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        margin-bottom: 10px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+    &.collapsed {
+        width: 50px;
+        padding: 0;
+
+        .nav-link {
+            justify-content: center;
+
+            span {
+                display: none; // Скрываем текст
+            }
+        }
+
+        img {
+            display: none; // Скрываем иконку
+        }
+
+        .menu__button {
+            margin: 0 auto; // Центрируем кнопку по горизонтали
+            margin-bottom: 10px; // Оставляем отступ снизу
+        }
+
+        .submenu {
+            position: absolute;
+            left: 50px; // Смещаем подменю вправо от иконки
+            background-color: white; // Фон подменю
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); // Тень для визуального выделения
+            z-index: 10; // Чтобы подменю было поверх других элементов
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .div__documents:hover + .submenu,
+        .submenu:hover {
+            display: block;
+        }
+        
+    }
+}
+
+.menu {
+    padding: 0;
+
+    li {
+        margin-bottom: 10px;
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .icon {
+                display: inline-block;
+                min-width: 16px;
+                min-height: 16px;
+                color: black; // Фиксированный цвет
+                font-size: 16px; // Фиксированный размер
+            }
+        }
+    }
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.div__documents {
+    display: flex;
+    gap: 10px;
+    position: relative;
+
+    > :last-child {
+        margin-left: auto; 
+    }
+}
+
+.submenu {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+
+    &.active {
+        font-weight: bold;
+        text-decoration: none;
+    }
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease; // Плавный переход
+
+    &.rotated {
+        transform: rotate(180deg);
+    }
+}
+
+ul li a {
+    text-decoration: none;
+    color: black;
+}

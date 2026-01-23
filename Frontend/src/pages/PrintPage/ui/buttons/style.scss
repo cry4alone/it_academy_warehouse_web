@@ -1,0 +1,49 @@
+.button-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Distribute items across the container */
+    gap: 15px;
+    align-items: center; /* Vertically align items in the center */
+    max-width: 100%; /* Ensure the container spans the full width */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+.label-container {
+    text-align: center;
+  }
+  
+  .label-wrapper {
+    position: relative;
+    display: flex; // Используем flexbox для центрирования
+    align-items: center; // Выравниваем по вертикали
+    justify-content: center; // Выравниваем по горизонтали
+    max-width: 100%;
+  }
+  
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5); // Фон для кнопок
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+  
+  .left-arrow {
+    left: -35px; 
+  }
+  
+  .right-arrow {
+    right: -35px;
+  }
+  
+  .label-content {
+    display: inline-block;
+    max-width: 100%; 
+    overflow: hidden; 
+  }
